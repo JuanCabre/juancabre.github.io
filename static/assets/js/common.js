@@ -1,5 +1,40 @@
 'use strict';
-// Shared by every page: section highlighting in the rail, and the e-mail address.
+// Shared by every page: the light and dark toggle, section highlighting in the rail, and the e-mail address.
+
+// Light and dark mode. The page follows the system setting until the visitor picks the other mode;
+// that choice is saved and applied by the small script in the page head before the first paint.
+// Picking the mode the system already uses clears the saved choice, so the page follows the system again.
+(function () {
+  const button = document.querySelector('.theme-toggle');
+  if (!button) return;
+  const root = document.documentElement;
+  const media = window.matchMedia('(prefers-color-scheme: dark)');
+  const system = () => (media.matches ? 'dark' : 'light');
+  const current = () => root.dataset.theme || system();
+  const show = () => {
+    const dark = current() === 'dark';
+    button.setAttribute('aria-pressed', String(dark));
+    button.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+  };
+  const apply = theme => {
+    if (theme === 'light' || theme === 'dark') root.dataset.theme = theme;
+    else delete root.dataset.theme;
+    show();
+  };
+  button.addEventListener('click', () => {
+    const next = current() === 'dark' ? 'light' : 'dark';
+    const saved = next === system() ? null : next;
+    apply(saved);
+    try {
+      if (saved) localStorage.setItem('theme', saved); else localStorage.removeItem('theme');
+    } catch (error) { /* storage may be blocked; the choice then lasts for this page only */ }
+  });
+  media.addEventListener('change', show);
+  // keep other open tabs of the site in step
+  window.addEventListener('storage', event => { if (event.key === 'theme') apply(event.newValue); });
+  button.hidden = false;
+  show();
+})();
 
 // Highlight the rail link of the section that is currently in view.
 (function () {
