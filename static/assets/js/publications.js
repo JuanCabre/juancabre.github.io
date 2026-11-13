@@ -56,11 +56,22 @@ function filtered(ignoreCoauthor) {
   return D.publications.filter(p =>
     (p.year === null || (p.year >= lo && p.year <= hi)) &&
     (!type || p.category === type) &&
-    (ignoreCoauthor || !coauthor || p.people.includes(coauthor)));
+    (ignoreCoauthor || !coauthor || p.people.includes(coauthor)) &&
+    (ignoreCoauthor || !pair || pair.every(name => p.people.includes(name))));
+}
+
+// A curve in the coauthor flower selects the papers that two coauthors wrote together with me.
+let pair = null;
+function setPair(a, b) {
+  pair = [a, b];
+  $('#coauthor').value = '';
+  render();
+  $('#library').scrollIntoView({ behavior: 'smooth' });
 }
 
 function setCoauthor(name) {
   $('#coauthor').value = $('#coauthor').value === name ? '' : name;
+  pair = null;
   render();
 }
 
@@ -69,6 +80,7 @@ function resetFilters() {
   $('#to').value = years[years.length - 1];
   $('#type').value = '';
   $('#coauthor').value = '';
+  pair = null;
   $('#search').value = '';
   $('#award-only').checked = false;
   render();
@@ -81,6 +93,7 @@ function render() {
   const parts = [plural(current.length, 'entry').replace('entrys', 'entries'), `${$('#from').value} to ${$('#to').value}`];
   if (type) parts.push(type);
   if (coauthor) parts.push('with ' + coauthor);
+  if (pair) parts.push('with ' + pair.join(' and '));
   $('#filter-info').textContent = parts.join(' · ');
   stats();
   timeline();
@@ -265,7 +278,8 @@ function flower() {
   edges.forEach(edge => {
     const p = position.get(edge.a), q = position.get(edge.b);
     const description = `${titled(edge.a)} and ${titled(edge.b)}: ${plural(edge.n, 'paper')} together with me`;
-    svg += `<path class="link" data-a="${esc(edge.a)}" data-b="${esc(edge.b)}" data-tip="${esc(description)}" d="M ${p.x} ${p.y} Q ${cx} ${cy} ${q.x} ${q.y}" fill="none" stroke-opacity="${(.12 + .5 * edge.n / maxEdge).toFixed(2)}" stroke-width="${(1 + 11 * edge.n / maxEdge).toFixed(1)}" stroke-linecap="round"/>`;
+    const chosen = pair && pair.includes(edge.a) && pair.includes(edge.b);
+    svg += `<path class="link flower-pair${chosen ? ' selected' : ''}" tabindex="0" role="button" aria-label="${esc(description)}. Select to show these papers." data-a="${esc(edge.a)}" data-b="${esc(edge.b)}" data-tip="${esc(description)}" d="M ${p.x} ${p.y} Q ${cx} ${cy} ${q.x} ${q.y}" fill="none" stroke-opacity="${(.12 + .5 * edge.n / maxEdge).toFixed(2)}" stroke-width="${(1 + 11 * edge.n / maxEdge).toFixed(1)}" stroke-linecap="round"/>`;
   });
   shown.forEach(person => {
     const p = position.get(person.name), leftSide = Math.cos(p.angle) < -0.08;
@@ -286,7 +300,10 @@ function flower() {
   $('#flower-summary').textContent = `${shown.length} of ${plural(ranked.length, 'coauthor')} · ${plural(edges.length, 'connection')}`;
   const links = [...box.querySelectorAll('.link')];
   const focus = name => links.forEach(link => { link.style.opacity = link.dataset.a === name || link.dataset.b === name ? '1' : '.05'; });
-  const clear = () => (selected && inView.has(selected) ? focus(selected) : links.forEach(link => { link.style.opacity = '1'; }));
+  const focusPair = () => links.forEach(link => { link.style.opacity = link.classList.contains('selected') ? '1' : '.05'; });
+  const clear = () => (selected && inView.has(selected) ? focus(selected)
+    : pair && links.some(link => link.classList.contains('selected')) ? focusPair()
+    : links.forEach(link => { link.style.opacity = '1'; }));
   box.querySelectorAll('.node').forEach(node => {
     node.addEventListener('pointerenter', () => focus(node.dataset.node));
     node.addEventListener('pointerleave', clear);
@@ -294,6 +311,7 @@ function flower() {
     node.addEventListener('blur', clear);
     activate(node, () => { untip(); setCoauthor(node.dataset.node); });
   });
+  links.forEach(link => activate(link, () => { untip(); setPair(link.dataset.a, link.dataset.b); }));
   clear();
   bindTips(box);
 }
@@ -427,6 +445,7 @@ async function init() {
   readUrl();
   ['from', 'to', 'type', 'coauthor'].forEach(id => {
     $('#' + id).onchange = () => {
+      if (id === 'coauthor') pair = null;
       if (+$('#from').value > +$('#to').value) {
         if (id === 'from') $('#to').value = $('#from').value; else $('#from').value = $('#to').value;
       }
