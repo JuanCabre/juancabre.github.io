@@ -97,7 +97,9 @@ def citation_html(publication, owner):
     venue = ' · '.join(part for part in (html.escape(publication['venue']), str(publication['year'] or '')) if part)
     award = (f' <span class="badge award-badge">{html.escape(publication["award"])}</span>'
              if publication['award'] else '')
-    return f'<li class="cite">{title}{author_html(publication, owner)}<br>{venue}{award}</li>'
+    # Journal articles carry more weight than conference papers, so they get a visible label.
+    journal = ' <span class="badge journal-badge"><i></i>Journal</span>' if publication['type'] == 'Journal' else ''
+    return f'<li class="cite">{title}{author_html(publication, owner)}<br>{venue}{journal}{award}</li>'
 
 
 def list_entry_html(publication, owner):
