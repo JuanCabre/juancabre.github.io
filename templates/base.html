@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>@@TITLE@@</title>
+<meta name="description" content="@@DESCRIPTION@@">
+<meta name="author" content="@@NAME@@">
+<link rel="canonical" href="@@PAGE_URL@@">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="@@NAME@@">
+<meta property="og:title" content="@@TITLE@@">
+<meta property="og:description" content="@@DESCRIPTION@@">
+<meta property="og:url" content="@@PAGE_URL@@">
+<meta property="og:image" content="@@SITE_URL@@assets/img/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="@@ROOT@@assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="@@ROOT@@assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="@@ROOT@@assets/fonts/libertinus-serif-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="@@ROOT@@assets/css/site.css?v=@@V@@">
+@@HEAD@@
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+<aside class="rail">
+  <a class="brand" href="@@ROOT@@" aria-label="@@NAME@@, home">
+    <img class="brand-portrait" src="@@ROOT@@assets/img/portrait.webp" alt="Portrait of @@NAME@@" width="84" height="84">
+    <span>
+      <span class="brand-name">@@NAME@@</span>
+      <span class="brand-role" style="display:block">Communication networks<br>CeTI, TU Dresden</span>
+    </span>
+  </a>
+  <nav class="rail-group site-nav" aria-label="Site">
+    <div class="rail-caption">Site</div>
+    <a class="nav-link" data-nav="home" href="@@ROOT@@">About</a>
+    <a class="nav-link" data-nav="publications" href="@@ROOT@@publications/">Publications</a>
+    <a class="nav-link" href="@@ROOT@@@@CV_FILE@@">Curriculum vitae <span class="ext" aria-hidden="true">PDF</span></a>
+  </nav>
+  <nav class="rail-group page-nav" aria-label="On this page">
+    <div class="rail-caption">On this page</div>
+    @@PAGENAV@@
+  </nav>
+  <div class="rail-bottom">
+    <span class="live-dot"></span>Publication list of<br>
+    <span style="margin-left:12px">@@SNAPSHOT_LABEL@@</span>
+  </div>
+</aside>
+<main id="content">
+@@MAIN@@
+<footer class="site-footer">
+  <span>© @@BUILD_YEAR@@ @@NAME@@</span>
+  <span><a href="@@ROOT@@legal/">Legal notice and privacy</a></span>
+</footer>
+</main>
+<div id="tooltip" role="status"></div>
+<script src="@@ROOT@@assets/js/common.js?v=@@V@@"></script>
+@@SCRIPTS@@
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "about": [
+    "Curated venue names. Each key under venues is the name shown on the site;",
+    "its list holds other wordings of the same venue. Years, edition numbers, a leading",
+    "'Proceedings of the', and text in parentheses are ignored when matching, so list each wording once.",
+    "A conference name followed by ':', ';' or ' - ' and a track or symposium counts as that conference.",
+    "workshops maps a conference to the venue that collects its co-located workshops.",
+    "With count_workshops_with_conference set to true, workshop records are shown under the conference",
+    "itself. Set it to false to show them under the workshop venue instead.",
+    "Check the result with: python -m pipeline.venues"
+  ],
+  "count_workshops_with_conference": false,
+  "venues": {
+    "European Wireless (EW)": ["European Wireless", "European Wireless Conference", "EW"],
+    "IEEE Global Communications Conference (GLOBECOM)": [
+      "GLOBECOM", "IEEE GLOBECOM", "IEEE Global Communications Conference (GLOBECOM), SAC CCNS"
+    ],
+    "IEEE Globecom Workshops (GC Wkshps)": ["IEEE GLOBECOM Workshops", "IEEE Globecom Workshop"],
+    "IEEE International Conference on Communications (ICC)": [
+      "ICC", "IEEE ICC", "IEEE International Conference on Communications: Communication Theory (ICC - CT)"
+    ],
+    "IEEE International Symposium on Information Theory (ISIT)": ["ISIT", "IEEE ISIT"],
+    "IEEE Information Theory Workshop (ITW)": ["ITW", "IEEE ITW"],
+    "ACM International Conference on Nanoscale Computing and Communication (NANOCOM)": ["NANOCOM", "ACM NANOCOM"],
+    "IEEE Consumer Communications & Networking Conference (CCNC)": ["IEEE CCNC"],
+    "IEEE Wireless Communications and Networking Conference (WCNC)": ["WCNC", "IEEE WCNC"],
+    "IEEE Wireless Communications and Networking Conference Workshops (WCNCW)": [
+      "IEEE Wireless Communications and Networking Conference Workshops (WCNCW), WS14"
+    ],
+    "IEEE/IFIP Network Operations and Management Symposium (NOMS)": ["NOMS", "IEEE NOMS"],
+    "IEEE International Symposium on a World of Wireless, Mobile and Multimedia Networks (WoWMoM)": ["WoWMoM"],
+    "IEEE World Forum on Internet of Things (WF-IoT)": ["IEEE WF-IoT"],
+    "IEEE Future Networks World Forum (FNWF)": ["IEEE FNWF"],
+    "International Conference on Ubiquitous Wireless Broadband (ICUWB)": ["ICUWB"],
+    "IEEE Vehicular Technology Conference (VTC-Spring)": ["IEEE Vehicular Technology Conference (VTC2021-Spring)"],
+    "IEEE INFOCOM Workshops (INFOCOM WKSHPS)": [
+      "IEEE INFOCOM - IEEE Conference on Computer Communications Workshops (INFOCOM WKSHPS), Demo Track"
+    ]
+  },
+  "workshops": {
+    "IEEE Global Communications Conference (GLOBECOM)": "IEEE Globecom Workshops (GC Wkshps)",
+    "IEEE Wireless Communications and Networking Conference (WCNC)": "IEEE Wireless Communications and Networking Conference Workshops (WCNCW)"
+  }
+}

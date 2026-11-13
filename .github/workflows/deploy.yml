@@ -1,0 +1,112 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # Mondays, 05:17 UTC: picks up a changed CV when the CV build below is switched on.
+    - cron: '17 5 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Repository that holds the LaTeX source of the CV, and the file to compile.
+  CV_REPOSITORY: JuanCabre/DFG-CV
+  CV_SOURCE: CV-Web
+
+jobs:
+  cv:
+    # Optional. Compiles the public CV from its LaTeX source when the secret
+    # CV_REPO_DEPLOY_KEY (a read-only deploy key of the CV repository) is set.
+    # Without the secret, the PDF committed in static/cv/ is published.
+    name: Compile the CV
+    runs-on: ubuntu-latest
+    outputs:
+      built: ${{ steps.key.outputs.present }}
+    steps:
+      - name: Look for the deploy key
+        id: key
+        env:
+          KEY: ${{ secrets.CV_REPO_DEPLOY_KEY }}
+        run: |
+          if [ -n "$KEY" ]; then echo "present=true" >> "$GITHUB_OUTPUT"; else echo "present=false" >> "$GITHUB_OUTPUT"; fi
+      - name: Fetch the CV source
+        if: steps.key.outputs.present == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.CV_REPOSITORY }}
+          ssh-key: ${{ secrets.CV_REPO_DEPLOY_KEY }}
+          path: cv-src
+          persist-credentials: false
+      - name: Compile with LuaLaTeX and biber
+        if: steps.key.outputs.present == 'true'
+        run: |
+          docker run --rm -v "$PWD/cv-src:/work" -w /work texlive/texlive:latest \
+            latexmk -lualatex -interaction=nonstopmode -halt-on-error "$CV_SOURCE.tex"
+      - name: Refuse a CV that shows contract details
+        if: steps.key.outputs.present == 'true'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+          pdftotext -layout "cv-src/$CV_SOURCE.pdf" cv.txt
+          test -s cv.txt
+          if grep -n -i -E 'TV-?L|contract until|salary' cv.txt; then
+            echo "::error::The compiled CV contains contract details. Nothing is published."
+            exit 1
+          fi
+          mkdir -p cv-out && cp "cv-src/$CV_SOURCE.pdf" cv-out/Juan-Cabrera-CV.pdf
+      - name: Hand the PDF to the build
+        if: steps.key.outputs.present == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pdf
+          path: cv-out/Juan-Cabrera-CV.pdf
+          retention-days: 7
+
+  build:
+    name: Test and build
+    needs: cv
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # the date of the publication list is read from the history
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Use the freshly compiled CV
+        if: needs.cv.outputs.built == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: cv-pdf
+          path: static/cv
+      - name: Test
+        run: python -m unittest discover -s tests -v
+      - name: Build
+        run: python build.py --output _site
+      - name: Upload the site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

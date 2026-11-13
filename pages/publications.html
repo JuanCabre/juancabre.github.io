@@ -1,0 +1,127 @@
+<!--
+title: Publications · Juan A. Cabrera
+description: Publications of Juan A. Cabrera: journal articles, conference papers, book chapters, preprints, datasets, and patents, with search, filters, and BibTeX.
+nav: publications
+-->
+<!-- @section pagenav -->
+<a class="nav-link" href="#overview">Overview</a>
+<a class="nav-link" href="#venues">Venues</a>
+<a class="nav-link" href="#collaboration">Coauthors</a>
+<a class="nav-link" href="#library">Publication library</a>
+<a class="nav-link" href="#notes">Data notes</a>
+<!-- @section main -->
+<div class="topbar">
+  <div class="breadcrumb"><a href="../">Juan A. Cabrera</a> <span>/</span> Publications</div>
+  <span class="pill">@@COUNT_ALL@@ entries · @@YEAR_FIRST@@ to @@YEAR_LAST@@</span>
+</div>
+
+<div class="title-row">
+  <div>
+    <div class="eyebrow">Publication observatory</div>
+    <h1>Publications</h1>
+    <p class="subtitle">The papers, venues, and people behind my research. Every chart reacts to the filters, and every entry comes with its BibTeX.</p>
+  </div>
+  <div class="actions">
+    <button id="export-bib" class="button" type="button">↓ Download .bib of this view</button>
+  </div>
+</div>
+
+<noscript>
+  <div class="panel">This page builds its charts and its list in the browser. Without JavaScript, the complete list is available as a <a href="../assets/data/publications.bib">BibTeX file</a> and in the <a href="../@@CV_FILE@@">curriculum vitae</a>.</div>
+</noscript>
+
+<div id="filter-bar" class="filter-bar">
+  <div class="filters">
+    <label for="from">From year<select id="from"></select></label>
+    <label for="to">To year<select id="to"></select></label>
+    <label for="type">Type<select id="type"><option value="">All types</option></select></label>
+    <label for="coauthor" class="wide">Coauthor<select id="coauthor"><option value="">All coauthors</option></select></label>
+    <button id="reset" class="text-button" type="button">Reset filters ↺</button>
+  </div>
+  <div id="filter-info" class="filter-info" aria-live="polite"></div>
+</div>
+
+<section id="overview">
+  <div id="stats" class="stats" style="margin-top:14px"></div>
+  <div class="overview-grid">
+    <article class="panel">
+      <div class="panel-head">
+        <div><div class="eyebrow">Research output</div><h2>Publications over time</h2></div>
+        <span class="hint">Select a year to explore it</span>
+      </div>
+      <div id="legend" class="legend"></div>
+      <div id="timeline" class="chart-wrap"></div>
+    </article>
+    <article class="panel">
+      <div class="panel-head">
+        <div><div class="eyebrow">Publication mix</div><h2>Where research lands</h2></div>
+      </div>
+      <div id="mix"></div>
+    </article>
+  </div>
+</section>
+
+<section id="venues">
+  <div class="section-title">
+    <div>
+      <div class="eyebrow">Journals, conferences, and books</div>
+      <h2><a class="section-link" href="#venues">Top venues<span class="hash" aria-hidden="true">#</span></a></h2>
+      <p>The venues with the most entries under the current filters. Names that differ only in year or edition count as one venue.</p>
+    </div>
+  </div>
+  <article class="panel">
+    <div id="venue-legend" class="legend" style="margin-top:0"></div>
+    <div id="top-venues"></div>
+  </article>
+</section>
+
+<section id="collaboration">
+  <div class="section-title">
+    <div>
+      <div class="eyebrow">Shared work, visible connections</div>
+      <h2><a class="section-link" href="#collaboration">The coauthor flower<span class="hash" aria-hidden="true">#</span></a></h2>
+      <p>Each node is one of my most frequent coauthors. A curve joins two people who appear together on at least one of my papers, and a thicker curve means more papers together.</p>
+    </div>
+    <label class="edge-control" for="flower-size">Coauthors shown <input id="flower-size" type="range" min="8" max="36" step="2" value="24"> <strong id="flower-size-value" class="num">24</strong></label>
+  </div>
+  <div class="collab-grid">
+    <article class="panel flower-panel">
+      <div class="flower-top"><span><i class="dot" style="background:var(--accent)"></i>Coauthors, sorted by surname</span><span id="flower-summary"></span></div>
+      <div id="flower" tabindex="0" role="region" aria-label="Coauthor diagram. Scroll sideways on small screens." aria-describedby="flower-help"></div>
+      <p id="flower-help" class="chart-note">Point at a person to highlight their connections. Select a person to filter the whole page to the papers we wrote together, and select them again to clear the filter.</p>
+    </article>
+    <article class="panel">
+      <div class="eyebrow">Closer together</div>
+      <h3 style="margin-bottom:12px">Frequent coauthors</h3>
+      <div id="coauthor-rank"></div>
+    </article>
+  </div>
+</section>
+
+<section id="library">
+  <div class="section-title">
+    <div>
+      <div class="eyebrow">From the bibliography</div>
+      <h2><a class="section-link" href="#library">Publication library<span id="pub-count" class="count-badge"></span><span class="hash" aria-hidden="true">#</span></a></h2>
+      <p>Search titles, authors, venues, years, or DOIs within the current filters. Every word must match, in any order, and quotes search for an exact phrase. Accents are optional.</p>
+    </div>
+    <input type="search" id="search" placeholder="Title, author, venue, or DOI" aria-label="Search publications by title, author, venue, year, or DOI. All words must match.">
+  </div>
+  <div class="table-tools">
+    <label for="award-only"><input type="checkbox" id="award-only"> Award mentions only</label>
+    <label for="sort">Sort <select id="sort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="title">Title A to Z</option></select></label>
+  </div>
+  <div id="pubs" class="panel publication-list"></div>
+  <div class="pager"><button id="prev" class="button small" type="button">← Previous</button><span id="page-status"></span><button id="next" class="button small" type="button">Next →</button></div>
+</section>
+
+<section id="notes" class="panel data-notes">
+  <div class="eyebrow">Transparent by design</div>
+  <h2><a class="section-link" href="#notes">Data notes<span class="hash" aria-hidden="true">#</span></a></h2>
+  <div id="notes-content"></div>
+  <details><summary>Review name matching</summary><div id="aliases"></div></details>
+</section>
+<!-- @section scripts -->
+<script src="../assets/js/search.js?v=@@V@@"></script>
+<script src="../assets/js/bibtex.js?v=@@V@@"></script>
+<script src="../assets/js/publications.js?v=@@V@@"></script>

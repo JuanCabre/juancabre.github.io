@@ -1,0 +1,282 @@
+<!--
+title: Juan A. Cabrera
+description: Juan A. Cabrera is a Junior Research Group Leader at CeTI, TU Dresden. He works on communication networks, network coding, and post-Shannon communication.
+nav: home
+-->
+<!-- @section head -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Juan A. Cabrera",
+  "alternateName": "Juan Alberto Cabrera Guerrero",
+  "honorificPrefix": "Dr.-Ing.",
+  "jobTitle": "Junior Research Group Leader",
+  "url": "@@SITE_URL@@",
+  "affiliation": {
+    "@type": "Organization",
+    "name": "Centre for Tactile Internet with Human-in-the-Loop (CeTI), Technische Universität Dresden"
+  },
+  "alumniOf": [
+    {"@type": "CollegeOrUniversity", "name": "Technische Universität Dresden"},
+    {"@type": "CollegeOrUniversity", "name": "Aalborg University"},
+    {"@type": "CollegeOrUniversity", "name": "Universidad Simón Bolívar"}
+  ],
+  "knowsAbout": ["Communication networks", "Network coding", "Post-Shannon communication", "Identification codes", "Functional compression"],
+  "sameAs": ["https://orcid.org/0000-0002-7525-2670", "https://github.com/JuanCabre"]
+}
+</script>
+<!-- @section pagenav -->
+<a class="nav-link" href="#about">About</a>
+<a class="nav-link" href="#research">Research</a>
+<a class="nav-link" href="#career">Career and education</a>
+<a class="nav-link" href="#teaching">Teaching</a>
+<a class="nav-link" href="#recognition">Recognition and transfer</a>
+<a class="nav-link" href="#contact">Contact</a>
+<!-- @section main -->
+<div class="topbar">
+  <div class="breadcrumb">TU Dresden <span>/</span> CeTI <span>/</span> Juan A. Cabrera</div>
+  <span class="pill">Junior Research Group Leader</span>
+</div>
+
+<section id="about">
+  <div class="title-row">
+    <div>
+      <div class="eyebrow">Communication networks · Network coding · Post-Shannon communication</div>
+      <h1>Juan A. Cabrera</h1>
+      <p class="subtitle">Junior Research Group Leader at the Centre for Tactile Internet with Human-in-the-Loop (CeTI), Technische Universität Dresden.</p>
+    </div>
+    <div class="actions">
+      <a class="button primary" href="publications/">Publications</a>
+      <a class="button" href="@@CV_FILE@@">Curriculum vitae (PDF)</a>
+      <a class="button" href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="about-grid">
+    <article class="panel">
+      <div class="prose">
+        <p class="lead">I design communication networks around one question: what does the receiver need in order to perform its task?</p>
+        <p>For most of its history, communication engineering has worked on one problem, which Shannon described as that of "reproducing at one point either exactly or approximately a message selected at another point." His framework made that problem tractable, and it still carries the Internet today. However, many of the applications that networks now serve do not need the message itself. A robot needs a control decision. A digital twin needs to know whether one particular event occurred. A group of agents needs to know whether they agree.</p>
+        <p>It is within this context that I do my research. I work on post-Shannon communication, where the network delivers what the task requires instead of every bit, and on network coding, where one code can protect information both in transit and in storage. I care about the path from theory to systems, so much of this work ends in an emulator, a testbed, or a demonstrator.</p>
+        <p>I grew up in Venezuela, where I studied electrical engineering at Universidad Simón Bolívar. I moved to Denmark for an M.Sc. in wireless communication systems at Aalborg University, and in 2015 I joined TU Dresden, where I received my doctorate in 2022. Today I lead a junior research group at CeTI and coordinate its research area on computing and communication.</p>
+      </div>
+    </article>
+    <aside class="panel" aria-labelledby="now-title">
+      <div class="eyebrow" id="now-title">Current roles</div>
+      <ul class="now-list">
+        <li><strong>Junior Research Group Leader</strong><span>CeTI, TU Dresden · since October 2026</span></li>
+        <li><strong>Research area leader, computing and communication</strong><span>CeTI, TU Dresden</span></li>
+        <li><strong>Group lead, post-Shannon communication and analog computing</strong><span>Deutsche Telekom Chair of Communication Networks, TU Dresden · since 2022</span></li>
+        <li><strong>Co-founder and Managing Director</strong><span>Ecologic Computing GmbH · since 2023</span></li>
+      </ul>
+    </aside>
+  </div>
+
+  <div class="stats" style="margin-top:20px">
+    <a class="stat" href="publications/"><div class="stat-label">Journal articles</div><div class="stat-value">@@COUNT_JOURNAL@@</div><div class="stat-sub">Peer-reviewed journals</div></a>
+    <a class="stat" href="publications/"><div class="stat-label">Conference papers</div><div class="stat-value">@@COUNT_CONFERENCE@@</div><div class="stat-sub">Proceedings contributions</div></a>
+    <a class="stat" href="publications/"><div class="stat-label">Book chapters</div><div class="stat-value">@@COUNT_BOOK@@</div><div class="stat-sub">In edited volumes</div></a>
+    <a class="stat" href="#recognition"><div class="stat-label">Granted patents</div><div class="stat-value">@@COUNT_PATENT@@</div><div class="stat-sub">German patents</div></a>
+  </div>
+</section>
+
+<section id="research">
+  <div class="section-title">
+    <div>
+      <div class="eyebrow">What I work on</div>
+      <h2><a class="section-link" href="#research">Research<span class="hash" aria-hidden="true">#</span></a></h2>
+      <p>Five lines of work, each with the papers that best show what it is about. The complete list is on the <a href="publications/">publications page</a>.</p>
+    </div>
+  </div>
+  <div class="themes">
+    <article class="panel theme">
+      <div class="eyebrow">Architectures and platforms</div>
+      <h3>Networks as programmable infrastructure</h3>
+      <p>I approach networks as programmable infrastructure in which communication and computing are designed together. Software-defined networking, network function virtualization, and network coding can be combined in the mobile edge cloud to meet the latency and resilience requirements of the Tactile Internet. To test such ideas on commodity hardware, I helped build and evaluate ComNetsEmu, an open-source emulator for software-defined and virtualized networks, and I have taught its use in several IEEE tutorials together with Frank H. P. Fitzek and Fabrizio Granelli.</p>
+      <ul class="cite-list">
+        @@PUB:cabrera2019softwarization@@
+        @@PUB:xiang2021open@@
+      </ul>
+    </article>
+    <article class="panel theme">
+      <div class="eyebrow">Network coding</div>
+      <h3>Resilient transport and storage</h3>
+      <p class="question">Can one code protect information both in transit and at rest?</p>
+      <p>Storage is communication across time, so the codes that make transport reliable can also keep stored information available. OneCode uses a single random linear network code to generate packets, recode them over several hops, and repair the redundancy that is lost when nodes fail. In related work, we study peers at the network edge that cache network-coded content and leave or fail over time, and we define a measure, the grade, of how far the coded cache has degraded.</p>
+      <ul class="cite-list">
+        @@PUB:cabrera2025onecode@@
+        @@PUB:zimmermann2022grade@@
+      </ul>
+    </article>
+    <article class="panel theme theme-wide">
+      <div class="theme-text">
+      <div class="eyebrow">Post-Shannon communication</div>
+      <h3>Task-oriented communication with identification codes</h3>
+      <p class="question">Does a receiver need the whole message to perform its task?</p>
+      <p>In message identification, the receiver only checks whether one event of interest occurred, which requires far fewer bits than transmitting the message. We proposed performance metrics for identification codes that are closer to practical systems than the asymptotic bounds, and we wrote a tutorial that opens these codes to communication engineers outside information theory. Together with the Chair of Communication Networks at TU Munich, we applied them to a truck platoon whose vehicles send short tags to verify their local control decisions against an edge server at the base station. In simulation, this hybrid scheme needed about four times less traffic than fully centralized control.</p>
+      </div>
+      <ul class="cite-list">
+        @@PUB:lengerke2023beyond@@
+        @@PUB:lengerke2026codes@@
+        @@PUB:kutsevol2025distributed@@
+      </ul>
+    </article>
+    <article class="panel theme">
+      <div class="eyebrow">Compression for a purpose</div>
+      <h3>Functional and semantic compression</h3>
+      <p>Functional compression sends what the receiver needs to compute a function of the data, instead of the data itself. We merged the views of several cameras at edge application servers through multilevel semantic compression and mapped the design onto the 3GPP architecture for edge computing in 5G, in collaboration with Nokia. The evaluation uses an open-source prototype on commodity hardware with a simulated network. We also demonstrated functional compression in the control loop of a real balancing robot.</p>
+      <ul class="cite-list">
+        @@PUB:rezwan2025mlcxr@@
+        @@PUB:rezwan2024balancing@@
+      </ul>
+    </article>
+    <article class="panel theme">
+      <div class="eyebrow">Computing over networks</div>
+      <h3>Function computation over networks</h3>
+      <p class="question">Can nodes test whether they agree without exchanging their full states?</p>
+      <p>Together with Holger Boche's group at TU Munich, we studied this question for relay networks, and we linked message identification to the computation of a function chosen by the receiver. The same line of work led to a German patent on communication devices and methods for message identification.</p>
+      <ul class="cite-list">
+        @@PUB:rosenberger2025stochastic@@
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section id="career">
+  <div class="section-title">
+    <div>
+      <div class="eyebrow">Curriculum vitae</div>
+      <h2><a class="section-link" href="#career">Career and education<span class="hash" aria-hidden="true">#</span></a></h2>
+    </div>
+    <a class="button" href="@@CV_FILE@@">Full CV (PDF)</a>
+  </div>
+  <div class="two-col">
+    <article class="panel">
+      <div class="eyebrow">Positions</div>
+      <dl class="rows">
+        <dt>Oct 2026 – today</dt>
+        <dd><strong>Junior Research Group Leader</strong>, Centre for Tactile Internet with Human-in-the-Loop (CeTI), TU Dresden<small>Also research area leader for computing and communication in CeTI.</small></dd>
+        <dt>2023 – today</dt>
+        <dd><strong>Co-founder and Managing Director</strong>, Ecologic Computing GmbH<small>A spin-off that focuses on reducing energy consumption in communication systems.</small></dd>
+        <dt>2022 – today</dt>
+        <dd><strong>Postdoctoral researcher</strong>, Deutsche Telekom Chair of Communication Networks, TU Dresden<small>Leading the research group on post-Shannon communication and analog computing.</small></dd>
+        <dt>2015 – 2022</dt>
+        <dd><strong>Research Assistant</strong>, TU Dresden</dd>
+      </dl>
+    </article>
+    <article class="panel">
+      <div class="eyebrow">Education</div>
+      <dl class="rows">
+        <dt>2022</dt>
+        <dd><strong>Dr.-Ing., Communication Networks</strong>, TU Dresden, Germany<small>Thesis: On the Design of Future Communication Systems with Coded Transport, Storage, and Computing. Supervisor: Prof. Dr.-Ing. Dr. h.c. Frank H. P. Fitzek.</small></dd>
+        <dt>2015</dt>
+        <dd><strong>M.Sc., Wireless Communication Systems</strong>, Aalborg University, Denmark</dd>
+        <dt>2013</dt>
+        <dd><strong>Electrical Engineer</strong>, Universidad Simón Bolívar, Venezuela<small>Focus on communication theory.</small></dd>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section id="teaching">
+  <div class="section-title">
+    <div>
+      <div class="eyebrow">In the lecture hall and the lab</div>
+      <h2><a class="section-link" href="#teaching">Teaching and supervision<span class="hash" aria-hidden="true">#</span></a></h2>
+    </div>
+  </div>
+  <div class="about-grid">
+    <article class="panel">
+      <div class="eyebrow">Courses</div>
+      <dl class="rows">
+        <dt>From summer 2027</dt>
+        <dd><strong>Advanced Communication Networks</strong> (M.Sc.), TU Dresden<small>I take over as course responsible, with lectures and hands-on exercises on network function virtualization, software-defined networking, edge computing, network slicing, time-sensitive networking, and 5G.</small></dd>
+        <dt>2017 – today</dt>
+        <dd><strong>Future Communication Networks</strong> (M.Sc.), TU Dresden<small>Co-creator of the course, formerly Communication Networks 3, whose curriculum is built from ongoing IETF standardization work. Since 2022, I give the lectures on post-Shannon communication and analog computing.</small></dd>
+        <dt>2016 – 2025</dt>
+        <dd><strong>Practical Implementations of Network Coding</strong>, TU Dresden</dd>
+        <dt>2018</dt>
+        <dd><strong>Advanced Topics in Signal Processing</strong>, TU Munich</dd>
+      </dl>
+    </article>
+    <aside class="panel">
+      <div class="eyebrow">Supervision</div>
+      <ul class="now-list">
+        <li><strong>5 doctoral researchers</strong><span>Guidance and co-supervision as a postdoc, 2022 to 2026</span></li>
+        <li><strong>15+ M.Sc. theses and seminar projects</strong><span>Supervised since 2016</span></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<section id="recognition">
+  <div class="section-title">
+    <div>
+      <div class="eyebrow">Awards, patents, and a spin-off</div>
+      <h2><a class="section-link" href="#recognition">Recognition and transfer<span class="hash" aria-hidden="true">#</span></a></h2>
+    </div>
+  </div>
+  <div class="award-grid">
+    <article class="award-card">
+      <div class="recognition">✧ Best Demo Award · IEEE CCNC 2024</div>
+      <h3><a href="@@PUBLINK:rezwan2024balancing@@">@@PUBTITLE:rezwan2024balancing@@</a></h3>
+      <p>With Sifat Rezwan and Frank H. P. Fitzek.</p>
+    </article>
+    <article class="award-card">
+      <div class="recognition">✧ Best Paper Award · TNT workshop at IEEE/IFIP NOMS 2022</div>
+      <h3><a href="@@PUBLINK:lengerke2022stopping@@">@@PUBTITLE:lengerke2022stopping@@</a></h3>
+      <p>With Caspar von Lengerke, Alexander Hefele, and Frank H. P. Fitzek.</p>
+    </article>
+    <article class="award-card">
+      <div class="recognition">✧ Software Campus · 2022</div>
+      <h3>Funding for a project on coded distributed computing</h3>
+      <p>Software Campus program of the German Federal Ministry of Education and Research (BMBF).</p>
+    </article>
+  </div>
+  <div class="two-col" style="margin-top:16px">
+    <article class="panel">
+      <div class="eyebrow">Patents</div>
+      <dl class="rows">
+        <dt>2026</dt>
+        <dd><strong><a href="@@PUBLINK:rosenberger2026communication@@">Communication devices and methods for message identification</a></strong><small>German patent DE 10 2024 135 379 B4, granted 2 July 2026. With Johannes Rosenberger, Frank H. P. Fitzek, and Holger Boche.</small></dd>
+        <dt>2024</dt>
+        <dd><strong><a href="@@PUBLINK:cabrera2024calculation@@">Calculation system and related procedure</a></strong><small>German patent DE 10 2023 114 253 B3, granted 8 August 2024. With Pit Hofmann, Frank H. P. Fitzek, and Holger Boche. It describes a selector that chooses a computing substrate, such as analog, digital, or biological platforms, according to the requirements of the task.</small></dd>
+      </dl>
+    </article>
+    <article class="panel">
+      <div class="eyebrow">Research transfer</div>
+      <div class="prose" style="font-size:14.5px">
+        <p><strong style="color:var(--ink)">Ecologic Computing GmbH.</strong> I co-founded the company in 2023 to bring this research into practice, and I serve as its managing director.</p>
+        <p>The company received BMFTR StartUpConnect research-transfer funding for PoShCodes, "Specialised Post-Shannon Codes for Highly Efficient Goal-Oriented Communication" (July 2024 to June 2026). The project develops identification-theoretic algorithms and protocols that reduce the amount of data a communication system must transmit, and it transfers these principles toward hardware implementations.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-title">
+    <div>
+      <div class="eyebrow">Get in touch</div>
+      <h2><a class="section-link" href="#contact">Contact<span class="hash" aria-hidden="true">#</span></a></h2>
+    </div>
+  </div>
+  <div class="contact-grid">
+    <article class="panel">
+      <div class="contact-lines">
+        <div><span class="label">E-mail</span><span data-mail-user="juan.cabrera" data-mail-domain="tu-dresden.de">juan.cabrera (at) tu-dresden.de</span></div>
+        <div><span class="label">Address</span>Centre for Tactile Internet with Human-in-the-Loop (CeTI)<br>Technische Universität Dresden<br>01062 Dresden, Germany</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="eyebrow">Elsewhere</div>
+      <ul class="link-list">
+        <li><a href="https://orcid.org/0000-0002-7525-2670" rel="me"><span>ORCID</span><span>0000-0002-7525-2670</span></a></li>
+        <li><a href="https://github.com/JuanCabre" rel="me"><span>GitHub</span><span>JuanCabre</span></a></li>
+        <li><a href="https://ceti.one/"><span>CeTI</span><span>ceti.one</span></a></li>
+        <li><a href="https://cn.ifn.et.tu-dresden.de/"><span>Deutsche Telekom Chair of Communication Networks</span><span>cn.ifn.et.tu-dresden.de</span></a></li>
+        <li><a href="https://www.ecologic-computing.com/"><span>Ecologic Computing</span><span>ecologic-computing.com</span></a></li>
+      </ul>
+    </article>
+  </div>
+</section>
