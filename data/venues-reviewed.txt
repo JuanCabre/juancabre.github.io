@@ -1,0 +1,48 @@
+# Venue names that no alias in venues.json matches and that were reviewed and left as they are.
+# The build prints unmatched names that are missing here. Rewritten by:
+# python -m pipeline.venues --accept
+6G-life: Unveiling the Future of Technological Sovereignty, Sustainability, and Trustworthiness
+ACM International Workshop on Wireless and Mobile Technologies for Smart Cities (WiMobCity)
+Atto-Nets / ICUWB
+Biosensors and Bioelectronics: X
+Computing in Communication Networks - From Theory to Practice
+Conference on Intelligent Energy and Power Systems (CIEES)
+Electronics
+German patent
+Global Information Infrastructure and Networking Symposium (GIIS)
+Humans, Robots, and Virtual Worlds in the Tactile Internet
+IEEE Access
+IEEE Annual Congress on Artificial Intelligence of Things (AIoT)
+IEEE Communications Letters
+IEEE Communications Magazine
+IEEE Communications Standards Magazine
+IEEE Communications Surveys & Tutorials
+IEEE Conference on Standards for Communications and Networking (CSCN)
+IEEE Dataport
+IEEE IEMCON
+IEEE International Conference on Big Data and Artificial Intelligence (BDAI)
+IEEE International Conference on Metaverse Computing, Networking and Applications (MetaCom)
+IEEE International Mediterranean Conference on Communications and Networking (MeditCom)
+IEEE International Smart Cities Conference (ISC2)
+IEEE International System-on-Chip Conference (SOCC)
+IEEE Internet of Things Journal
+IEEE Journal on Selected Areas in Communications
+IEEE Latin-American Conference on Communications (LATINCOM)
+IEEE Mediterranean Electrotechnical Conference (MELECON)
+IEEE Transactions on Broadcasting
+IEEE Transactions on Molecular, Biological, and Multi-Scale Communications
+IEEE World Conference on Computing and Communication Technologies (WCCCT)
+International Conference on Electrical, Computer and Energy Technologies (ICECET/ICECCME)
+International Conference on Information Networking (ICOIN)
+International Conference on Intelligent Multimedia, Networking, and Security (IMNS)
+International Conference on Smart Applications, Communications and Networking (SmartNets)
+International Symposium on Wireless Communication Systems (ISWCS)
+KuVS Fachgespräch “Network Softwarization” - From Research to Application
+Künstliche Intelligenz und Data Science in Theorie und Praxis
+Proceedings of the IEEE
+Shaping Future 6G Networks: Needs, Impacts, and Technologies
+Tactile Internet with Human-in-the-Loop
+Technische Universität Dresden
+Wireless Days
+Wireless On-Demand Network Systems and Services Conference (WONS)
+Workshop on Molecular Communication (MolCom)
