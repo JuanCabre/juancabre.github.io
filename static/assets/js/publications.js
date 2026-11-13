@@ -230,6 +230,9 @@ function coauthorCounts() {
   return [...counts].map(([name, n]) => ({ name, n })).sort((a, b) => b.n - a.n || a.name.localeCompare(b.name));
 }
 const surname = name => name.split(' ').at(-1);
+// Academic title of a coauthor, where the data gives one ("Prof. Jane Doe").
+let TITLES = new Map();
+const titled = name => (TITLES.has(name) ? TITLES.get(name) + ' ' : '') + name;
 const initials = name => { const parts = name.replace(/\./g, '').split(' '); return (parts[0][0] + parts.at(-1)[0]).toUpperCase(); };
 
 function flower() {
@@ -261,7 +264,7 @@ function flower() {
     + `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" style="stroke:var(--line)" stroke-dasharray="2 5"/>`;
   edges.forEach(edge => {
     const p = position.get(edge.a), q = position.get(edge.b);
-    const description = `${edge.a} and ${edge.b}: ${plural(edge.n, 'paper')} together with me`;
+    const description = `${titled(edge.a)} and ${titled(edge.b)}: ${plural(edge.n, 'paper')} together with me`;
     svg += `<path class="link" data-a="${esc(edge.a)}" data-b="${esc(edge.b)}" data-tip="${esc(description)}" d="M ${p.x} ${p.y} Q ${cx} ${cy} ${q.x} ${q.y}" fill="none" stroke-opacity="${(.12 + .5 * edge.n / maxEdge).toFixed(2)}" stroke-width="${(1 + 11 * edge.n / maxEdge).toFixed(1)}" stroke-linecap="round"/>`;
   });
   shown.forEach(person => {
@@ -269,11 +272,11 @@ function flower() {
     let rotation = p.angle * 180 / Math.PI;
     if (leftSide) rotation += 180;
     const radius = 13 + 9 * Math.sqrt(person.n / maxNode);
-    const description = `${person.name}: ${plural(person.n, 'paper')} with me`;
+    const description = `${titled(person.name)}: ${plural(person.n, 'paper')} with me`;
     svg += `<g class="node clickable${person.name === selected ? ' selected' : ''}" tabindex="0" role="button" data-node="${esc(person.name)}" aria-label="${esc(description)}. Select to filter the page." data-tip="${esc(description)}">`
       + `<circle cx="${p.x}" cy="${p.y}" r="${radius.toFixed(1)}"/>`
       + `<text class="initials" x="${p.x}" y="${p.y + 4}" text-anchor="middle" font-size="11">${esc(initials(person.name))}</text>`
-      + `<text class="name" transform="translate(${p.x + (radius + 9) * Math.cos(p.angle)},${p.y + (radius + 9) * Math.sin(p.angle)}) rotate(${rotation})" text-anchor="${leftSide ? 'end' : 'start'}" dominant-baseline="middle" font-size="13">${esc(person.name)}</text></g>`;
+      + `<text class="name" transform="translate(${p.x + (radius + 9) * Math.cos(p.angle)},${p.y + (radius + 9) * Math.sin(p.angle)}) rotate(${rotation})" text-anchor="${leftSide ? 'end' : 'start'}" dominant-baseline="middle" font-size="13">${esc(titled(person.name))}</text></g>`;
   });
   svg += `<g class="hub"><circle cx="${cx}" cy="${cy}" r="58" fill-opacity=".95"/>`
     + `<text class="hub-count" x="${cx}" y="${cy - 2}" text-anchor="middle" font-size="28">${ranked.length}</text>`
@@ -298,8 +301,8 @@ function flower() {
 function coauthorRank() {
   const ranked = coauthorCounts().slice(0, 12), max = ranked[0]?.n || 1, selected = $('#coauthor').value;
   $('#coauthor-rank').innerHTML = ranked.map(person =>
-    `<button type="button" class="rank${person.name === selected ? ' selected' : ''}" data-person="${esc(person.name)}" aria-pressed="${person.name === selected}" aria-label="${esc(person.name)}: ${plural(person.n, 'paper')} together. Select to filter the page.">`
-    + `<span>${esc(person.name)}</span><div class="bar-track"><div class="bar-fill" style="width:${person.n / max * 100}%"></div></div><b>${person.n}</b></button>`).join('')
+    `<button type="button" class="rank${person.name === selected ? ' selected' : ''}" data-person="${esc(person.name)}" aria-pressed="${person.name === selected}" aria-label="${esc(titled(person.name))}: ${plural(person.n, 'paper')} together. Select to filter the page.">`
+    + `<span>${esc(titled(person.name))}</span><div class="bar-track"><div class="bar-fill" style="width:${person.n / max * 100}%"></div></div><b>${person.n}</b></button>`).join('')
     || '<p class="empty">No coauthors in this view.</p>';
   $('#coauthor-rank').querySelectorAll('[data-person]').forEach(button => { button.onclick = () => setCoauthor(button.dataset.person); });
 }
@@ -407,6 +410,7 @@ async function init() {
     return;
   }
   TYPES = D.types;
+  TITLES = new Map(D.coauthors.filter(person => person.title).map(person => [person.name, person.title]));
   const dated = D.publications.map(p => p.year).filter(Boolean);
   years = [];
   for (let year = Math.min(...dated); year <= Math.max(...dated); year++) years.push(year);

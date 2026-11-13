@@ -6,5 +6,33 @@
   "description": "Juan A. Cabrera is a Junior Research Group Leader at CeTI, TU Dresden. He works on communication networks, network coding, and post-Shannon communication.",
   "author_aliases": {
     "Caspar Lengerke": "Caspar von Lengerke"
-  }
+  },
+  "professors": [
+    "Frank H. P. Fitzek",
+    "Holger Boche",
+    "Martin Reisslein",
+    "Giang T. Nguyen",
+    "Riccardo Bassoli",
+    "Daniel E. Lucani Rötter",
+    "Patrick Seeling",
+    "Christian Deppe",
+    "Rafael F. Schaefer",
+    "Wolfgang Kellerer",
+    "Gerhard P. Fettweis",
+    "Thorsten Strufe",
+    "Stefanie Speidel",
+    "Christian G. Mayr",
+    "Eckehard Steinbach",
+    "Gitta Kutyniok",
+    "Fabrizio Granelli",
+    "Falko Dressler",
+    "Frank Ellinger",
+    "Diana Göhringer",
+    "Eduard A. Jorswieck",
+    "Christof W. Fetzer",
+    "Muriel Médard",
+    "Sandra Hirche",
+    "Shu-Chen Li",
+    "Wolfgang E. Nagel"
+  ]
 }

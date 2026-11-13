@@ -49,6 +49,10 @@ class Bibliography(unittest.TestCase):
                 with self.subTest(entry=publication['id']):
                     self.assertRegex(publication['link'], r'^https://\S+$')
 
+    def test_professors_are_coauthors(self):
+        self.assertEqual(self.data['meta']['unknownProfessors'], [],
+                         'Names under "professors" in site.json must match a coauthor as shown on the site.')
+
     def test_venue_names_were_reviewed(self):
         self.assertFalse(new_names_notice(ROOT / 'data'),
                          'New venue names: run "python -m pipeline.venues --new" and review them.')
@@ -59,7 +63,7 @@ class BuiltSite(unittest.TestCase):
     def setUpClass(cls):
         cls.directory = tempfile.TemporaryDirectory()
         cls.site = Path(cls.directory.name) / 'site'
-        build.build(cls.site, 'https://example.org/')
+        build.build(cls.site, 'https://example.org/', pdf='skip')  # printing needs a browser; CI builds with --pdf require
         cls.pages = sorted(cls.site.rglob('*.html'))
 
     @classmethod
@@ -70,6 +74,7 @@ class BuiltSite(unittest.TestCase):
         for target in build.PAGES.values():
             self.assertTrue((self.site / target).is_file(), target)
         self.assertTrue((self.site / build.CV_FILE).is_file())
+        self.assertTrue((self.site / build.LIST_PAGE).is_file())
         self.assertTrue((self.site / '.nojekyll').is_file())
 
     def test_no_placeholder_is_left(self):
@@ -97,6 +102,11 @@ class BuiltSite(unittest.TestCase):
             for tag in external.finditer(page.read_text(encoding='utf-8')):
                 with self.subTest(page=page.name):
                     self.assertIn('rel="canonical"', tag[0], f'External resource: {tag[0]}')
+
+    def test_printable_list_holds_every_entry(self):
+        text = (self.site / build.LIST_PAGE).read_text(encoding='utf-8')
+        data = json.loads((self.site / 'assets' / 'data' / 'publications.json').read_text(encoding='utf-8'))
+        self.assertEqual(text.count('<li>'), len(data['publications']))
 
     def test_data_file_matches_the_bibliography(self):
         data = json.loads((self.site / 'assets' / 'data' / 'publications.json').read_text(encoding='utf-8'))

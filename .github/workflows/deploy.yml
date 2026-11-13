@@ -89,7 +89,8 @@ jobs:
       - name: Test
         run: python -m unittest discover -s tests -v
       - name: Build
-        run: python build.py --output _site
+        # --pdf require: the publication list is printed to PDF with the runner's Chrome
+        run: python build.py --output _site --pdf require
       - name: Upload the site
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3

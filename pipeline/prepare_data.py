@@ -116,6 +116,23 @@ def title_and_venue(entry):
     return clean(title), clean(venue or entry.get('howpublished') or entry.get('school') or entry.get('publisher', ''))
 
 
+def details_of(entry):
+    """Volume, issue, pages and place, as one short text for the printed list."""
+    parts = []
+    if entry.get('volume'):
+        parts.append('vol. ' + clean(entry['volume']) + (', no. ' + clean(entry['number']) if entry.get('number') else ''))
+    if entry.get('pages'):
+        pages = clean(entry['pages']).replace('--', '–')
+        parts.append(('pp. ' if re.search(r'[–-]', pages) else 'p. ') + pages)
+    if entry.get('address'):
+        parts.append(clean(entry['address']))
+    if entry.get('eprint'):
+        parts.append('arXiv:' + clean(entry['eprint']))
+    if entry.get('number') and not entry.get('volume'):
+        parts.append(clean(entry['number']))
+    return '; '.join(parts)
+
+
 def award_mentions(entry):
     fields = ('award', 'awards', 'prize', 'note', 'annote')
     return '; '.join(
@@ -170,13 +187,15 @@ def build_data(source, config, snapshot, normalize_names=True):
             'type': TYPE_OF.get(category, 'Other'), 'category': category,
             'bibType': kind, 'bibtex': entry['rawBibtex'],
             'authors': authors, 'people': persons,
-            'venue': venue, 'doi': doi, 'link': link_of(entry, doi),
+            'venue': venue, 'details': details_of(entry), 'doi': doi, 'link': link_of(entry, doi),
             'note': '' if note == award else note, 'award': award,
         })
     venue_aliases = load_aliases(source) if normalize_names else None
     venues = normalize_venues(publications, venue_aliases) if venue_aliases else None
 
     coauthors = Counter(person for publication in publications for person in set(publication['people']) if person != owner)
+    professors = set(config.get('professors', []))
+    unknown = sorted(professors - set(coauthors))
     spellings = {}
     for name, person in people.items():
         spellings.setdefault(person, set()).add(name)
@@ -184,12 +203,14 @@ def build_data(source, config, snapshot, normalize_names=True):
         'author': owner,
         'types': list(TYPES),
         'publications': publications,
-        'coauthors': [{'name': name, 'count': count} for name, count in
-                      sorted(coauthors.items(), key=lambda item: (-item[1], item[0]))],
+        # 'title' is set for the people listed under "professors" in site.json.
+        'coauthors': [{'name': name, 'count': count, **({'title': 'Prof.'} if name in professors else {})}
+                      for name, count in sorted(coauthors.items(), key=lambda item: (-item[1], item[0]))],
         'meta': {
             'source': 'publications.bib', 'snapshot': snapshot,
             'rawEntries': len(entries), 'duplicatesRemoved': len(duplicates), 'duplicateIds': duplicates,
             'entriesWithoutAuthor': without_owner,
+            'unknownProfessors': unknown,
             'deduplication': 'Identical normalized valid DOI only.',
             'matching': 'Accent-insensitive surname and given name or initial, with explicit aliases.',
             'spellings': {person: sorted(names) for person, names in sorted(spellings.items()) if len(names) > 1},

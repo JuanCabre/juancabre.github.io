@@ -18,6 +18,11 @@ python -m unittest discover -s tests -v
 
 Python 3.10 or newer is enough.
 
+The publication list is also offered as a PDF. The build prints it from
+`publications/list/` with a Chromium-based browser if it finds one (Chrome, Chromium,
+Edge, or the path in the `CHROME` environment variable). Without a browser the button
+leads to the printable page instead. The deployment always makes the PDF.
+
 ## Where things live
 
 | Path | What it is |
@@ -27,6 +32,7 @@ Python 3.10 or newer is enough.
 | `data/venues.json` | Spellings of conference and journal names that count as one venue |
 | `pages/` | The text of the pages (HTML with a few `@@PLACEHOLDERS@@`) |
 | `templates/base.html` | The frame shared by all pages: navigation rail, footer |
+| `templates/list.html` | The printable publication list, the source of the PDF |
 | `static/` | Copied as it is: styles, scripts, fonts, portrait, the CV PDF |
 | `pipeline/` | BibTeX parsing, duplicate removal, venue and name matching |
 | `tests/` | Checks on the bibliography and on the built pages |
@@ -43,6 +49,9 @@ A few conventions decide how an entry is counted:
 - An award goes into `note`, for example `note = {Best Paper Award}`. The entry then gets a badge.
 - When a preprint is published, replace its entry with the published one.
 - Entries with the same DOI count once.
+
+Coauthors named under `professors` in `site.json` are shown with "Prof." in the
+coauthor diagram. Use the name exactly as the site shows it.
 
 To show a paper on the About page, write `@@PUB:bibtexkey@@` in `pages/index.html`.
 The build stops with a clear message if the key does not exist.
