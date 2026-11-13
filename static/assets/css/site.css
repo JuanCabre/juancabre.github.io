@@ -83,11 +83,11 @@
   --award-bg: #fffdf6;
   --award-line: #e8e2cd;
   /* chart series, one per publication type, in stacking order */
-  --type-journal: #2a78d6;
-  --type-conference: #eb6834;
-  --type-book: #1baf7a;
-  --type-preprint: #eda100;
-  --type-other: #e87ba4;
+  --type-journal: #1c4f94;
+  --type-conference: #4a8fd4;
+  --type-book: #3d9467;
+  --type-preprint: #c98a10;
+  --type-other: #8f99a4;
   --track: #eef2f6;
   --tooltip-bg: #14283c;
   --tooltip-ink: #ffffff;
@@ -116,11 +116,11 @@
   --award-ink: #e2c779;
   --award-bg: #211e14;
   --award-line: #423b22;
-  --type-journal: #3987e5;
-  --type-conference: #d95926;
-  --type-book: #199e70;
-  --type-preprint: #c98500;
-  --type-other: #d55181;
+  --type-journal: #5b94db;
+  --type-conference: #31609a;
+  --type-book: #41996b;
+  --type-preprint: #bb8522;
+  --type-other: #7d8792;
   --track: #222d3a;
   --tooltip-bg: #eaf0f6;
   --tooltip-ink: #14283c;
@@ -499,7 +499,7 @@ footer.site-footer a { color: var(--muted); }
     --ink: #14283c; --text: #2c3f52; --muted: #5b6c7c; --line: #dfe6ec; --line-soft: #edf1f5;
     --accent: #1c5cab; --accent-strong: #104281; --accent-soft: #e6eff9; --accent-line: #c4d8ee;
     --award-ink: #79601d; --award-bg: #fffdf6; --award-line: #e8e2cd;
-    --type-journal: #2a78d6; --type-conference: #eb6834; --type-book: #1baf7a; --type-preprint: #eda100; --type-other: #e87ba4;
+    --type-journal: #1c4f94; --type-conference: #4a8fd4; --type-book: #3d9467; --type-preprint: #c98a10; --type-other: #8f99a4;
     --track: #eef2f6;
     color-scheme: light;
   }
