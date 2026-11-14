@@ -56,6 +56,17 @@ coauthor diagram. Use the name exactly as the site shows it.
 To show a paper on the About page, write `@@PUB:bibtexkey@@` in `pages/index.html`.
 The build stops with a clear message if the key does not exist.
 
+### New venue names
+
+Conference names come in many spellings. After adding entries, run
+
+```
+python -m pipeline.venues --new      # lists names that have not been reviewed
+python -m pipeline.venues --accept   # marks them as reviewed
+```
+
+If a new name is another spelling of a venue that is already listed, add it as an alias
+in `data/venues.json` before accepting. The tests fail while unreviewed names remain.
 
 ## The CV
 
