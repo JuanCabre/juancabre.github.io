@@ -34,6 +34,7 @@ leads to the printable page instead. The deployment always makes the PDF.
 | `templates/base.html` | The frame shared by all pages: navigation rail, footer |
 | `templates/list.html` | The printable publication list, the source of the PDF |
 | `static/` | Copied as it is: styles, scripts, fonts, portrait, the CV PDF |
+| `figures/` | SVG figures placed inline in the home page (vision, research agenda) |
 | `pipeline/` | BibTeX parsing, duplicate removal, venue and name matching |
 | `tests/` | Checks on the bibliography and on the built pages |
 
@@ -55,6 +56,13 @@ coauthor diagram. Use the name exactly as the site shows it.
 
 To show a paper on the About page, write `@@PUB:bibtexkey@@` in `pages/index.html`.
 The build stops with a clear message if the key does not exist.
+
+## Figures
+
+`@@FIGURE:name.svg@@` in a page places `figures/name.svg` inline, so its text is set in
+the site's own Inter. The build removes embedded provenance data and empty metadata. The
+figures are drawn on white and keep a white card in dark mode. To update a figure, replace
+its SVG file under the same name.
 
 ### New venue names
 

@@ -118,6 +118,14 @@ class BuiltSite(unittest.TestCase):
         data = json.loads((self.site / 'assets' / 'data' / 'publications.json').read_text(encoding='utf-8'))
         self.assertEqual(text.count('<li>'), len(data['publications']))
 
+    def test_figures_are_inline_and_clean(self):
+        text = (self.site / 'index.html').read_text(encoding='utf-8')
+        figures = sorted(path.name for path in build.FIGURES.glob('*.svg'))
+        self.assertEqual(text.count('class="figure-svg"'), len(figures))
+        self.assertNotIn('c2pa', text)
+        self.assertNotIn('<?xml', text)
+        self.assertNotIn('font-family="Inter,', text, 'Figures should use the self-hosted Inter Variable first.')
+
     def test_data_file_matches_the_bibliography(self):
         data = json.loads((self.site / 'assets' / 'data' / 'publications.json').read_text(encoding='utf-8'))
         entries = len(re.findall(r'^@\w+\{', (ROOT / 'data' / 'publications.bib').read_text(encoding='utf-8'), re.M))
