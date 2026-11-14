@@ -291,18 +291,6 @@ a.cite-title:hover { color: var(--accent-strong); text-decoration: underline; }
 .cite strong { color: var(--text); font-weight: 600; }
 .cite .badge { margin-left: 6px; }
 
-/* ---------- Home: figures ---------- */
-/* The figures are drawn on white. In dark mode they keep a white card of their own,
-   so their colors and contrast stay as drawn. */
-.figure-panel { margin: 20px 0 0; }
-.figure-card { background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 14px; overflow-x: auto; }
-:root[data-theme="dark"] .figure-card { border-color: #3a4757; }
-.figure-svg { display: block; width: 100%; height: auto; font-feature-settings: normal; }
-.figure-panel figcaption { margin-top: 12px; color: var(--muted); font-size: 13.5px; line-height: 1.6; max-width: 90ch; }
-.figure-panel figcaption strong { color: var(--ink); font-weight: 620; }
-.themes .figure-panel { grid-column: 1 / -1; margin: 0; }
-.figure-hint { display: none; margin: 6px 0 0; color: var(--muted); font-size: 12.5px; }
-
 /* ---------- Home: demonstrators ---------- */
 .demo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .demo-card { display: flex; flex-direction: column; gap: 10px; }
@@ -505,9 +493,6 @@ footer.site-footer a { color: var(--muted); }
   .lead { font-size: 20px; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .themes, .two-col, .contact-grid, .award-grid, .demo-grid { grid-template-columns: minmax(0, 1fr); }
-  .figure-card { padding: 8px; }
-  .figure-svg { min-width: 680px; }
-  .figure-hint { display: block; }
   .theme-wide { grid-template-columns: minmax(0, 1fr); }
   .subthemes { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .theme-wide .cite-list { border-left: 0; border-top: 1px solid var(--line-soft); margin: 4px 0 0; padding: 14px 0 0; }
@@ -541,5 +526,5 @@ footer.site-footer a { color: var(--muted); }
   .rail, .topbar, .actions, .filter-bar, .pager, #tooltip { display: none !important; }
   main { margin: 0; padding: 0; max-width: none; }
   body { background: #fff; }
-  .panel, .stat, .figure-panel { break-inside: avoid; }
+  .panel, .stat { break-inside: avoid; }
 }

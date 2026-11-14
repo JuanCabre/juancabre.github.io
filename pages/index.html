@@ -59,12 +59,10 @@ nav: home
     <article class="panel">
       <div class="prose">
         <p class="lead">I want to understand how we must design networks so that humans and embodied AI agents can coexist and collaborate in the world they share.</p>
-        <p>For most of its history, communication engineering has worked on one problem, which Shannon described as that of "reproducing at one point either exactly or approximately a message selected at another point." His framework made that problem tractable, and it still carries the Internet today. However, many of the applications that networks now serve do not need the message itself. A robot needs a control decision. A digital twin needs to know whether one particular event occurred. A group of agents needs to know whether they agree.</p>
-        <p>I understand communication networks as infrastructure for communication, storage, and computing. When I started my doctorate, this was a new way to look at networks, which softwarization was just making practical. I liked the idea, and it has shaped my work on coded transport, coded storage, and coded computing ever since. Now, networks are moving even further. Their nodes sense and act, and some of them are embodied AI agents: robots and machines that run learned models and work among people. This is what is known as physical AI.</p>
-        <p>It is within this context that I do my research. Every node in such a network has some capability to sense, compute, store, and act, and these capabilities differ widely. In a network with many users, what do we have to store, communicate, and compute, where, and when? My thesis is that the task should become the unit by which networks are designed and operated, as the packet and the flow are today. A task states the output it needs, its deadline, and the error it tolerates, and from this the network can derive what to communicate, what to store, and where to compute.</p>
-        <p>I want these networks to be sovereign, trustworthy, and sustainable. Sovereign means that owners decide where their data and models reside and run. Trustworthy means, first of all, dependable: under crashes, losses, and delays, a task meets its deadline, or the system says that it cannot. With embodied agents, it also means safe: a late or missing answer must never cause an accident. Sustainable means less energy per completed task. The three pull in different directions, and a network for physical AI has to settle this conflict for every task.</p>
-        <p>Two lines of work carry this program. In post-Shannon communication, the network delivers what the task requires instead of every bit. In network coding, one code can protect information both in transit and in storage. I am also interested in coded distributed computing, low latency, and in-network computing, and in what becomes possible with new computing substrates such as analog, biological, and quantum computing. I care about the path from theory to systems, so much of this work ends in an emulator, a testbed, or a demonstrator.</p>
-        <p>I grew up in Venezuela, where I studied electrical engineering at Universidad Simón Bolívar. I moved to Denmark for an M.Sc. in wireless communication systems at Aalborg University, and in 2015 I joined TU Dresden, where I received my doctorate in 2022. Today I lead a junior research group at CeTI and coordinate its research area on computing and communication.</p>
+        <p>I understand communication networks as infrastructure for communication, storage, and computing. This idea has shaped my work on coded transport, coded storage, and coded computing since my doctorate. Now, networks are moving even further. Their nodes sense and act, and some of them are embodied AI agents: robots and machines that run learned models and work among people. This is what is known as physical AI.</p>
+        <p>It is within this context that I do my research. My thesis is that the task should become the unit by which networks are designed and operated, as the packet and the flow are today. A task states the output it needs, its deadline, and the error it tolerates, and from this the network can derive what to communicate, what to store, and where to compute. I want these networks to be sovereign, trustworthy, and sustainable.</p>
+        <p>Two lines of work carry this program. In post-Shannon communication, the network delivers what the task requires instead of every bit. In network coding, one code can protect information both in transit and in storage. I care about the path from theory to systems, so much of this work ends in an emulator, a testbed, or a demonstrator.</p>
+        <p>I grew up in Venezuela, where I studied electrical engineering at Universidad Simón Bolívar. I moved to Denmark for an M.Sc. in wireless communication systems at Aalborg University, and in 2015 I joined TU Dresden, where I received my doctorate in 2022.</p>
       </div>
     </article>
     <aside class="panel" aria-labelledby="now-title">
@@ -77,15 +75,6 @@ nav: home
       </ul>
     </aside>
   </div>
-
-  <figure class="panel figure-panel" id="vision">
-    <div class="eyebrow">Vision</div>
-    <div class="figure-card">
-      @@FIGURE:vision.svg@@
-    </div>
-    <p class="figure-hint">Scroll sideways to see the whole figure.</p>
-    <figcaption><strong>My vision: from networks that transport to networks whose nodes sense and act.</strong> Nodes differ in how much they can communicate, store, compute, sense, and act. The requirements are the same for all of them: sovereign, trustworthy, and sustainable.</figcaption>
-  </figure>
 
   <div class="stats" style="margin-top:20px">
     <a class="stat" href="publications/"><div class="stat-label">Journal articles</div><div class="stat-value">@@COUNT_JOURNAL@@</div><div class="stat-sub">Peer-reviewed journals</div></a>
@@ -104,14 +93,6 @@ nav: home
     </div>
   </div>
   <div class="themes">
-    <figure class="panel figure-panel" id="research-directions">
-      <div class="eyebrow">Research directions</div>
-      <div class="figure-card">
-        @@FIGURE:research-directions.svg@@
-      </div>
-      <p class="figure-hint">Scroll sideways to see the whole figure.</p>
-      <figcaption><strong>Three research directions.</strong> A task states the output it needs, its deadline, and the error it tolerates. The network then has to maintain the state the task requires, determine what must be communicated, and decide where computation runs and how it recovers.</figcaption>
-    </figure>
     <article class="panel theme" id="foundations">
       <div class="eyebrow">Foundations</div>
       <h3>Networks that communicate, store, and compute</h3>
