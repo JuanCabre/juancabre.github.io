@@ -53,30 +53,6 @@ BROWSERS = ('chrome-headless-shell', 'google-chrome', 'google-chrome-stable', 'c
             'chrome', 'microsoft-edge')
 
 
-FIGURES = ROOT / 'figures'
-FIGURE_FONT = "Inter, 'Helvetica Neue'"
-
-
-def figure_svg(name):
-    """A figure from figures/, ready to be placed inline in a page.
-
-    Inline, the figure's text uses the site's own Inter, so it looks as it was drawn; as an
-    image file it would fall back to whatever sans-serif font the visitor has installed.
-    """
-    path = FIGURES / name
-    if path.suffix != '.svg' or path.parent != FIGURES or not path.is_file():
-        raise FileNotFoundError(f'figures/{name} is missing')
-    text = path.read_text(encoding='utf-8')
-    text = re.sub(r'<\?xml[^>]*\?>\s*', '', text)
-    # Provenance blobs and empty metadata that some tools add carry nothing the page needs.
-    text = re.sub(r'\s*<c2pa:manifest>.*?</c2pa:manifest>', '', text, flags=re.S)
-    text = re.sub(r'\s*<metadata>\s*</metadata>', '', text)
-    text = re.sub(r'\s+xmlns:c2pa="[^"]*"', '', text)
-    text = text.replace(f'font-family="{FIGURE_FONT}', f'font-family="\'Inter Variable\', {FIGURE_FONT}')
-    text = re.sub(r'<svg\b', '<svg class="figure-svg" aria-hidden="true" focusable="false"', text, count=1)
-    return text.strip()
-
-
 def snapshot_date(path):
     """Date of the last change to the bibliography: its last commit, else the file date."""
     try:
@@ -284,8 +260,6 @@ def build(output, site_url=None, pdf='auto'):
 
         def replace(match, page=page, name=name):
             key, argument = match[1], match[2]
-            if key == 'FIGURE':
-                return figure_svg(argument)
             if argument is not None:
                 if key not in lookups:
                     raise KeyError(f'{name}: unknown token @@{key}:{argument}@@')
