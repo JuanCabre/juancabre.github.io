@@ -34,7 +34,7 @@ leads to the printable page instead. The deployment always makes the PDF.
 | `templates/base.html` | The frame shared by all pages: navigation rail, footer |
 | `templates/list.html` | The printable publication list, the source of the PDF |
 | `static/` | Copied as it is: styles, scripts, fonts, portrait, the CV PDF |
-| `figures/` | SVG figures placed inline in the home page (vision, research agenda) |
+| `figures/` | SVG figures placed inline in the home page (vision, research directions) |
 | `pipeline/` | BibTeX parsing, duplicate removal, venue and name matching |
 | `tests/` | Checks on the bibliography and on the built pages |
 
