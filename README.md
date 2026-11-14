@@ -106,5 +106,8 @@ Pull requests are tested and built but not deployed.
 ## Privacy by construction
 
 The pages set no cookies and load nothing from other servers: fonts, scripts, and styles
-are part of the repository. A test guards this. The e-mail address is assembled in the
+are part of the repository. A test guards this. The one exception is the cookieless
+[GoatCounter](https://www.goatcounter.com/) counter (`templates/base.html` and
+`templates/list.html`), described on the legal page; the test allows exactly that tag and
+checks that every page carries it once. Dashboard: https://quitapesares.goatcounter.com/ The e-mail address is assembled in the
 browser so that it does not sit in the page source as one string.

@@ -96,12 +96,22 @@ class BuiltSite(unittest.TestCase):
                 with self.subTest(page=str(page.relative_to(self.site)), link=link):
                     self.assertTrue(target.is_file(), f'{link} does not exist')
 
+    # The only resource from another server: the GoatCounter visitor counter.
+    COUNTER = '<script data-goatcounter="https://quitapesares.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>'
+
     def test_nothing_is_loaded_from_other_servers(self):
         external = re.compile(r'<(?:script|link|img|iframe)\b[^>]*\b(?:src|href)="(https?:)?//[^"]+"[^>]*>')
         for page in self.pages:
             for tag in external.finditer(page.read_text(encoding='utf-8')):
+                if tag[0] == self.COUNTER[:-len('</script>')]:
+                    continue
                 with self.subTest(page=page.name):
                     self.assertIn('rel="canonical"', tag[0], f'External resource: {tag[0]}')
+
+    def test_every_page_counts_visits_once(self):
+        for page in self.pages:
+            with self.subTest(page=page.name):
+                self.assertEqual(page.read_text(encoding='utf-8').count(self.COUNTER), 1)
 
     def test_printable_list_holds_every_entry(self):
         text = (self.site / build.LIST_PAGE).read_text(encoding='utf-8')
