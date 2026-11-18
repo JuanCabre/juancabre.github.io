@@ -46,7 +46,7 @@ nav: home
     <div>
       <div class="eyebrow">Networks for physical AI · Coded transport, storage, and computing · Post-Shannon communication</div>
       <h1>Juan A. Cabrera</h1>
-      <p class="subtitle">Junior Research Group Leader at the Centre for Tactile Internet with Human-in-the-Loop (CeTI), Technische Universität Dresden.</p>
+      <p class="subtitle">Junior Research Group Leader in the Cluster of Excellence Centre for Tactile Internet with Human-in-the-Loop (CeTI), Technische Universität Dresden.</p>
     </div>
     <div class="actions">
       <a class="button primary" href="publications/">Publications</a>
@@ -60,8 +60,8 @@ nav: home
     <article class="panel">
       <div class="prose">
         <p class="lead">I want to understand how we must design networks so that humans and embodied AI agents can coexist and collaborate in the world they share.</p>
-        <p>I understand communication networks as infrastructure for communication, storage, and computing. This idea has shaped my work on coded transport, coded storage, and coded computing since my doctorate. Now, networks are moving even further. Their nodes sense and act, and some of them are embodied AI agents: robots and machines that run learned models and work among people. This is what is known as physical AI.</p>
-        <p>It is within this context that I do my research. My thesis is that the task should become the unit by which networks are designed and operated, as the packet and the flow are today. A task states the output it needs, its deadline, and the error it tolerates, and from this the network can derive what to communicate, what to store, and where to compute. I want these networks to be sovereign, trustworthy, and sustainable.</p>
+        <p>I understand communication networks as infrastructure for communication, storage, and computing. This idea has shaped my work on coded transport, coded storage, and coded computing since my doctorate. Now, networks are moving even further. Their nodes sense and act, and some of them are embodied AI agents: robots and machines that run learned models and work among people. Together with the sensors, machines, and infrastructure around them, they form physical AI.</p>
+        <p>It is within this context that I do my research. My central hypothesis is that the task should become the unit by which networks are designed and operated, as the packet and the flow are today. A task specifies the output it needs, its deadline, and the error it tolerates, and from this the network can determine what to communicate, what to store, and where to compute. I want these networks to be sovereign, trustworthy, and sustainable.</p>
         <p>Two lines of work carry this program. In post-Shannon communication, the network delivers what the task requires instead of every bit. In network coding, one code can protect information both in transit and in storage. I care about the path from theory to systems, so much of this work ends in an emulator, a testbed, or a demonstrator.</p>
         <p>I grew up in Venezuela, where I studied electrical engineering at Universidad Simón Bolívar. I moved to Denmark for an M.Sc. in wireless communication systems at Aalborg University, and in 2015 I joined TU Dresden, where I received my doctorate in 2022.</p>
       </div>
@@ -72,7 +72,7 @@ nav: home
         <li><strong>Junior Research Group Leader</strong><span>CeTI, TU Dresden · since October 2026</span></li>
         <li><strong>Co-founder and Managing Director</strong><span>Ecologic-Computing GmbH · since 2023</span></li>
         <li><strong>Research area leader, computing and communication</strong><span>CeTI, TU Dresden</span></li>
-        <li><strong>Group lead, post-Shannon communication and analog computing</strong><span>Deutsche Telekom Chair of Communication Networks, TU Dresden · since 2022</span></li>
+        <li><strong>Research group leader, post-Shannon communication and analog computing</strong><span>Deutsche Telekom Chair of Communication Networks, TU Dresden · since 2022</span></li>
       </ul>
     </aside>
   </div>
@@ -123,20 +123,12 @@ nav: home
       <div class="eyebrow">Direction 2</div>
       <h3>Communicating to coordinate distributed tasks</h3>
       <p class="question">What must nodes exchange to coordinate a task correctly and on time?</p>
+      <p>Between AI agents, the question extends from representing information to organizing interactions: who asks whom, in what order, and by which deadline.</p>
       <div class="subthemes">
         <section class="subtheme">
-          <h4>Task-oriented communication with identification codes</h4>
-          <p class="question">Does a receiver need the whole message to perform its task?</p>
-          <p>In message identification, the receiver only checks whether one event of interest occurred, which requires far fewer bits than transmitting the message. We proposed performance metrics for identification codes that are closer to practical systems than the asymptotic bounds, and we wrote a tutorial that opens these codes to communication engineers outside information theory. Together with the Chair of Communication Networks at TU Munich, we applied them to a truck platoon whose vehicles send short tags to verify their local control decisions against an edge server at the base station. In simulation, this hybrid scheme needed about four times less traffic than fully centralized control.</p>
-          <ul class="cite-list">
-            @@PUB:lengerke2023beyond@@
-            @@PUB:lengerke2026codes@@
-            @@PUB:kutsevol2025distributed@@
-          </ul>
-        </section>
-        <section class="subtheme">
-          <h4>Functional and semantic compression</h4>
-          <p>Functional compression sends what the receiver needs to compute a function of the data, instead of the data itself. We merged the views of several cameras at edge application servers through multilevel semantic compression and mapped the design onto the 3GPP architecture for edge computing in 5G, in collaboration with Nokia. The evaluation uses an open-source prototype on commodity hardware with a simulated network. The balancing robot demonstration is under <a href="#demonstrators">Demonstrators</a>.</p>
+          <h4>Task-oriented communication: functional and semantic compression</h4>
+          <p class="question">Does a receiver need all the data to perform its task?</p>
+          <p>In 6G-life, I proposed practical functional compression for networked control as a research direction and guided the two doctoral researchers who developed it. Functional compression sends what the receiver needs to compute a function of the data, instead of the data itself. We also merged the views of several cameras at edge application servers through multilevel semantic compression and mapped the design onto the 3GPP architecture for edge computing in 5G, in collaboration with Nokia. The evaluation uses an open-source prototype on commodity hardware with a simulated network. The ball-balancing robot demonstration is under <a href="#demonstrators">Demonstrators</a>.</p>
           <ul class="cite-list">
             @@PUB:rezwan2025mlcxr@@
             @@PUB:rezwan2026aicxr@@
@@ -144,9 +136,18 @@ nav: home
           </ul>
         </section>
         <section class="subtheme">
-          <h4>Function computation over networks</h4>
+          <h4>Identification codes</h4>
+          <p>In message identification, the receiver only checks whether one event of interest occurred, which requires far fewer bits than transmitting the message. We proposed performance metrics for identification codes that are closer to practical systems than the asymptotic bounds, and we wrote a tutorial that opens these codes to communication engineers outside information theory. Together with the Chair of Communication Networks at TU Munich, we applied them to a truck platoon whose vehicles send short tags to verify their local control decisions against an edge server at the base station. In simulation, this hybrid scheme reduced resource consumption at least fourfold compared to fully centralized control.</p>
+          <ul class="cite-list">
+            @@PUB:lengerke2023beyond@@
+            @@PUB:lengerke2026codes@@
+            @@PUB:kutsevol2025distributed@@
+          </ul>
+        </section>
+        <section class="subtheme">
+          <h4>Function computation and networked coordination</h4>
           <p class="question">Can nodes test whether they agree without exchanging their full states?</p>
-          <p>Together with Holger Boche's group at TU Munich, we studied this question for relay networks, and we linked message identification to the computation of a function chosen by the receiver. The same line of work led to a German patent on communication devices and methods for message identification. Between AI agents, the question extends from representing information to organizing interactions: who asks whom, in what order, and by which deadline.</p>
+          <p>In 6G-life, together with Holger Boche's group at TU Munich, we studied this question for relay networks. I contributed the systems perspective and co-developed the link between message identification and the computation of a function chosen by the receiver. The same line of work led to a German patent on communication devices and methods for message identification.</p>
           <ul class="cite-list">
             @@PUB:rosenberger2025stochastic@@
             @@PUB:rosenberger2025towards@@
@@ -157,10 +158,10 @@ nav: home
     <article class="panel theme theme-wide" id="direction-3">
       <div class="theme-text">
       <div class="eyebrow">Direction 3</div>
-      <h3>Executing and recovering distributed computation</h3>
+      <h3>Executing and recovering reliable distributed computation</h3>
       <p class="question">Where should computation run, and how should it recover as resources and connections change?</p>
-      <p>Faster execution on one processor can be outweighed by transfers, queues, migration, and recovery, and processors differ widely in the energy they need for the same task. A decision on where computation runs has to know these differences. We benchmarked four edge AI accelerator technologies, i.e., a tensor processing unit, a neural processing unit, an in-memory AI processing unit, and a GPU system-on-chip, against two general-purpose GPUs. For object detection models, we measured throughput, detection accuracy, power consumption, and CO<sub>2</sub> emissions. I supervised and guided the doctoral researcher who led the study. The in-memory accelerator reached a throughput between those of the two GPUs at about 6 W, compared to 82 W for the faster GPU. The study covers one dataset and one family of models, and it measures processors, not yet networks.</p>
-      <p>Placing computation across robots and servers with these costs in mind is the open part of this direction. The MUSE demonstrator below is a first step, and coded computing, which I began to study in my dissertation, is my formal starting point. A German patent from this line describes a selector that chooses a computing substrate, such as analog, digital, or biological platforms, according to the requirements of the task.</p>
+      <p>Faster execution on one processor can be outweighed by transfers, queues, migration, and recovery, and processors differ widely in the energy they need for the same task. A decision on where computation runs has to know these differences. In the gAIn project, we benchmarked four edge AI accelerator technologies, i.e., a tensor processing unit, a neural processing unit, an in-memory AI processing unit, and a GPU system-on-chip, against two general-purpose GPUs. For object detection models, we measured throughput, detection accuracy, power consumption, and CO<sub>2</sub> emissions. I supervised and guided the doctoral researcher who led the study. The in-memory accelerator reached a throughput between those of the two GPUs at about 6 W, compared to 82 W for the faster GPU. The study covers one dataset and one family of models, and it measures processors, not yet networks.</p>
+      <p>Placing computation across robots and servers with these costs in mind is the open part of this direction, and the MUSE demonstrator below is a first step. Recovery concerns the task and not only the service: restarting a failed node may be insufficient if others have already acted on its results. Coded computing, which I began to study in my dissertation and in my Software Campus project, is my formal starting point: it adds redundancy to computation as coding adds it to transport and storage. A German patent from this line describes a selector that chooses a computing substrate, such as analog, digital, or biological platforms, according to the requirements of the task.</p>
       </div>
       <ul class="cite-list">
         @@PUB:rezwan2026performance@@
@@ -201,7 +202,7 @@ nav: home
       <div class="tag-row"><span class="badge">Direction 2</span><span class="badge award-badge">Best Demo Award</span></div>
       <h3><a href="@@PUBLINK:rezwan2024balancing@@">@@PUBTITLE:rezwan2024balancing@@</a></h3>
       <div class="venue">IEEE CCNC 2024, Las Vegas · Demonstration</div>
-      <p>Functional compression in the control loop of a real balancing robot. Functional compression sends what the receiver needs to compute a function of the data, instead of the data itself.</p>
+      <p>Functional compression in the control loop of a real ball-balancing robot. Functional compression sends what the receiver needs to compute a function of the data, instead of the data itself.</p>
       <div class="people">@@PUBAUTHORS:rezwan2024balancing@@</div>
     </article>
   </div>
@@ -223,11 +224,13 @@ nav: home
       <div class="eyebrow">Positions</div>
       <dl class="rows">
         <dt>Oct 2026 – today</dt>
-        <dd><strong>Junior Research Group Leader</strong>, Centre for Tactile Internet with Human-in-the-Loop (CeTI), TU Dresden<small>Also research area leader for computing and communication in CeTI.</small></dd>
+        <dd><strong>Junior Research Group Leader</strong>, Cluster of Excellence Centre for Tactile Internet with Human-in-the-Loop (CeTI), TU Dresden<small>Leading the research group on post-Shannon communication and analog computing at the Deutsche Telekom Chair of Communication Networks. Also leader of CeTI's research area on computing and communication, where I coordinate the contributions of the principal investigators to shared testbeds.</small></dd>
         <dt>2023 – today</dt>
         <dd><strong>Co-founder and Managing Director</strong>, Ecologic-Computing GmbH<small>A spin-off that focuses on reducing energy consumption in communication systems.</small></dd>
         <dt>2022 – today</dt>
-        <dd><strong>Postdoctoral researcher</strong>, Deutsche Telekom Chair of Communication Networks, TU Dresden<small>Leading the research group on post-Shannon communication and analog computing.</small></dd>
+        <dd><strong>Research group leader</strong>, post-Shannon communication and analog computing, Deutsche Telekom Chair of Communication Networks, TU Dresden<small>I set the group's research strategy, direct the work of its doctoral researchers, and manage its administration.</small></dd>
+        <dt>Apr 2019</dt>
+        <dd><strong>Research visit</strong> (two weeks), group of Professor Muriel Médard, Massachusetts Institute of Technology (MIT), USA</dd>
         <dt>2015 – 2022</dt>
         <dd><strong>Research Assistant</strong>, TU Dresden</dd>
       </dl>
@@ -287,13 +290,14 @@ nav: home
         <dt>2016 – 2025</dt>
         <dd><strong>Practical Implementations of Network Coding</strong>, TU Dresden</dd>
         <dt>2018</dt>
-        <dd><strong>Advanced Topics in Signal Processing</strong>, TU Munich</dd>
+        <dd><strong>Practical Implementations of Network Coding</strong>, TU Munich</dd>
       </dl>
     </article>
     <aside class="panel">
       <div class="eyebrow">Supervision</div>
       <ul class="now-list">
-        <li><strong>5 doctoral researchers</strong><span>Guidance and co-supervision as a postdoc, 2022 to 2026</span></li>
+        <li><strong>7 doctoral researchers</strong><span>Directing their work as research group leader, four of them in the gAIn project</span></li>
+        <li><strong>5 doctoral researchers guided to graduation</strong><span>2022 to 2026</span></li>
         <li><strong>15+ M.Sc. theses and seminar projects</strong><span>Supervised since 2016</span></li>
       </ul>
     </aside>
