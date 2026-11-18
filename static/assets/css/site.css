@@ -314,6 +314,7 @@ a.cite-title:hover { color: var(--accent-strong); text-decoration: underline; }
 .rows dd small { display: block; color: var(--muted); font-size: 13px; line-height: 1.55; margin-top: 3px; }
 
 .award-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.award-grid.pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .award-card { border: 1px solid var(--award-line); background: var(--award-bg); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
 .award-card .recognition { color: var(--award-ink); font-size: 12.5px; font-weight: 650; }
 .award-card h3 { font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
@@ -492,7 +493,7 @@ footer.site-footer a { color: var(--muted); }
   h2 { font-size: 24px; }
   .lead { font-size: 20px; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .themes, .two-col, .contact-grid, .award-grid, .demo-grid { grid-template-columns: minmax(0, 1fr); }
+  .themes, .two-col, .contact-grid, .award-grid, .award-grid.pair, .demo-grid { grid-template-columns: minmax(0, 1fr); }
   .theme-wide { grid-template-columns: minmax(0, 1fr); }
   .subthemes { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .theme-wide .cite-list { border-left: 0; border-top: 1px solid var(--line-soft); margin: 4px 0 0; padding: 14px 0 0; }
