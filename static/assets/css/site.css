@@ -235,6 +235,12 @@ main { display: block; flex: 1 0 auto; width: 100%; }
   align-items: end; padding-block: clamp(24px, 3vw, 40px) 20px;
 }
 .hero-map { grid-column: 1 / -1; margin-top: 12px; }
+.hero-id { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 24px; align-items: start; }
+.hero-id > :not(.portrait) { grid-column: 2; }
+.portrait {
+  grid-row: 1 / span 3; width: 128px; height: 128px; object-fit: cover; margin-top: 4px;
+  border-radius: 4px; background: var(--platform);
+}
 .hero-where { font-weight: 600; color: var(--muted); margin-bottom: 14px; }
 .hero-where a { color: inherit; text-decoration-color: var(--rule); }
 .hero-where a:hover { color: var(--ink); }
@@ -691,4 +697,11 @@ input[type=checkbox], input[type=range] { accent-color: var(--accent); }
 /* Phones: the year sits above the title so the title gets the full width. */
 @media (max-width: 520px) {
   .pub { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
+
+/* Phones: the portrait sits beside the name, the role runs full width below. */
+@media (max-width: 640px) {
+  .hero-id { column-gap: 16px; }
+  .portrait { grid-row: 1 / span 2; width: 84px; height: 84px; margin-top: 0; }
+  .hero-id > .hero-role { grid-column: 1 / -1; }
 }
