@@ -3,3 +3,9 @@ __pycache__/
 *.pyc
 .DS_Store
 node_modules/
+
+# Private design notes, kept outside this public repository
+PRODUCT.md
+DESIGN.md
+design-system/
+.impeccable/

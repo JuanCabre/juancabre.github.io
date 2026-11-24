@@ -27,74 +27,77 @@ nav: home
 }
 </script>
 <!-- @section pagenav -->
-<a class="nav-link" href="#about">About</a>
 <a class="nav-link" href="#research">Research</a>
 <a class="nav-link" href="#demonstrators">Demonstrators</a>
-<a class="nav-link" href="#career">Career and education</a>
-<a class="nav-link" href="#funding">Funded projects</a>
+<a class="nav-link" href="#career">Career</a>
+<a class="nav-link" href="#funding">Funding</a>
 <a class="nav-link" href="#teaching">Teaching</a>
-<a class="nav-link" href="#recognition">Recognition and transfer</a>
+<a class="nav-link" href="#recognition">Recognition</a>
 <a class="nav-link" href="#contact">Contact</a>
 <!-- @section main -->
-<div class="topbar">
-  <div class="breadcrumb"><a href="https://cn.ifn.et.tu-dresden.de/">TU Dresden</a> <span>/</span> <a href="https://ceti.one/">CeTI</a> <span>/</span> Juan A. Cabrera</div>
-  <span class="pill">Junior Research Group Leader</span>
-</div>
-
-<section id="about">
-  <div class="title-row">
-    <div>
-      <div class="eyebrow">Networks for physical AI · Coded transport, storage, and computing · Post-Shannon communication</div>
-      <h1>Juan A. Cabrera</h1>
-      <p class="subtitle">Junior Research Group Leader in the Cluster of Excellence Centre for Tactile Internet with Human-in-the-Loop (CeTI), Technische Universität Dresden.</p>
-    </div>
+<section class="hero" id="about" aria-labelledby="name">
+  <div class="hero-id">
+    <p class="hero-where"><a href="https://ceti.one/">CeTI</a>, <a href="https://cn.ifn.et.tu-dresden.de/">TU Dresden</a></p>
+    <h1 id="name">Juan A. Cabrera</h1>
+    <p class="hero-role"><strong>Junior Research Group Leader</strong> in the Cluster of Excellence Centre for Tactile Internet with Human-in-the-Loop (CeTI), Technische Universität Dresden</p>
+  </div>
+  <div class="hero-text">
+    <p class="thesis">I want to understand how we must design networks so that humans and embodied AI agents can coexist and collaborate in the world they share.</p>
     <div class="actions">
       <a class="button primary" href="publications/">Publications</a>
-      <a class="button" href="@@CV_FILE@@">Curriculum vitae (PDF)</a>
-      <a class="button" href="@@PUBLIST_FILE@@">Publication list (PDF)</a>
+      <a class="button" href="@@CV_FILE@@">CV (PDF)</a>
       <a class="button" href="#contact">Contact</a>
     </div>
   </div>
+  <figure class="hero-map">
+    @@NETMAP@@
+    <figcaption class="map-legend">
+      <span class="lg"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="5" class="lg-paper"/></svg>Paper</span>
+      <span class="lg"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x="3" y="3" width="10" height="10" class="lg-demo"/></svg>Demonstrator</span>
+      <span class="lg"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 1.5 14.5 8 8 14.5 1.5 8Z" class="lg-patent"/></svg>Patent</span>
+      <span class="lg-note">Along each line, stations run by year. Select one to read about it.</span>
+    </figcaption>
+  </figure>
+</section>
 
-  <div class="about-grid">
-    <article class="panel">
-      <div class="prose">
-        <p class="lead">I want to understand how we must design networks so that humans and embodied AI agents can coexist and collaborate in the world they share.</p>
-        <p>I understand communication networks as infrastructure for communication, storage, and computing. This idea has shaped my work on coded transport, coded storage, and coded computing since my doctorate. Now, networks are moving even further. Their nodes sense and act, and some of them are embodied AI agents: robots and machines that run learned models and work among people. Together with the sensors, machines, and infrastructure around them, they form physical AI.</p>
+<section class="record" aria-label="Record at a glance">
+  <dl class="record-list">
+    <div><dt>Journal articles</dt><dd><a href="publications/?type=Journal%20article#library">@@COUNT_JOURNAL@@</a></dd></div>
+    <div><dt>Conference papers</dt><dd><a href="publications/?type=Conference%20paper#library">@@COUNT_CONFERENCE@@</a></dd></div>
+    <div><dt>Book chapters</dt><dd><a href="publications/?type=Book%20chapter#library">@@COUNT_BOOK@@</a></dd></div>
+    <div><dt>Granted German patents</dt><dd><a href="#patents">@@COUNT_PATENT@@</a></dd></div>
+    <div><dt>Doctoral researchers guided to graduation</dt><dd><a href="#teaching">5</a></dd></div>
+  </dl>
+</section>
+
+<section class="intro" id="about-text" aria-labelledby="intro-title">
+  <h2 id="intro-title" class="visually-hidden">About me</h2>
+  <div class="prose">
+    <p>I understand communication networks as infrastructure for communication, storage, and computing. This idea has shaped my work on coded transport, coded storage, and coded computing since my doctorate. Now, networks are moving even further. Their nodes sense and act, and some of them are embodied AI agents: robots and machines that run learned models and work among people. Together with the sensors, machines, and infrastructure around them, they form physical AI.</p>
         <p>It is within this context that I do my research. My central hypothesis is that the task should become the unit by which networks are designed and operated, as the packet and the flow are today. A task specifies the output it needs, its deadline, and the error it tolerates, and from this the network can determine what to communicate, what to store, and where to compute. I want these networks to be sovereign, trustworthy, and sustainable.</p>
         <p>Two lines of work carry this program. In post-Shannon communication, the network delivers what the task requires instead of every bit. In network coding, one code can protect information both in transit and in storage. I care about the path from theory to systems, so much of this work ends in an emulator, a testbed, or a demonstrator.</p>
         <p>I grew up in Venezuela, where I studied electrical engineering at Universidad Simón Bolívar. I moved to Denmark for an M.Sc. in wireless communication systems at Aalborg University, and in 2015 I joined TU Dresden, where I received my doctorate in 2022.</p>
-      </div>
-    </article>
-    <aside class="panel" aria-labelledby="now-title">
-      <div class="eyebrow" id="now-title">Current roles</div>
-      <ul class="now-list">
-        <li><strong>Junior Research Group Leader</strong><span>CeTI, TU Dresden · since October 2026 · leading the computing and communication area</span></li>
-        <li><strong>Co-founder and Managing Director</strong><span>Ecologic-Computing GmbH · since 2023</span></li>
-        <li><strong>Research group leader, post-Shannon communication and analog computing</strong><span>Deutsche Telekom Chair of Communication Networks, TU Dresden · since 2022</span></li>
-      </ul>
-    </aside>
   </div>
-
-  <div class="stats" style="margin-top:20px">
-    <a class="stat" href="publications/"><div class="stat-label">Journal articles</div><div class="stat-value">@@COUNT_JOURNAL@@</div><div class="stat-sub">Peer-reviewed journals</div></a>
-    <a class="stat" href="publications/"><div class="stat-label">Conference papers</div><div class="stat-value">@@COUNT_CONFERENCE@@</div><div class="stat-sub">Proceedings contributions</div></a>
-    <a class="stat" href="publications/"><div class="stat-label">Book chapters</div><div class="stat-value">@@COUNT_BOOK@@</div><div class="stat-sub">In edited volumes</div></a>
-    <a class="stat" href="#recognition"><div class="stat-label">Granted patents</div><div class="stat-value">@@COUNT_PATENT@@</div><div class="stat-sub">German patents</div></a>
-  </div>
+  <aside class="roles" aria-labelledby="roles-title">
+    <h2 id="roles-title" class="minor">Current roles</h2>
+    <ul class="role-list">
+      <li><strong>Junior Research Group Leader</strong><span>CeTI, TU Dresden, since October 2026</span><span>Leading the computing and communication area</span></li>
+      <li><strong>Co-founder and Managing Director</strong><span>Ecologic-Computing GmbH, since 2023</span></li>
+      <li><strong>Research group leader, post-Shannon communication and analog computing</strong><span>Deutsche Telekom Chair of Communication Networks, TU Dresden, since 2022</span></li>
+    </ul>
+  </aside>
 </section>
 
 <section id="research">
   <div class="section-title">
     <div>
-      <div class="eyebrow">What I work on</div>
       <h2><a class="section-link" href="#research">Research<span class="hash" aria-hidden="true">#</span></a></h2>
-      <p>Three research directions and the foundations they build on, each with the papers that best show what it is about. Journal articles come first. The complete list is on the <a href="publications/">publications page</a>.</p>
+      <p>Three research directions and the foundations they build on, each drawn as one line of the map above, with the papers that best show what it is about. Journal articles come first. The complete list is on the <a href="publications/">publications page</a>.</p>
     </div>
   </div>
   <div class="themes">
-    <article class="panel theme" id="foundations">
-      <div class="eyebrow">Foundations</div>
+    <article class="theme" id="foundations" data-line="F">
+      <p class="line-name"><span class="line-bullet" data-line="F" aria-hidden="true">F</span>Foundations</p>
       <h3>Networks that communicate, store, and compute</h3>
       <p class="question">How do we design communication and computing together?</p>
       <p>I approach networks as programmable infrastructure in which communication and computing are designed together. Software-defined networking, network function virtualization, and network coding can be combined in the mobile edge cloud to meet the latency and resilience requirements of the Tactile Internet. To test such ideas on commodity hardware, I helped build and evaluate ComNetsEmu, an open-source emulator for software-defined and virtualized networks, and I have taught its use in several IEEE tutorials together with Professors Frank H. P. Fitzek and Fabrizio Granelli.</p>
@@ -104,8 +107,8 @@ nav: home
         @@PUB:cabrera2022design@@
       </ul>
     </article>
-    <article class="panel theme" id="direction-1">
-      <div class="eyebrow">Direction 1</div>
+    <article class="theme" id="direction-1" data-line="1">
+      <p class="line-name"><span class="line-bullet" data-line="1" aria-hidden="true">1</span>Direction 1</p>
       <h3>Maintaining state across transport and storage</h3>
       <p class="question">How does a network keep the state a task requires available under failures, mobility, and updates?</p>
       <p>Storage is communication across time, so the codes that make transport reliable can also keep stored information available. On the transport side, PACE engineers the redundancy of random linear network codes so that coded packets meet low-latency targets. SpaRec keeps recoding sparse and systematic at intermediate nodes of multi-hop networks. OneCode uses a single random linear network code to generate packets, recode them over several hops, and repair the redundancy that is lost when nodes fail. In related work, we study peers at the network edge that cache network-coded content and leave or fail over time, and we define a measure, the grade, of how far the coded cache has degraded. For embodied agents, this state is what they have sensed and learned: maps, the memory of past tasks, and model checkpoints.</p>
@@ -118,8 +121,8 @@ nav: home
         @@PUB:schwenteck2023coding@@
       </ul>
     </article>
-    <article class="panel theme theme-group" id="direction-2">
-      <div class="eyebrow">Direction 2</div>
+    <article class="theme theme-group" id="direction-2" data-line="2">
+      <p class="line-name"><span class="line-bullet" data-line="2" aria-hidden="true">2</span>Direction 2</p>
       <h3>Communicating to coordinate distributed tasks</h3>
       <p class="question">What must nodes exchange to coordinate a task correctly and on time?</p>
       <p>Between AI agents, the question extends from representing information to organizing interactions: who asks whom, in what order, and by which deadline.</p>
@@ -154,14 +157,12 @@ nav: home
         </section>
       </div>
     </article>
-    <article class="panel theme theme-wide" id="direction-3">
-      <div class="theme-text">
-      <div class="eyebrow">Direction 3</div>
+    <article class="theme" id="direction-3" data-line="3">
+            <p class="line-name"><span class="line-bullet" data-line="3" aria-hidden="true">3</span>Direction 3</p>
       <h3>Executing and recovering reliable distributed computation</h3>
       <p class="question">Where should computation run, and how should it recover as resources and connections change?</p>
       <p>Faster execution on one processor can be outweighed by transfers, queues, migration, and recovery, and processors differ widely in the energy they need for the same task. A decision on where computation runs has to know these differences. In the gAIn project, we benchmarked four edge AI accelerator technologies, i.e., a tensor processing unit, a neural processing unit, an in-memory AI processing unit, and a GPU system-on-chip, against two general-purpose GPUs. For object detection models, we measured throughput, detection accuracy, power consumption, and CO<sub>2</sub> emissions. I supervised and guided the doctoral researcher who led the study. The in-memory accelerator reached a throughput between those of the two GPUs at about 6 W, compared to 82 W for the faster GPU. The study covers one dataset and one family of models, and it measures processors, not yet networks.</p>
       <p>Placing computation across robots and servers with these costs in mind is the open part of this direction, and the MUSE demonstrator below is a first step. Recovery concerns the task and not only the service: restarting a failed node may be insufficient if others have already acted on its results. Coded computing, which I began to study in my dissertation and in my Software Campus project, is my formal starting point: it adds redundancy to computation as coding adds it to transport and storage. A German patent from this line describes a selector that chooses a computing substrate, such as analog, digital, or biological platforms, according to the requirements of the task.</p>
-      </div>
       <ul class="cite-list">
         @@PUB:rezwan2026performance@@
         @@PUB:rani2026small@@
@@ -172,55 +173,55 @@ nav: home
   </div>
 </section>
 
-<section id="demonstrators">
+
+<section id="demonstrators" class="band">
   <div class="section-title">
     <div>
-      <div class="eyebrow">Ideas people can interact with</div>
       <h2><a class="section-link" href="#demonstrators">Demonstrators<span class="hash" aria-hidden="true">#</span></a></h2>
       <p>Much of this work ends in a demonstrator. I guided and supervised the work behind the ones below. In the two most recent, shown at IEEE CSCN 2026 in London, visitors trigger the events themselves.</p>
     </div>
   </div>
-  <div class="demo-grid">
-    <article class="panel demo-card">
-      <div class="tag-row"><span class="badge">Direction 3</span></div>
+  <div class="demo-row">
+    <article class="demo" id="p-nazari2026muse" data-line="3">
+      <div class="tag-row"><span class="line-bullet" data-line="3" aria-hidden="true">3</span><span class="tag">Direction 3</span></div>
       <h3>@@PUBTITLE:nazari2026muse@@</h3>
-      <div class="venue">IEEE CSCN 2026, London · Demonstration</div>
+      <div class="venue">IEEE CSCN 2026, London, demonstration</div>
       <p>Drones on a simulated factory floor offload four types of tasks to two edge servers and a cloud. A slow loop, in which a world model and a language model interpret events such as a person approaching the entrance, raises the urgency of the affected task. A fast reinforcement-learning scheduler then decides where each task runs. The language model never allocates resources itself, and deterministic checks validate its output. Visitors trigger events on a tablet and watch the urgent task move to a faster edge server.</p>
       <p>With four open language models, the slow loop took between 0.3 s and 3.8 s per update, which is why it stays out of the time-critical loop.</p>
       <div class="people">@@PUBAUTHORS:nazari2026muse@@</div>
     </article>
-    <article class="panel demo-card">
-      <div class="tag-row"><span class="badge">Direction 2</span></div>
+    <article class="demo" id="p-nazari2026semantic" data-line="2">
+      <div class="tag-row"><span class="line-bullet" data-line="2" aria-hidden="true">2</span><span class="tag">Direction 2</span></div>
       <h3>@@PUBTITLE:nazari2026semantic@@</h3>
-      <div class="venue">IEEE CSCN 2026, London · Demonstration</div>
+      <div class="venue">IEEE CSCN 2026, London, demonstration</div>
       <p>State updates of drones, automated guided vehicles, robotic arms, and human operators on a simulated factory floor travel over real time-sensitive networking hardware. The priority and the update interval of each flow adapt at run time to the age of its information and to its safety relevance. When a drone approaches a person, its updates become more frequent and more urgent, while the transmission schedule of the network stays fixed. Visitors steer one entity with a joystick and compare the monitored view with the ground truth.</p>
       <p>The policy is a configurable set of thresholds for now; learning it is future work.</p>
       <div class="people">@@PUBAUTHORS:nazari2026semantic@@</div>
     </article>
-    <article class="panel demo-card">
-      <div class="tag-row"><span class="badge">Direction 2</span><span class="badge award-badge">Best Demo Award</span></div>
+    <article class="demo" id="p-rezwan2024balancing" data-line="2">
+      <div class="tag-row"><span class="line-bullet" data-line="2" aria-hidden="true">2</span><span class="tag">Direction 2</span><span class="badge award-badge"><svg class="star-icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.4 3.8 13.8l1-4.6L1.3 6l4.7-.5z"/></svg> Best Demo Award</span></div>
       <h3><a href="@@PUBLINK:rezwan2024balancing@@">@@PUBTITLE:rezwan2024balancing@@</a></h3>
-      <div class="venue">IEEE CCNC 2024, Las Vegas · Demonstration</div>
+      <div class="venue">IEEE CCNC 2024, Las Vegas, demonstration</div>
       <p>Functional compression in the control loop of a real ball-balancing robot. Functional compression sends what the receiver needs to compute a function of the data, instead of the data itself.</p>
       <div class="people">@@PUBAUTHORS:rezwan2024balancing@@</div>
     </article>
   </div>
 </section>
 
+
 <section id="career">
   <div class="section-title">
     <div>
-      <div class="eyebrow">Curriculum vitae</div>
       <h2><a class="section-link" href="#career">Career and education<span class="hash" aria-hidden="true">#</span></a></h2>
     </div>
     <div class="button-row">
       <a class="button" href="@@CV_FILE@@">Full CV (PDF)</a>
-      <a class="button" href="@@ROOT@@@@PUBLIST_FILE@@">Publication list (PDF)</a>
+      <a class="button" href="@@ROOT@@@@PUBLIST_FILE@@">@@PUBLIST_LABEL@@</a>
     </div>
   </div>
   <div class="two-col">
-    <article class="panel">
-      <div class="eyebrow">Positions</div>
+    <article class="block">
+      <h3 class="minor">Positions</h3>
       <dl class="rows">
         <dt>Oct 2026 – today</dt>
         <dd><strong>Junior Research Group Leader</strong>, Cluster of Excellence Centre for Tactile Internet with Human-in-the-Loop (CeTI), TU Dresden<small>Leading the research group on post-Shannon communication and analog computing at the Deutsche Telekom Chair of Communication Networks. I also lead CeTI's research area on computing and communication, where I coordinate the contributions of the principal investigators to shared testbeds.</small></dd>
@@ -234,8 +235,8 @@ nav: home
         <dd><strong>Research Assistant</strong>, TU Dresden</dd>
       </dl>
     </article>
-    <article class="panel">
-      <div class="eyebrow">Education</div>
+    <article class="block">
+      <h3 class="minor">Education</h3>
       <dl class="rows">
         <dt>2022</dt>
         <dd><strong>Dr.-Ing., Communication Networks</strong>, TU Dresden, Germany<small>Thesis: On the Design of Future Communication Systems with Coded Transport, Storage, and Computing. Supervisor: Prof. Dr.-Ing. Dr. h.c. Frank H. P. Fitzek.</small></dd>
@@ -251,21 +252,20 @@ nav: home
 <section id="funding">
   <div class="section-title">
     <div>
-      <div class="eyebrow">Third-party funding</div>
       <h2><a class="section-link" href="#funding">Funded projects<span class="hash" aria-hidden="true">#</span></a></h2>
     </div>
   </div>
   <div class="two-col">
-    <article class="panel demo-card">
+    <article class="project">
       <div class="tag-row"><span class="badge">BMFTR StartUpConnect</span><span class="badge">Project lead</span></div>
       <h3>PoShCodes: Specialised Post-Shannon Codes for Highly Efficient Goal-Oriented Communication</h3>
-      <div class="venue">Ecologic-Computing GmbH · July 2024 to December 2026</div>
+      <div class="venue">Ecologic-Computing GmbH, July 2024 to December 2026</div>
       <p>I originated the project, wrote the proposal, and lead it scientifically. The project develops identification-theoretic algorithms and protocols that reduce the amount of data a communication system must transmit, and it transfers these principles toward hardware implementations.</p>
     </article>
-    <article class="panel demo-card">
+    <article class="project">
       <div class="tag-row"><span class="badge">BMBF Software Campus</span><span class="badge">Project lead</span></div>
       <h3>Coded distributed computing</h3>
-      <div class="venue">TU Dresden · January 2022 to June 2023</div>
+      <div class="venue">TU Dresden, January 2022 to June 2023</div>
       <p>Software Campus funds early-career researchers to lead a research project of their own. I won the funding for this project and led it.</p>
     </article>
   </div>
@@ -274,13 +274,12 @@ nav: home
 <section id="teaching">
   <div class="section-title">
     <div>
-      <div class="eyebrow">In the lecture hall and the lab</div>
       <h2><a class="section-link" href="#teaching">Teaching and supervision<span class="hash" aria-hidden="true">#</span></a></h2>
     </div>
   </div>
   <div class="about-grid">
-    <article class="panel">
-      <div class="eyebrow">Courses</div>
+    <article class="block">
+      <h3 class="minor">Courses</h3>
       <dl class="rows">
         <dt>From summer 2027</dt>
         <dd><strong>Advanced Communication Networks</strong> (M.Sc.), TU Dresden<small>I take over as course responsible, with lectures and hands-on exercises on network function virtualization, software-defined networking, edge computing, network slicing, time-sensitive networking, and 5G.</small></dd>
@@ -292,8 +291,8 @@ nav: home
         <dd><strong>Practical Implementations of Network Coding</strong>, TU Munich</dd>
       </dl>
     </article>
-    <aside class="panel">
-      <div class="eyebrow">Supervision</div>
+    <aside class="block">
+      <h3 class="minor">Supervision</h3>
       <ul class="now-list">
         <li><strong>7 doctoral researchers</strong><span>Directing their work as research group leader, four of them in the gAIn project</span></li>
         <li><strong>5 doctoral researchers guided to graduation</strong><span>Since 2020</span></li>
@@ -306,36 +305,35 @@ nav: home
 <section id="recognition">
   <div class="section-title">
     <div>
-      <div class="eyebrow">Awards, patents, and a spin-off</div>
       <h2><a class="section-link" href="#recognition">Recognition and transfer<span class="hash" aria-hidden="true">#</span></a></h2>
     </div>
   </div>
   <div class="award-grid pair">
-    <article class="award-card">
-      <div class="recognition">✧ Best Demo Award · IEEE CCNC 2024</div>
+    <article class="award">
+      <div class="recognition"><svg class="star-icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.4 3.8 13.8l1-4.6L1.3 6l4.7-.5z"/></svg>Best Demo Award, IEEE CCNC 2024</div>
       <h3><a href="@@PUBLINK:rezwan2024balancing@@">@@PUBTITLE:rezwan2024balancing@@</a></h3>
       <p>With Sifat Rezwan and Frank H. P. Fitzek.</p>
     </article>
-    <article class="award-card">
-      <div class="recognition">✧ Best Paper Award · TNT workshop at IEEE/IFIP NOMS 2022</div>
+    <article class="award">
+      <div class="recognition"><svg class="star-icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.4 3.8 13.8l1-4.6L1.3 6l4.7-.5z"/></svg>Best Paper Award, TNT workshop at IEEE/IFIP NOMS 2022</div>
       <h3><a href="@@PUBLINK:lengerke2022stopping@@">@@PUBTITLE:lengerke2022stopping@@</a></h3>
       <p>With Caspar von Lengerke, Alexander Hefele, and Frank H. P. Fitzek.</p>
     </article>
   </div>
-  <div class="two-col" style="margin-top:16px">
-    <article class="panel">
-      <div class="eyebrow">Patents</div>
+  <div class="two-col spaced">
+    <article class="block">
+      <h3 class="minor" id="patents">Patents</h3>
       <dl class="rows">
         <dt>2026</dt>
-        <dd><strong><a href="@@PUBLINK:rosenberger2026communication@@">Communication devices and methods for message identification</a></strong><small>German patent DE 10 2024 135 379 B4, granted 2 July 2026. With Johannes Rosenberger, Frank H. P. Fitzek, and Holger Boche.</small></dd>
+        <dd id="p-rosenberger2026communication"><strong><a href="@@PUBLINK:rosenberger2026communication@@">Communication devices and methods for message identification</a></strong><small>German patent DE 10 2024 135 379 B4, granted 2 July 2026. With Johannes Rosenberger, Frank H. P. Fitzek, and Holger Boche.</small></dd>
         <dt>2024</dt>
-        <dd><strong><a href="@@PUBLINK:cabrera2024calculation@@">Calculation system and related procedure</a></strong><small>German patent DE 10 2023 114 253 B3, granted 8 August 2024. With Pit Hofmann, Frank H. P. Fitzek, and Holger Boche. It describes a selector that chooses a computing substrate, such as analog, digital, or biological platforms, according to the requirements of the task.</small></dd>
+        <dd id="p-cabrera2024calculation"><strong><a href="@@PUBLINK:cabrera2024calculation@@">Calculation system and related procedure</a></strong><small>German patent DE 10 2023 114 253 B3, granted 8 August 2024. With Pit Hofmann, Frank H. P. Fitzek, and Holger Boche. It describes a selector that chooses a computing substrate, such as analog, digital, or biological platforms, according to the requirements of the task.</small></dd>
       </dl>
     </article>
-    <article class="panel">
-      <div class="eyebrow">Research transfer</div>
-      <div class="prose" style="font-size:14.5px">
-        <p><strong style="color:var(--ink)">Ecologic-Computing GmbH.</strong> I co-founded the company in 2023 to bring this research into practice, and I serve as its managing director.</p>
+    <article class="block">
+      <h3 class="minor">Research transfer</h3>
+      <div class="prose small-prose">
+        <p><strong>Ecologic-Computing GmbH.</strong> I co-founded the company in 2023 to bring this research into practice, and I serve as its managing director.</p>
         <p>Through the company, I lead the transfer project <a href="#funding">PoShCodes</a>, funded by BMFTR StartUpConnect.</p>
       </div>
     </article>
@@ -345,19 +343,18 @@ nav: home
 <section id="contact">
   <div class="section-title">
     <div>
-      <div class="eyebrow">Get in touch</div>
       <h2><a class="section-link" href="#contact">Contact<span class="hash" aria-hidden="true">#</span></a></h2>
     </div>
   </div>
   <div class="contact-grid">
-    <article class="panel">
+    <article class="block">
       <div class="contact-lines">
         <div><span class="label">E-mail</span><span data-mail-user="juan.cabrera" data-mail-domain="tu-dresden.de">juan.cabrera (at) tu-dresden.de</span></div>
         <div><span class="label">Address</span>Centre for Tactile Internet with Human-in-the-Loop (CeTI)<br>Technische Universität Dresden<br>01062 Dresden, Germany</div>
       </div>
     </article>
-    <article class="panel">
-      <div class="eyebrow">Elsewhere</div>
+    <article class="block">
+      <h3 class="minor">Elsewhere</h3>
       <ul class="link-list">
         <li><a href="https://orcid.org/0000-0002-7525-2670" rel="me"><span>ORCID</span><span>0000-0002-7525-2670</span></a></li>
         <li><a href="https://github.com/JuanCabre" rel="me"><span>GitHub</span><span>JuanCabre</span></a></li>

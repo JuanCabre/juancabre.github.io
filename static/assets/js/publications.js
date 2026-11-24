@@ -15,12 +15,15 @@ const TYPE_COLOR = {
   'Other': 'var(--type-other)'
 };
 const TYPE_LABEL = { 'Journal': 'Journal articles', 'Conference': 'Conference papers', 'Book chapter': 'Book chapters', 'Preprint': 'Preprints', 'Other': 'Other outputs' };
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 50;
+// Chart text is drawn at real CSS pixels, never below the site's smallest step (13.8px).
+const CHART_FONT = 14;
 
 let D, TYPES, years;
 let current = [];      // entries that pass the filter bar
 let library = [];      // entries shown in the library (filter bar + search)
 let page = 0;
+const scrollBehavior = () => (window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
 
 /* ---------- Tooltip ---------- */
 function tip(event, text) {
@@ -66,7 +69,7 @@ function setPair(a, b) {
   pair = [a, b];
   $('#coauthor').value = '';
   render();
-  $('#library').scrollIntoView({ behavior: 'smooth' });
+  $('#library').scrollIntoView({ behavior: scrollBehavior() });
 }
 
 function setCoauthor(name) {
@@ -86,15 +89,14 @@ function resetFilters() {
   render();
 }
 
+// render() rebuilds the charts; keep keyboard focus on the matching new element.
+const FOCUS_KEYS = ['year', 'node', 'person', 'type', 'a'];
 function render() {
+  const active = document.activeElement, key = active && active.dataset && FOCUS_KEYS.find(k => k in active.dataset);
+  const holder = key && active.closest('[id]');
+  const selector = key && holder ? `#${holder.id} [data-${key}="${CSS.escape(active.dataset[key])}"]` : null;
   page = 0;
   current = filtered(false);
-  const coauthor = $('#coauthor').value, type = $('#type').value;
-  const parts = [plural(current.length, 'entry').replace('entrys', 'entries'), `${$('#from').value} to ${$('#to').value}`];
-  if (type) parts.push(type);
-  if (coauthor) parts.push('with ' + coauthor);
-  if (pair) parts.push('with ' + pair.join(' and '));
-  $('#filter-info').textContent = parts.join(' · ');
   stats();
   timeline();
   mix();
@@ -103,6 +105,24 @@ function render() {
   coauthorRank();
   publications();
   syncUrl();
+  if (selector) {
+    const again = document.querySelector(selector);
+    if (again) { if (again.getAttribute('tabindex') === '-1' && again.classList.contains('node')) roveTo(again); again.focus({ preventScroll: true }); }
+  }
+}
+
+// One line that says what the page shows: the filter bar, and the library search on top of it.
+const entries = n => plural(n, 'entry').replace('entrys', 'entries');
+function filterInfo() {
+  const coauthor = $('#coauthor').value, type = $('#type').value, query = $('#search').value.trim(), awardOnly = $('#award-only').checked;
+  const narrowed = query || awardOnly;
+  const parts = [narrowed ? `${library.length.toLocaleString('en-US')} of ${entries(current.length)}` : entries(current.length), `${$('#from').value} to ${$('#to').value}`];
+  if (type) parts.push(type);
+  if (coauthor) parts.push('with ' + coauthor);
+  if (pair) parts.push('with ' + pair.join(' and '));
+  if (query) parts.push(`matching “${query}”`);
+  if (awardOnly) parts.push('with an award mention');
+  $('#filter-info').textContent = parts.join(' · ');
 }
 
 /* ---------- Stat tiles ---------- */
@@ -132,22 +152,28 @@ function timeline() {
   const totals = perYear.map(row => row.reduce((a, b) => a + b, 0));
   const step = niceStep(Math.max(...totals, 1));
   const top = Math.max(step, Math.ceil(Math.max(...totals, 1) / step) * step);
-  const W = Math.max(640, ys.length * 52 + 70), H = 380, left = 40, right = 12, bottom = 336, height = 292;
-  const slot = (W - left - right) / Math.max(ys.length, 1), bar = Math.min(24, slot * 0.6), gap = 2;
+  // Drawn at the container's own pixel width, so that the text is exactly CHART_FONT pixels.
+  const box = $('#timeline');
+  const W = Math.max(300, Math.floor(box.clientWidth || 640)), H = W < 520 ? 280 : 340;
+  const left = 34, right = 6, bottom = H - 34, height = bottom - 36;
+  const slot = (W - left - right) / Math.max(ys.length, 1), bar = Math.min(28, slot * 0.62), gap = 2;
   const single = lo === hi;
+  // A year label needs about 40px; on narrow screens label every second (or third) year.
+  const every = Math.max(1, Math.ceil(40 / slot));
+  timelineWidth = box.clientWidth;
 
   $('#legend').innerHTML = TYPES.map(type => `<span><i style="background:${TYPE_COLOR[type]}"></i>${esc(TYPE_LABEL[type])}</span>`).join('');
-  let svg = `<svg class="chart-svg" viewBox="0 0 ${W} ${H}" role="group" aria-label="Entries per year, stacked by type">`;
+  let svg = `<svg class="chart-svg chart-px" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="group" aria-label="Entries per year, stacked by type">`;
   for (let tick = 0; tick <= top; tick += step) {
     const y = bottom - tick / top * height;
     svg += `<line x1="${left}" x2="${W - right}" y1="${y}" y2="${y}" style="stroke:var(--line-soft)"/>`
-      + `<text x="${left - 9}" y="${y + 4}" text-anchor="end" font-size="12">${tick}</text>`;
+      + `<text x="${left - 8}" y="${y + 5}" text-anchor="end" font-size="${CHART_FONT}">${tick}</text>`;
   }
   ys.forEach((year, index) => {
     const x = left + index * slot + (slot - bar) / 2;
     const breakdown = TYPES.map((type, t) => perYear[index][t] ? `${TYPE_LABEL[type]}: ${perYear[index][t]}` : '').filter(Boolean).join(' · ');
     const description = `${year}: ${plural(totals[index], 'entry').replace('entrys', 'entries')}${breakdown ? ' (' + breakdown + ')' : ''}`;
-    svg += `<g class="year-col clickable${single ? ' selected' : ''}" tabindex="0" role="button" data-year="${year}" aria-label="${esc(description)}. Select to show only this year." data-tip="${esc(description)}">`
+    svg += `<g class="year-col clickable${single ? ' selected' : ''}" tabindex="0" role="button" aria-pressed="${single}" data-year="${year}" aria-label="${esc(description)}. Select to show only this year." data-tip="${esc(description)}">`
       + `<rect class="hover-band" x="${left + index * slot + 2}" y="14" width="${slot - 4}" height="${H - 18}" rx="5" fill="transparent"/>`;
     let y = bottom;
     const present = TYPES.map((type, t) => t).filter(t => perYear[index][t]);
@@ -160,11 +186,12 @@ function timeline() {
       // square at the baseline, rounded at the data end
       svg += `<path d="M ${x} ${y + h} V ${y + r} Q ${x} ${y} ${x + r} ${y} H ${x + bar - r} Q ${x + bar} ${y} ${x + bar} ${y + r} V ${y + h} Z" style="fill:${TYPE_COLOR[TYPES[t]]}"/>`;
     });
-    svg += `<text class="value-label" x="${x + bar / 2}" y="${y - 8}" text-anchor="middle" font-size="12.5">${totals[index] || ''}</text>`
-      + `<text class="year-label" x="${x + bar / 2}" y="${bottom + 22}" text-anchor="middle" font-size="12.5">${year}</text></g>`;
+    const labelled = single || (ys.length - 1 - index) % every === 0;
+    svg += `<text class="value-label" x="${x + bar / 2}" y="${y - 7}" text-anchor="middle" font-size="${CHART_FONT}">${totals[index] || ''}</text>`
+      + (labelled ? `<text class="year-label" x="${x + bar / 2}" y="${bottom + 22}" text-anchor="middle" font-size="${CHART_FONT}">${year}</text>` : '') + '</g>';
   });
   svg += '</svg>';
-  $('#timeline').innerHTML = svg;
+  box.innerHTML = svg;
   $('#timeline').querySelectorAll('[data-year]').forEach(element => activate(element, () => {
     const year = element.dataset.year;
     if (single && $('#from').value === year) {         // selecting the only year again clears the range
@@ -180,33 +207,27 @@ function timeline() {
 }
 
 /* ---------- Publication mix ---------- */
+// Ruled rows with counts and shares; a thin bar under each row shows the share.
 function mix() {
-  const total = current.length, radius = 66, circumference = 2 * Math.PI * radius, gap = total ? 2.5 : 0;
-  let offset = 0;
-  const arcs = TYPES.map(type => {
-    const n = count(current, p => p.type === type);
-    if (!n) return '';
-    const length = n / total * circumference;
-    const arc = `<circle cx="95" cy="95" r="${radius}" fill="none" stroke-width="21" style="stroke:${TYPE_COLOR[type]}" stroke-dasharray="${Math.max(length - gap, 1)} ${circumference}" stroke-dashoffset="${-offset}" transform="rotate(-90 95 95)"/>`;
-    offset += length;
-    return arc;
+  const total = current.length;
+  const rows = TYPES.map(type => {
+    const n = count(current, p => p.type === type), share = total ? Math.round(n / total * 100) : 0;
+    const single = new Set(D.publications.filter(p => p.type === type).map(p => p.category)).size === 1;
+    const name = `<i class="dot" style="background:${TYPE_COLOR[type]}"></i>${esc(TYPE_LABEL[type])}`;
+    const head = single
+      ? `<button type="button" data-type="${esc(type)}" aria-label="${esc(TYPE_LABEL[type])}: ${n}, ${share}%. Select to list them.">${name}</button>`
+      : `<span class="mix-name">${name}</span>`;
+    return `<div class="mix-item">${head}`
+      + `<b>${n}<span>${share}%</span></b>`
+      + `<div class="mix-bar" aria-hidden="true"><div style="width:${total ? n / total * 100 : 0}%;background:${TYPE_COLOR[type]}"></div></div></div>`;
   }).join('');
-  const legend = TYPES.map(type => {
-    const n = count(current, p => p.type === type);
-    return `<div class="mix-item"><button type="button" data-type="${esc(type)}" aria-label="${esc(TYPE_LABEL[type])}: ${n}. Select to list them."><i class="dot" style="background:${TYPE_COLOR[type]}"></i>${esc(TYPE_LABEL[type])}</button>`
-      + `<b>${n}<span>${total ? Math.round(n / total * 100) : 0}%</span></b></div>`;
-  }).join('');
-  $('#mix').innerHTML = `<div class="mix-layout"><svg width="190" height="190" viewBox="0 0 190 190" role="img" aria-label="Share of each publication type">`
-    + `<circle cx="95" cy="95" r="${radius}" fill="none" stroke-width="21" style="stroke:var(--track)"/>${arcs}`
-    + `<text class="mix-total" x="95" y="98" text-anchor="middle" style="font-family:var(--font-body)">${total}</text>`
-    + `<text x="95" y="117" text-anchor="middle" font-size="11" style="fill:var(--muted);font-family:var(--font-body)">${total === 1 ? 'entry' : 'entries'}</text></svg>`
-    + `<div class="mix-legend">${legend}</div></div>`;
+  $('#mix').innerHTML = `<div class="mix-legend">${rows}<div class="mix-item mix-total"><span>All entries</span><b>${total}</b></div></div>`;
   // A type groups one or more categories; jump to the library filtered by the type's search word.
   $('#mix').querySelectorAll('[data-type]').forEach(button => {
     button.onclick = () => {
       const categories = [...new Set(D.publications.filter(p => p.type === button.dataset.type).map(p => p.category))];
       if (categories.length === 1) { $('#type').value = categories[0]; render(); }
-      $('#library').scrollIntoView({ behavior: 'smooth' });
+      $('#library').scrollIntoView({ behavior: scrollBehavior() });
     };
   });
 }
@@ -248,6 +269,16 @@ let TITLES = new Map();
 const titled = name => (TITLES.has(name) ? TITLES.get(name) + ' ' : '') + name;
 const initials = name => { const parts = name.replace(/\./g, '').split(' '); return (parts[0][0] + parts.at(-1)[0]).toUpperCase(); };
 
+// Ring labels: the full titled name where it fits, otherwise the given name and surname without initials.
+const shortName = name => { const parts = name.split(' '); return parts.filter((part, i) => i === 0 || i === parts.length - 1 || !/^[A-Z]\.?$/.test(part)).join(' '); };
+let measureContext;
+function textWidth(text, size, weight = 400) {
+  measureContext ||= document.createElement('canvas').getContext('2d');
+  measureContext.font = `${weight} ${size}px ${getComputedStyle(document.body).fontFamily}`;
+  return measureContext.measureText(text).width;
+}
+let flowerWidth = 0, timelineWidth = 0;
+
 function flower() {
   const ranked = coauthorCounts(), size = +$('#flower-size').value;
   $('#flower-size-value').textContent = size;
@@ -268,34 +299,47 @@ function flower() {
   });
   const edges = [...pairs].map(([key, n]) => ({ a: key.split('\t')[0], b: key.split('\t')[1], n })).sort((a, b) => a.n - b.n);
   const maxEdge = Math.max(1, ...edges.map(edge => edge.n)), maxNode = Math.max(1, ...shown.map(person => person.n));
-  const W = 900, H = 800, cx = 450, cy = 400, r = 232;
+  // Drawn at real pixels (up to 980px wide), so the names and initials are exactly CHART_FONT pixels.
+  const box = $('#flower');
+  flowerWidth = box.clientWidth;
+  if (!flowerWidth) { box.innerHTML = ''; return; }          // hidden on small screens; the ranked list leads there
+  const W = Math.max(640, Math.min(980, flowerWidth)), font = CHART_FONT + 1;
+  const nodeMax = 12 + 9, ringGap = 8;
+  let label = titled, labelMax = Math.max(...shown.map(person => textWidth(titled(person.name), font)));
+  let r = W / 2 - labelMax - nodeMax - ringGap - 6;
+  if (r < 200) {
+    label = shortName;
+    labelMax = Math.max(...shown.map(person => textWidth(shortName(person.name), font)));
+    r = W / 2 - labelMax - nodeMax - ringGap - 6;
+  }
+  r = Math.max(150, r);
+  const H = Math.ceil(2 * (r + nodeMax + ringGap + labelMax + 6)), cx = W / 2, cy = H / 2;
   const position = new Map(shown.map((person, index) => {
     const angle = index / shown.length * 2 * Math.PI - Math.PI / 2;
     return [person.name, { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), angle }];
   }));
-  let svg = `<svg class="chart-svg" viewBox="0 0 ${W} ${H}" role="group" aria-label="Coauthorship diagram of ${shown.length} coauthors">`
+  let svg = `<svg class="chart-svg chart-px" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="group" aria-label="Coauthorship diagram of ${shown.length} coauthors">`
     + `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" style="stroke:var(--line)" stroke-dasharray="2 5"/>`;
   edges.forEach(edge => {
     const p = position.get(edge.a), q = position.get(edge.b);
     const description = `${titled(edge.a)} and ${titled(edge.b)}: ${plural(edge.n, 'paper')} together with me`;
     const chosen = pair && pair.includes(edge.a) && pair.includes(edge.b);
-    svg += `<path class="link flower-pair${chosen ? ' selected' : ''}" tabindex="0" role="button" aria-label="${esc(description)}. Select to show these papers." data-a="${esc(edge.a)}" data-b="${esc(edge.b)}" data-tip="${esc(description)}" d="M ${p.x} ${p.y} Q ${cx} ${cy} ${q.x} ${q.y}" fill="none" stroke-opacity="${(.12 + .5 * edge.n / maxEdge).toFixed(2)}" stroke-width="${(1 + 11 * edge.n / maxEdge).toFixed(1)}" stroke-linecap="round"/>`;
+    svg += `<path class="link flower-pair${chosen ? ' selected' : ''}" tabindex="-1" role="button" aria-label="${esc(description)}. Select to show these papers." data-a="${esc(edge.a)}" data-b="${esc(edge.b)}" data-tip="${esc(description)}" d="M ${p.x} ${p.y} Q ${cx} ${cy} ${q.x} ${q.y}" fill="none" stroke-opacity="${(.12 + .5 * edge.n / maxEdge).toFixed(2)}" stroke-width="${(1 + 11 * edge.n / maxEdge).toFixed(1)}" stroke-linecap="round"/>`;
   });
   shown.forEach(person => {
     const p = position.get(person.name), leftSide = Math.cos(p.angle) < -0.08;
     let rotation = p.angle * 180 / Math.PI;
     if (leftSide) rotation += 180;
-    const radius = 13 + 9 * Math.sqrt(person.n / maxNode);
+    const radius = 12 + 9 * Math.sqrt(person.n / maxNode);
     const description = `${titled(person.name)}: ${plural(person.n, 'paper')} with me`;
-    svg += `<g class="node clickable${person.name === selected ? ' selected' : ''}" tabindex="0" role="button" data-node="${esc(person.name)}" aria-label="${esc(description)}. Select to filter the page." data-tip="${esc(description)}">`
+    svg += `<g class="node clickable${person.name === selected ? ' selected' : ''}" tabindex="-1" role="button" aria-pressed="${person.name === selected}" data-node="${esc(person.name)}" aria-label="${esc(description)}. Select to filter the page." data-tip="${esc(description)}">`
       + `<circle cx="${p.x}" cy="${p.y}" r="${radius.toFixed(1)}"/>`
-      + `<text class="initials" x="${p.x}" y="${p.y + 4}" text-anchor="middle" font-size="11">${esc(initials(person.name))}</text>`
-      + `<text class="name" transform="translate(${p.x + (radius + 9) * Math.cos(p.angle)},${p.y + (radius + 9) * Math.sin(p.angle)}) rotate(${rotation})" text-anchor="${leftSide ? 'end' : 'start'}" dominant-baseline="middle" font-size="13">${esc(titled(person.name))}</text></g>`;
+      + `<text class="initials" x="${p.x}" y="${p.y}" text-anchor="middle" dominant-baseline="central" font-size="${CHART_FONT}">${esc(initials(person.name))}</text>`
+      + `<text class="name" transform="translate(${p.x + (radius + ringGap) * Math.cos(p.angle)},${p.y + (radius + ringGap) * Math.sin(p.angle)}) rotate(${rotation})" text-anchor="${leftSide ? 'end' : 'start'}" dominant-baseline="central" font-size="${font}">${esc(label(person.name))}</text></g>`;
   });
   svg += `<g class="hub"><circle cx="${cx}" cy="${cy}" r="58" fill-opacity=".95"/>`
-    + `<text class="hub-count" x="${cx}" y="${cy - 2}" text-anchor="middle" font-size="28">${ranked.length}</text>`
-    + `<text x="${cx}" y="${cy + 19}" text-anchor="middle" font-size="11">${ranked.length === 1 ? 'coauthor' : 'coauthors'}</text></g></svg>`;
-  const box = $('#flower');
+    + `<text class="hub-count" x="${cx}" y="${cy + 2}" text-anchor="middle" font-size="30">${ranked.length}</text>`
+    + `<text x="${cx}" y="${cy + 24}" text-anchor="middle" font-size="${CHART_FONT}">${ranked.length === 1 ? 'coauthor' : 'coauthors'}</text></g></svg>`;
   box.innerHTML = svg;
   $('#flower-summary').textContent = `${shown.length} of ${plural(ranked.length, 'coauthor')} · ${plural(edges.length, 'connection')}`;
   const links = [...box.querySelectorAll('.link')];
@@ -311,9 +355,30 @@ function flower() {
     node.addEventListener('blur', clear);
     activate(node, () => { untip(); setCoauthor(node.dataset.node); });
   });
-  links.forEach(link => activate(link, () => { untip(); setPair(link.dataset.a, link.dataset.b); }));
+  links.forEach(link => {
+    activate(link, () => { untip(); setPair(link.dataset.a, link.dataset.b); });
+    link.addEventListener('pointerenter', () => links.forEach(other => { other.style.opacity = other === link ? '1' : '.05'; }));
+    link.addEventListener('pointerleave', clear);
+  });
+  // One tab stop for the diagram; arrow keys move between coauthors.
+  const nodes = [...box.querySelectorAll('.node')];
+  roveTo(nodes.find(node => node.classList.contains('selected')) || nodes[0]);
+  nodes.forEach((node, index) => node.addEventListener('keydown', event => {
+    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+    const target = step ? nodes[(index + step + nodes.length) % nodes.length]
+      : event.key === 'Home' ? nodes[0] : event.key === 'End' ? nodes[nodes.length - 1] : null;
+    if (!target) return;
+    event.preventDefault();
+    roveTo(target);
+    target.focus();
+  }));
   clear();
   bindTips(box);
+}
+
+function roveTo(node) {
+  if (!node) return;
+  node.closest('svg').querySelectorAll('.node').forEach(other => other.setAttribute('tabindex', other === node ? '0' : '-1'));
 }
 
 function coauthorRank() {
@@ -338,20 +403,27 @@ function publications() {
   $('#pubs').innerHTML = library.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE).map(p => {
     const title = p.link ? `<a href="${esc(p.link)}">${esc(p.title)}</a>` : esc(p.title);
     const authors = p.people.map(name => name === D.author ? `<strong>${esc(name)}</strong>` : esc(name)).join(', ');
-    const doi = p.doi ? `<a href="https://doi.org/${esc(p.doi)}" aria-label="DOI of ${esc(p.title)}">DOI ↗</a>` : (p.link ? `<a href="${esc(p.link)}" aria-label="Link to ${esc(p.title)}">Link ↗</a>` : '');
+    const doi = p.doi ? `<a class="ext-link" href="https://doi.org/${esc(p.doi)}" aria-label="DOI of ${esc(p.title)}">DOI${EXT_ICON}</a>` : (p.link ? `<a class="ext-link" href="${esc(p.link)}" aria-label="Link to ${esc(p.title)}">Link${EXT_ICON}</a>` : '');
     const note = p.note ? `<span>${esc(p.note)}</span>` : '';
-    const award = p.award ? `<span class="badge award-badge">✧ ${esc(p.award)}</span>` : '';
+    const award = p.award ? `<span class="badge award-badge">${esc(p.award)}</span>` : '';
     return `<article class="pub"><div class="pub-year">${p.year || 'n.d.'}</div><div>`
       + `<h3 class="pub-title">${title}</h3><div class="pub-authors">${authors}</div>`
-      + `<div class="pub-meta"><span class="badge"><i style="background:${TYPE_COLOR[p.type]}"></i>${esc(p.category)}</span><span>${esc(p.venue)}</span>${note}${doi}${award}</div>`
-      + `<div class="pub-actions">${bibEntryPanel(p)}</div></div></article>`;
-  }).join('') || '<p class="empty">No entries match. Try fewer words, or reset the filters.</p>';
+      + `<div class="pub-meta"><span class="badge"><i style="background:${TYPE_COLOR[p.type]}"></i>${esc(p.category)}</span><span>${esc(p.venue)}</span>${note}${doi}${award}${bibEntryPanel(p)}</div>`
+      + '</div></article>';
+  }).join('') || '<div class="empty"><p>No entries match.</p><p>Try fewer words, or <button type="button" class="text-button" id="empty-reset">reset the filters</button>.</p></div>';
+  // The per-entry BibTeX toggle is a compact text control at the end of the meta line.
+  $('#pubs').querySelectorAll('.bib-entry > summary').forEach(summary => { summary.className = 'bib-toggle'; });
   wireBibPanels($('#pubs'));
+  const emptyReset = $('#empty-reset');
+  if (emptyReset) emptyReset.onclick = () => { resetFilters(); $('#search').focus(); };
+  filterInfo();
   $('#page-status').textContent = `Page ${page + 1} of ${pages}`;
   $('#prev').disabled = page === 0;
   $('#next').disabled = page >= pages - 1;
   $('#export-bib').disabled = !library.length;
 }
+
+const EXT_ICON = '<svg class="ext-icon" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5h5v5M9.5 2.5 3 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 function downloadBib() {
   if (!library.length) return;
@@ -396,8 +468,13 @@ function readUrl() {
   for (const [key, selector] of Object.entries(URL_FIELDS)) {
     const value = params.get(key), field = $(selector);
     if (value === null) continue;
-    if (field.tagName === 'SELECT' && ![...field.options].some(option => option.value === value)) continue;
-    field.value = value;
+    let wanted = value;
+    if (key === 'type' && D) {
+      const categories = [...new Set(D.publications.filter(p => p.type === value).map(p => p.category))];
+      if (categories.length === 1) wanted = categories[0];
+    }
+    if (field.tagName === 'SELECT' && ![...field.options].some(option => option.value === wanted)) continue;
+    field.value = wanted;
   }
   if (params.get('awards') === '1') $('#award-only').checked = true;
   if (+$('#from').value > +$('#to').value) $('#to').value = $('#from').value;
@@ -457,11 +534,27 @@ async function init() {
   $('#search').addEventListener('input', () => { page = 0; publications(); syncUrl(); });
   $('#award-only').onchange = () => { page = 0; publications(); syncUrl(); };
   $('#sort').onchange = () => { page = 0; publications(); syncUrl(); };
-  const turn = delta => { page += delta; publications(); $('#library').scrollIntoView({ behavior: 'smooth' }); };
-  $('#prev').onclick = () => turn(-1);
-  $('#next').onclick = () => turn(1);
+  const turn = (delta, button) => {
+    page += delta;
+    publications();
+    $('#library').scrollIntoView({ behavior: scrollBehavior() });
+    if (button.disabled) (button.id === 'next' ? $('#prev') : $('#next')).focus({ preventScroll: true });
+  };
+  $('#prev').onclick = () => turn(-1, $('#prev'));
+  $('#next').onclick = () => turn(1, $('#next'));
   $('#export-bib').onclick = downloadBib;
   notes();
   render();
+  // Redraw the pixel-sized charts when their containers change width.
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if ($('#timeline').clientWidth !== timelineWidth) timeline();
+      if ($('#flower').clientWidth !== flowerWidth) flower();
+    }, 150);
+  });
+  // Fonts change text widths, which set the flower's ring size.
+  if (document.fonts?.ready) document.fonts.ready.then(flower);
 }
 init();

@@ -1,0 +1,53 @@
+{
+  "_comment": "The research map on the About page. Each station is an entry of publications.bib, linked to its place in the research section. kind: paper, demo or patent. label: the name on the map; use | to break it into two lines.",
+  "hub": "The task as the|unit of design",
+  "lines": [
+    {
+      "id": "F",
+      "name": "Foundations",
+      "anchor": "foundations",
+      "stations": [
+        {"key": "cabrera2019softwarization", "label": "Softwarized|edge cloud", "kind": "paper"},
+        {"key": "xiang2021open", "label": "ComNetsEmu", "kind": "paper"},
+        {"key": "cabrera2022design", "label": "Dissertation", "kind": "paper"}
+      ]
+    },
+    {
+      "id": "1",
+      "name": "State across transport and storage",
+      "anchor": "direction-1",
+      "stations": [
+        {"key": "pandi2017pace", "label": "PACE", "kind": "paper"},
+        {"key": "tasdemir2021sparec", "label": "SpaRec", "kind": "paper"},
+        {"key": "zimmermann2022grade", "label": "Coded cache|degradation", "kind": "paper"},
+        {"key": "schwenteck2024revisiting", "label": "Coded caching|for IPFS", "kind": "paper"},
+        {"key": "cabrera2025onecode", "label": "OneCode", "kind": "paper"}
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Coordinating distributed tasks",
+      "anchor": "direction-2",
+      "stations": [
+        {"key": "rezwan2023functional", "label": "Functional|compression", "kind": "paper"},
+        {"key": "kutsevol2025distributed", "label": "Platoon via|ID codes", "kind": "paper"},
+        {"key": "lengerke2026codes", "label": "ID codes|tutorial", "kind": "paper"},
+        {"key": "rezwan2024balancing", "label": "Balancing|robot", "kind": "demo", "award": true},
+        {"key": "rosenberger2026communication", "label": "Message ID|patent", "kind": "patent"},
+        {"key": "nazari2026semantic", "label": "TSN|demo", "kind": "demo"}
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Reliable distributed computation",
+      "anchor": "direction-3",
+      "stations": [
+        {"key": "zimmermann2022immortal", "label": "Self-healing|services", "kind": "paper"},
+        {"key": "cabrera2024calculation", "label": "Substrate|selector patent", "kind": "patent"},
+        {"key": "rezwan2026performance", "label": "Edge AI|accelerators", "kind": "paper"},
+        {"key": "rani2026gaming", "label": "Green LLMs|at the edge", "kind": "paper"},
+        {"key": "nazari2026muse", "label": "MUSE|demo", "kind": "demo"}
+      ]
+    }
+  ]
+}
