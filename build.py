@@ -21,6 +21,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from pipeline.prepare_data import build_data
+from pipeline.netmap import netmap_html
 from pipeline.venues import new_names_notice, show
 
 ROOT = Path(__file__).resolve().parent
@@ -94,12 +95,12 @@ def citation_html(publication, owner):
         title = f'<a class="cite-title" href="{html.escape(publication["link"])}">{title}</a>'
     else:
         title = f'<span class="cite-title">{title}</span>'
-    venue = ' · '.join(part for part in (html.escape(publication['venue']), str(publication['year'] or '')) if part)
+    venue = ', '.join(part for part in (html.escape(publication['venue']), str(publication['year'] or '')) if part)
     award = (f' <span class="badge award-badge">{html.escape(publication["award"])}</span>'
              if publication['award'] else '')
     # Journal articles carry more weight than conference papers, so they get a visible label.
     journal = ' <span class="badge journal-badge"><i></i>Journal</span>' if publication['type'] == 'Journal' else ''
-    return f'<li class="cite">{title}{author_html(publication, owner)}<br>{venue}{journal}{award}</li>'
+    return f'<li class="cite" id="p-{html.escape(publication["id"])}">{title}{author_html(publication, owner)}<br>{venue}{journal}{award}</li>'
 
 
 def list_entry_html(publication, owner):
@@ -244,6 +245,7 @@ def build(output, site_url=None, pdf='auto'):
         'PUBAUTHORS': lambda p: author_html(p, owner),
     }
 
+    netmap = netmap_html(source / 'network-map.json', by_id)
     base = (ROOT / 'templates' / 'base.html').read_text(encoding='utf-8')
     for name, target in PAGES.items():
         settings, sections = read_page(ROOT / 'pages' / name)
@@ -255,6 +257,7 @@ def build(output, site_url=None, pdf='auto'):
             'TITLE': html.escape(settings.get('title', config['name'])),
             'DESCRIPTION': html.escape(settings.get('description', config['description'])),
             'NAV': settings.get('nav', ''),
+            'NETMAP': netmap,
             **{key.upper(): value for key, value in sections.items()},
         }
 

@@ -17,52 +17,47 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="@@ROOT@@assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="@@ROOT@@assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="@@ROOT@@assets/fonts/libertinus-serif-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="@@ROOT@@assets/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script>
   // Apply a saved dark choice before the first paint. Without one, the page stays light.
-  try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (error) {}
+  try { var saved = localStorage.getItem('theme'); } catch (error) {} if (saved === 'dark' || (saved !== 'light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.dataset.theme = 'dark';
 </script>
 <link rel="stylesheet" href="@@ROOT@@assets/css/site.css?v=@@V@@">
 @@HEAD@@
 </head>
 <body>
 <a class="skip-link" href="#content">Skip to content</a>
-<aside class="rail">
-  <button type="button" class="theme-toggle" aria-pressed="false" aria-label="Dark mode" hidden>
-    <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-    <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.55 1.55M17.15 17.15l1.55 1.55M5.3 18.7l1.55-1.55M17.15 6.85l1.55-1.55"/></g></svg>
-  </button>
-  <a class="brand" href="@@ROOT@@" aria-label="@@NAME@@, home">
-    <img class="brand-portrait" src="@@ROOT@@assets/img/portrait.webp" alt="Portrait of @@NAME@@" width="84" height="84">
-    <span>
+<header class="masthead">
+  <div class="masthead-row">
+    <a class="brand" href="@@ROOT@@" aria-label="@@NAME@@, home">
+      <svg class="brand-mark" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><path d="M2 14H12L20 6H26M12 14H26M12 14L20 22H26" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><circle cx="12" cy="14" r="3.6" fill="var(--paper)" stroke="currentColor" stroke-width="2.4"/></svg>
       <span class="brand-name">@@NAME@@</span>
-      <span class="brand-role" style="display:block">Communication networks<br>CeTI, TU Dresden</span>
-    </span>
-  </a>
-  <nav class="rail-group site-nav" aria-label="Site">
-    <div class="rail-caption">Site</div>
-    <a class="nav-link" data-nav="home" href="@@ROOT@@">About</a>
-    <a class="nav-link" data-nav="publications" href="@@ROOT@@publications/">Publications</a>
-    <a class="nav-link" href="@@ROOT@@@@CV_FILE@@">Curriculum vitae <span class="ext" aria-hidden="true">PDF</span></a>
-  </nav>
-  <nav class="rail-group page-nav" aria-label="On this page">
-    <div class="rail-caption">On this page</div>
-    @@PAGENAV@@
-  </nav>
-  <div class="rail-bottom">
-    <span class="live-dot"></span>Publication list of<br>
-    <span style="margin-left:12px">@@SNAPSHOT_LABEL@@</span>
+    </a>
+    <nav class="site-nav" aria-label="Site">
+      <a class="nav-link" data-nav="home" href="@@ROOT@@">About</a>
+      <a class="nav-link" data-nav="publications" href="@@ROOT@@publications/">Publications</a>
+      <a class="nav-link" href="@@ROOT@@@@CV_FILE@@">CV <span class="ext">PDF</span></a>
+      <button type="button" class="theme-toggle" aria-pressed="false" aria-label="Dark mode" hidden>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.55 1.55M17.15 17.15l1.55 1.55M5.3 18.7l1.55-1.55M17.15 6.85l1.55-1.55"/></g></svg>
+      </button>
+    </nav>
   </div>
-</aside>
+  <nav class="page-nav" aria-label="On this page">
+    <div class="page-nav-inner">@@PAGENAV@@</div>
+  </nav>
+</header>
 <main id="content">
 @@MAIN@@
-<footer class="site-footer">
-  <span>© @@BUILD_YEAR@@ @@NAME@@</span>
-  <span><a href="@@ROOT@@legal/">Legal notice and privacy</a></span>
-</footer>
 </main>
-<div id="tooltip" role="status"></div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© @@BUILD_YEAR@@ @@NAME@@</span>
+    <span>Publication data of @@SNAPSHOT_LABEL@@</span>
+    <a href="@@ROOT@@legal/">Legal notice and privacy</a>
+  </div>
+</footer>
+<div id="tooltip" aria-hidden="true"></div>
 <script src="@@ROOT@@assets/js/common.js?v=@@V@@"></script>
 @@SCRIPTS@@
 <!-- Cookieless visitor counts with GoatCounter, see the privacy section of the legal page. -->
