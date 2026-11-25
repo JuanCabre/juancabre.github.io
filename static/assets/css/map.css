@@ -1,0 +1,65 @@
+/* The research map of the About page: which of its two drawings shows, and where it sits.
+   Loaded after site.css, whose rules for the map it completes. */
+
+.hero-lead { display: contents; }
+.hero-map { position: relative; }
+.hero-map .skip-link:focus { left: 0; top: 0; }
+
+.netmap .hit { fill: transparent; stroke: none; }
+.netmap .star { fill: var(--award); }
+.netmap .line-head .nm { fill: var(--ink); font-size: 15.5px; font-weight: 700; }
+.lg-award { fill: var(--award); }
+.netmap-v { max-width: 400px; }
+.netmap-v a:focus-visible { outline-offset: -2px; }
+
+/* The legend note: a short one where stations are tapped, the full one elsewhere. */
+.lg-note-touch { display: none; }
+@media (max-width: 640px), (hover: none) {
+  .lg-note-touch { display: inline; margin-left: 0; flex-basis: 100%; }
+  .lg-note-full { display: none; }
+}
+
+/* Below 1220px the wide map would set its station names too small to read, so the vertical map takes over. */
+@media (max-width: 1219.98px) {
+  .netmap { display: none; }
+  .netmap.netmap-v { display: block; }
+  .line-names { display: none; }
+}
+
+/* Tablets and small laptops: the name and thesis stay beside the vertical map while it scrolls past. */
+@media (min-width: 641px) and (max-width: 1219.98px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) clamp(300px, 49vw, 400px); align-items: start;
+    column-gap: clamp(24px, 5vw, 72px);
+  }
+  .hero-lead { display: flex; flex-direction: column; gap: 28px; }
+  .hero-map { grid-column: 2; margin-top: 0; }
+  .map-legend { gap: 8px 16px; }
+  .lg-note { margin-left: 0; flex-basis: 100%; }
+}
+@media (min-width: 641px) and (max-width: 1219.98px) and (min-height: 640px) {
+  .hero-lead { position: sticky; top: 132px; }
+}
+/* In a narrow first column the portrait sits beside the name, as on phones. */
+@media (min-width: 641px) and (max-width: 899.98px) {
+  .hero-id { column-gap: 16px; }
+  .portrait { grid-row: 1 / span 2; width: 84px; height: 84px; margin-top: 0; }
+  .hero-id > .hero-role { grid-column: 1 / -1; }
+  .actions .button { flex: 1 1 auto; }
+}
+
+/* Where the map is drawn small (the smallest phones, a narrow second column), its type is enlarged
+   so that names stay readable, and the longest names break onto two lines. */
+.hero-map { container-type: inline-size; }
+.netmap-v .lbl-two { display: none; }
+@container (max-width: 335px) {
+  .netmap-v .nm, .netmap-v .hub-lbl tspan { font-size: 17.5px; }
+  .netmap-v .yr { font-size: 16px; }
+  .netmap-v .line-head .nm { font-size: 17.5px; }
+  .netmap-v .lbl-one { display: none; }
+  .netmap-v .lbl-two { display: inline; }
+}
+@media print {
+  .hero-lead { position: static; }
+  .hero-map .skip-link, .lg-note { display: none; }
+}

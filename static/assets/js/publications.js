@@ -408,7 +408,7 @@ function publications() {
     const award = p.award ? `<span class="badge award-badge">${esc(p.award)}</span>` : '';
     return `<article class="pub"><div class="pub-year">${p.year || 'n.d.'}</div><div>`
       + `<h3 class="pub-title">${title}</h3><div class="pub-authors">${authors}</div>`
-      + `<div class="pub-meta"><span class="badge"><i style="background:${TYPE_COLOR[p.type]}"></i>${esc(p.category)}</span><span>${esc(p.venue)}</span>${note}${doi}${award}${bibEntryPanel(p)}</div>`
+      + `<div class="pub-meta"><span class="badge"><i style="background:${TYPE_COLOR[p.type]}"></i>${esc(p.category)}</span><span>${esc(p.venue)}</span>${note}${award}<span class="pub-links">${doi}${bibEntryPanel(p)}</span></div>`
       + '</div></article>';
   }).join('') || '<div class="empty"><p>No entries match.</p><p>Try fewer words, or <button type="button" class="text-button" id="empty-reset">reset the filters</button>.</p></div>';
   // The per-entry BibTeX toggle is a compact text control at the end of the meta line.
@@ -448,7 +448,7 @@ function notes() {
     .join(', ').replace(/doctoral thesiss/, 'doctoral theses').replace(/thesiss/, 'theses');
   $('#notes-content').innerHTML =
     `<p><strong>Source.</strong> The page is built from one BibTeX file, last changed on ${esc(label)}. You can download the <a href="../assets/data/publications.bib">complete file</a>. It holds ${meta.rawEntries} entries: ${esc(categories)}.</p>`
-    + `<p><strong>What is counted.</strong> Preprints are listed only until the paper is published. Datasets, demonstrations, patents, and the doctoral thesis appear as "other outputs" in the charts. `
+    + `<p><strong>What is counted.</strong> Preprints are listed only until the paper is published. Datasets, demonstrations, patents, and the doctoral thesis appear as “other outputs” in the charts. `
     + `${meta.duplicatesRemoved ? plural(meta.duplicatesRemoved, 'entry').replace('entrys', 'entries') + ' with a DOI already listed ' + (meta.duplicatesRemoved === 1 ? 'was' : 'were') + ' left out.' : 'No entry shares a DOI with another one.'}</p>`
     + `<p><strong>Names.</strong> Different spellings of one coauthor count as one person when the surname and the given name or initial agree, ignoring accents. `
     + `${meta.venueNormalization ? `Venue names are grouped by a curated list, so that ${meta.venueNormalization.suppliedNames} supplied names become ${meta.venueNormalization.venues} venues.` : ''}</p>`

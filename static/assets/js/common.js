@@ -16,6 +16,9 @@
   const apply = theme => {
     if (theme === 'dark') root.dataset.theme = 'dark';
     else delete root.dataset.theme;
+    // the browser chrome on phones takes the color of the page
+    const chrome = document.querySelector('meta[name="theme-color"]');
+    if (chrome) chrome.content = theme === 'dark' ? '#0f1b2b' : '#ffffff';
     show();
   };
   button.addEventListener('click', () => {
@@ -115,9 +118,7 @@
 })();
 
 // Research map: pointing at or focusing a line or station lights that line and dims the others.
-(function () {
-  const map = document.querySelector('.netmap');
-  if (!map) return;
+document.querySelectorAll('.netmap').forEach(function (map) {
   const set = line => { if (line) map.dataset.active = line; else delete map.dataset.active; };
   map.querySelectorAll('a[data-line]').forEach(link => {
     link.addEventListener('pointerenter', () => set(link.dataset.line));
@@ -125,4 +126,4 @@
     link.addEventListener('focus', () => set(link.dataset.line));
     link.addEventListener('blur', () => set(null));
   });
-})();
+});
