@@ -131,9 +131,9 @@ nav: home
         <section class="subtheme">
           <h4>Task-oriented communication: functional and semantic compression</h4>
           <p class="question">Does a receiver need all the data to perform its task?</p>
-          <p>In 6G-life, I proposed practical functional compression for networked control as a research direction and guided the two doctoral researchers who developed it. Functional compression sends what the receiver needs to compute a function of the data, instead of the data itself. We also merged the views of several cameras at edge application servers through multilevel semantic compression and mapped the design onto the 3GPP architecture for edge computing in 5G, in collaboration with Nokia. The evaluation uses an open-source prototype on commodity hardware with a simulated network. The ball-balancing robot demonstration is under <a href="#demonstrators">Demonstrators</a>.</p>
+          <p>In 6G-life, I proposed practical functional compression for networked control as a research direction and guided the two doctoral researchers who developed it. Functional compression sends what the receiver needs to compute a function of the data, instead of the data itself. For networked extended reality, we compress point clouds semantically: cXR+ conveys them as voxel-based color codes, and AIcXR+ uses a spiking neural network to shorten latency at about the same compression ratio. The ball-balancing robot demonstration is under <a href="#demonstrators">Demonstrators</a>.</p>
           <ul class="cite-list">
-            @@PUB:rezwan2025mlcxr@@
+            @@PUB:rezwan2023cxr@@
             @@PUB:rezwan2026aicxr@@
             @@PUB:rezwan2023functional@@
           </ul>
@@ -163,9 +163,10 @@ nav: home
       <h3>Executing and recovering reliable distributed computation</h3>
       <p class="question">Where should computation run, and how should it recover as resources and connections change?</p>
       <p>Faster execution on one processor can be outweighed by transfers, queues, migration, and recovery, and processors differ widely in the energy they need for the same task. A decision on where computation runs has to know these differences. In the gAIn project, we benchmarked four edge AI accelerator technologies, i.e., a tensor processing unit, a neural processing unit, an in-memory AI processing unit, and a GPU system-on-chip, against two general-purpose GPUs. For object detection models, we measured throughput, detection accuracy, power consumption, and CO<sub>2</sub> emissions. I supervised and guided the doctoral researcher who led the study. The in-memory accelerator reached a throughput between those of the two GPUs at about 6 W, compared to 82 W for the faster GPU. The study covers one dataset and one family of models, and it measures processors, not yet networks.</p>
-      <p>Placing computation across robots and servers with these costs in mind is the open part of this direction, and the MUSE demonstrator below is a first step. Recovery concerns the task and not only the service: restarting a failed node may be insufficient if others have already acted on its results. Coded computing, which I began to study in my dissertation and in my Software Campus project, is my formal starting point: it adds redundancy to computation as coding adds it to transport and storage. A German patent from this line describes a selector that chooses a computing substrate, such as analog, digital, or biological platforms, according to the requirements of the task.</p>
+      <p>In MLcXR+, with Nokia, we studied where the compression load runs when 5G edge application servers combine several camera views for mixed reality: on independent servers, or on servers chained as successive compression levels. Placing computation across robots and servers with the costs measured above in mind remains the open part of this direction, and the MUSE demonstrator below is a first step. Recovery concerns the task and not only the service: restarting a failed node may be insufficient if others have already acted on its results. Coded computing, which I began to study in my dissertation and in my Software Campus project, is my formal starting point: it adds redundancy to computation as coding adds it to transport and storage. A German patent from this line describes a selector that chooses a computing substrate, such as analog, digital, or biological platforms, according to the requirements of the task.</p>
       <ul class="cite-list">
         @@PUB:rezwan2026performance@@
+        @@PUB:rezwan2025mlcxr@@
         @@PUB:rani2026small@@
         @@PUB:rani2026gaming@@
         @@PUB:zimmermann2022immortal@@

@@ -30,6 +30,7 @@
       "anchor": "direction-2",
       "stations": [
         {"key": "rezwan2023functional", "label": "Functional|compression", "kind": "paper"},
+        {"key": "rezwan2023cxr", "label": "Semantic XR|compression", "kind": "paper"},
         {"key": "kutsevol2025distributed", "label": "Platoon via|ID codes", "kind": "paper"},
         {"key": "lengerke2026codes", "label": "ID codes|tutorial", "kind": "paper"},
         {"key": "rezwan2024balancing", "label": "Balancing|robot", "kind": "demo", "award": true},
@@ -45,7 +46,7 @@
         {"key": "zimmermann2022immortal", "label": "Self-healing|services", "kind": "paper"},
         {"key": "cabrera2024calculation", "label": "Substrate|selector patent", "kind": "patent"},
         {"key": "rezwan2026performance", "label": "Edge AI|accelerators", "kind": "paper"},
-        {"key": "rani2026gaming", "label": "Green LLMs|at the edge", "kind": "paper"},
+        {"key": "rezwan2025mlcxr", "label": "XR compression|on edge servers", "kind": "paper"},
         {"key": "nazari2026muse", "label": "MUSE|demo", "kind": "demo"}
       ]
     }

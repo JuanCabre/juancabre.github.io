@@ -76,7 +76,7 @@ def _stations(line, by_id):
 
 def _station_group(line, station, x, y, above):
     label = _label(station['label'], x, y, above, str(station['year']))
-    star = _star(x + 14, y - 13) if station.get('award') else ''
+    star = _star(x + 14, y + 13 if above else y - 13) if station.get('award') else ''   # away from the label
     title = html.escape(station['title'])
     return (f'<a class="st" href="#p-{html.escape(station["key"])}" data-line="{line["id"]}">'
             f'<title>{title} ({station["year"]})</title>{_marker(station["kind"], x, y)}{star}{label}</a>')
