@@ -128,6 +128,77 @@ def map_svg(config, by_id):
             + ''.join(parts) + '</svg>')
 
 
+# Geometry of the narrow map: lines run down the page. The three directions leave the
+# interchange side by side; each one shows its stations in its own stretch and ends there,
+# so the next one can take the label column. Labels sit to the right of the tracks.
+V_WIDTH = 372
+V_X = {'F': 42, '1': 62, '2': 42, '3': 22}
+V_LABEL_X = 86
+V_ROW, V_HEAD, V_GAP = 33, 44, 12
+
+
+def _v_label(station, x, y):
+    name = html.escape(station['label'].replace('|', ' '))
+    return (f'<text class="lbl" x="{x}" y="{y + 5}"><tspan class="nm">{name}</tspan>'
+            f'<tspan class="yr" dx="8">{station["year"]}</tspan></text>')
+
+
+def _v_head(line, y):
+    x = V_LABEL_X
+    return (f'<a class="line-link" href="#{line["anchor"]}" data-line="{line["id"]}">'
+            f'<title>Line {line["id"]}: {html.escape(line["name"])}</title>'
+            f'{_bullet(line["id"], x + 11, y, size=22)}'
+            f'<text class="lbl line-head" x="{x + 30}" y="{y + 5}">{html.escape(line["name"])}</text></a>')
+
+
+def map_vertical(config, by_id):
+    """The narrow map, drawn top to bottom."""
+    lines = {line['id']: line for line in config['lines']}
+    paths, groups = [], []
+    y = 26
+    # Foundations: a short trunk into the interchange
+    f = lines['F']
+    items = [_v_head(f, y)]
+    y += V_HEAD - 10
+    f_top = y - 14
+    for station in _stations(f, by_id):
+        items.append(f'<a class="st" href="#p-{html.escape(station["key"])}" data-line="F">'
+                     f'<title>{html.escape(station["title"])} ({station["year"]})</title>'
+                     f'{_marker(station["kind"], V_X["F"], y)}{_v_label(station, V_LABEL_X, y)}</a>')
+        y += V_ROW
+    hub_y = y + 4
+    paths.append(f'<path class="ln" data-line="F" pathLength="1" d="M{V_X["F"]} {f_top} V{hub_y}"/>')
+    groups.append(f'<g class="line-group" data-line="F">{"".join(items)}</g>')
+    hub_lines = config['hub'].replace('|', ' ')
+    hub = (f'<a class="hub" href="#about-text"><title>The central hypothesis, explained below</title>'
+           f'<circle cx="{V_X["F"]}" cy="{hub_y}" r="12"/>'
+           f'<text class="lbl hub-lbl" x="{V_LABEL_X}" y="{hub_y + 5}"><tspan>{html.escape(hub_lines)}</tspan></text></a>')
+    y = hub_y + 40
+    branch_y = hub_y + 26
+    # each direction: its own stretch, ending in a terminus
+    for line_id in ('1', '2', '3'):
+        line = lines[line_id]
+        x = V_X[line_id]
+        items = [_v_head(line, y)]
+        y += V_HEAD - 8
+        for station in _stations(line, by_id):
+            star = _star(x + 13, y - 11) if station.get('award') else ''
+            items.append(f'<a class="st" href="#p-{html.escape(station["key"])}" data-line="{line_id}">'
+                         f'<title>{html.escape(station["title"])} ({station["year"]})</title>'
+                         f'{_marker(station["kind"], x, y)}{star}{_v_label(station, V_LABEL_X, y)}</a>')
+            y += V_ROW
+        end = y - V_ROW + 14
+        bend = f'M{V_X["F"]} {hub_y} L{x} {branch_y}' if x != V_X['F'] else f'M{x} {hub_y}'
+        paths.append(f'<path class="ln" data-line="{line_id}" pathLength="1" d="{bend} V{end}"/>')
+        groups.append(f'<g class="line-group" data-line="{line_id}">{"".join(items)}</g>')
+        y += V_GAP
+    height = y + 6
+    return (f'<svg class="netmap netmap-v" viewBox="0 0 {V_WIDTH} {height}" role="group" '
+            f'aria-labelledby="netmap-v-title"><title id="netmap-v-title">Research map: foundations lead to one interchange, '
+            f'from which three research directions run. Each station is a paper, demonstrator, or patent.</title>'
+            f'<g class="lines">{"".join(paths)}</g>{hub}{"".join(groups)}</svg>')
+
+
 def map_key(config, by_id):
     """The compact key for narrow screens: one row per line with its stations as dots."""
     rows = []
@@ -157,4 +228,4 @@ def line_names(config):
 
 def netmap_html(path, by_id):
     config = load(path)
-    return map_svg(config, by_id) + line_names(config) + map_key(config, by_id)
+    return map_svg(config, by_id) + line_names(config) + map_vertical(config, by_id)

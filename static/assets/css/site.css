@@ -252,6 +252,10 @@ main { display: block; flex: 1 0 auto; width: 100%; }
 }
 .hero-map { margin: 0; min-width: 0; }
 .netmap { display: block; width: 100%; height: auto; overflow: visible; }
+.netmap-v { display: none; max-width: 420px; }
+.netmap .line-head { fill: var(--ink); font-size: 15.5px; font-weight: 700; }
+.netmap-v .nm, .netmap-v .hub-lbl tspan { font-size: 15.5px; }
+.netmap-v .yr { font-size: 14.5px; }
 .netmap .ln { fill: none; stroke: var(--lc); stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; }
 .netmap .mk { fill: var(--paper); stroke: var(--lc); stroke-width: 3.5; }
 .netmap .mk-demo, .netmap .mk-patent { stroke: var(--ink); stroke-width: 3; }
@@ -645,7 +649,7 @@ input[type=checkbox], input[type=range] { accent-color: var(--accent); }
 }
 @media (max-width: 640px) {
   .netmap { display: none; }
-  .netmap-key { display: block; }
+  .netmap.netmap-v { display: block; }
   .line-names { display: none; }
   .lg-note { display: none; }
   .map-legend { margin-top: 10px; }
