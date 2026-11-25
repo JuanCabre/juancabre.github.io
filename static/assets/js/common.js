@@ -16,6 +16,9 @@
   const apply = theme => {
     if (theme === 'dark') root.dataset.theme = 'dark';
     else delete root.dataset.theme;
+    // the browser chrome on phones takes the color of the page
+    const chrome = document.querySelector('meta[name="theme-color"]');
+    if (chrome) chrome.content = theme === 'dark' ? '#0f1b2b' : '#ffffff';
     show();
   };
   button.addEventListener('click', () => {

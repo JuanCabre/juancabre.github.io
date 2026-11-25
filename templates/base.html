@@ -18,11 +18,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="@@ROOT@@assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="@@ROOT@@assets/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#ffffff">
 <script>
-  // Apply a saved dark choice before the first paint. Without one, the page stays light.
-  try { var saved = localStorage.getItem('theme'); } catch (error) {} if (saved === 'dark' || (saved !== 'light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.dataset.theme = 'dark';
+  // Apply the mode before the first paint: a saved choice wins; a first visit follows the system setting.
+  try { var saved = localStorage.getItem('theme'); } catch (error) {} if (saved === 'dark' || (saved !== 'light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.dataset.theme = 'dark'; document.querySelector('meta[name="theme-color"]').content = '#0f1b2b'; }
 </script>
 <link rel="stylesheet" href="@@ROOT@@assets/css/site.css?v=@@V@@">
+<link rel="stylesheet" href="@@ROOT@@assets/css/map.css?v=@@V@@">
 @@HEAD@@
 </head>
 <body>

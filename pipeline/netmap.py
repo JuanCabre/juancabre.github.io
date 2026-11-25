@@ -3,10 +3,13 @@
 Foundations run in from the left to one interchange, from which the three research
 directions branch. Each station is an entry of the bibliography; along each line the
 stations run by year. The map is plain SVG written at build time, so the page needs no
-script to show it. A compact key replaces it on narrow screens.
+script to show it. It comes in two drawings: a wide one for large screens and a vertical
+one, with the lines running down the page and the labels beside them, for everything
+narrower. The style sheet shows one of the two.
 """
 import html
 import json
+import math
 
 # Geometry of the wide map, in SVG units.
 WIDTH, TOP, BOTTOM = 1140, 44, 478
@@ -31,13 +34,13 @@ def _label(text, x, y, above, year, anchor='middle'):
         for value, cls in rows:
             out.append(f'<tspan class="{cls}" x="{x}" y="{cy}">{html.escape(value)}</tspan>')
             cy -= step
-        return f'<text class="lbl" text-anchor="{anchor}">{"".join(reversed(out))}</text>'
+        return f'<text class="lbl" text-anchor="{anchor}">{" ".join(reversed(out))}</text>'
     rows = [(part, 'nm') for part in lines] + [(year, 'yr')]
     out, cy = [], y + 30
     for value, cls in rows:
         out.append(f'<tspan class="{cls}" x="{x}" y="{cy}">{html.escape(value)}</tspan>')
         cy += step
-    return f'<text class="lbl" text-anchor="{anchor}">{"".join(out)}</text>'
+    return f'<text class="lbl" text-anchor="{anchor}">{" ".join(out)}</text>'
 
 
 def _marker(kind, x, y):
@@ -48,8 +51,7 @@ def _marker(kind, x, y):
     return f'<circle class="mk" cx="{x}" cy="{y}" r="7.5"/>'
 
 
-def _star(x, y, r=6.5):
-    import math
+def _star(x, y, r=8):
     points = []
     for i in range(10):
         radius = r if i % 2 == 0 else r * 0.45
@@ -74,11 +76,19 @@ def _stations(line, by_id):
     return sorted(stations, key=lambda s: s['year'])
 
 
+def _aria(station):
+    """The accessible name of a station link: map label, year, and full title."""
+    name = f"{station['label'].replace('|', ' ')}, {station['year']}: {station['title']}"
+    if station.get('award'):
+        name += ', Best Demo Award'
+    return html.escape(name, quote=True)
+
+
 def _station_group(line, station, x, y, above):
     label = _label(station['label'], x, y, above, str(station['year']))
     star = _star(x + 14, y + 13 if above else y - 13) if station.get('award') else ''   # away from the label
     title = html.escape(station['title'])
-    return (f'<a class="st" href="#p-{html.escape(station["key"])}" data-line="{line["id"]}">'
+    return (f'<a class="st" href="#p-{html.escape(station["key"])}" data-line="{line["id"]}" aria-label="{_aria(station)}">'
             f'<title>{title} ({station["year"]})</title>{_marker(station["kind"], x, y)}{star}{label}</a>')
 
 
@@ -128,94 +138,104 @@ def map_svg(config, by_id):
             + ''.join(parts) + '</svg>')
 
 
-# Geometry of the narrow map: lines run down the page. The three directions leave the
+# Geometry of the vertical map: lines run down the page. The three directions leave the
 # interchange side by side; each one shows its stations in its own stretch and ends there,
 # so the next one can take the label column. Labels sit to the right of the tracks.
-V_WIDTH = 372
-V_X = {'F': 42, '1': 62, '2': 42, '3': 22}
-V_LABEL_X = 86
-V_ROW, V_HEAD, V_GAP = 33, 44, 12
+# Every link carries an invisible rectangle over its whole row, so the row is the tap target.
+V_WIDTH = 352
+V_X = {'F': 32, '1': 50, '2': 32, '3': 14}
+V_LABEL_X = 68
+V_ROW, V_GAP = 40, 12
+
+
+def _v_hit(y):
+    return f'<rect class="hit" x="0" y="{y - V_ROW / 2:g}" width="{V_WIDTH}" height="{V_ROW}"/>'
+
+
+def _v_split(text, limit):
+    """Break a long name in two near its middle, or return None when it fits on one line."""
+    if len(text) <= limit:
+        return None
+    words = text.split()
+    cut = min(range(1, len(words)), key=lambda i: abs(len(' '.join(words[:i])) - len(' '.join(words[i:]))))
+    return ' '.join(words[:cut]), ' '.join(words[cut:])
+
+
+def _v_text(cls, x, y, name, tail='', limit=26):
+    """A label on one line and, for a long name, a second setting on two lines. The style
+    sheet shows the second one where the map is drawn small and its type is enlarged."""
+    one = f'<text class="lbl {cls}" x="{x}" y="{y + 5:g}"><tspan class="nm">{html.escape(name)}</tspan>{tail}</text>'
+    parts = _v_split(name, limit)
+    if parts is None:
+        return one
+    two = (f'<text class="lbl {cls} lbl-two"><tspan class="nm" x="{x}" y="{y - 3:g}">{html.escape(parts[0])}</tspan> '
+           f'<tspan class="nm" x="{x}" y="{y + 15:g}">{html.escape(parts[1])}</tspan>{tail}</text>')
+    return one.replace(f'class="lbl {cls}"', f'class="lbl {cls} lbl-one"') + two
 
 
 def _v_label(station, x, y):
-    name = html.escape(station['label'].replace('|', ' '))
-    return (f'<text class="lbl" x="{x}" y="{y + 5}"><tspan class="nm">{name}</tspan>'
-            f'<tspan class="yr" dx="8">{station["year"]}</tspan></text>')
+    year = f' <tspan class="yr" dx="3">{station["year"]}</tspan>'
+    return _v_text('st-lbl', x, y, station['label'].replace('|', ' '), year)
+
+
+def _v_station(station, line_id, y):
+    x = V_X[line_id]
+    star = _star(x + 14, y - 12) if station.get('award') else ''
+    return (f'<a class="st" href="#p-{html.escape(station["key"])}" data-line="{line_id}" aria-label="{_aria(station)}">'
+            f'{_v_hit(y)}<title>{html.escape(station["title"])} ({station["year"]})</title>'
+            f'{_marker(station["kind"], x, y)}{star}{_v_label(station, V_LABEL_X, y)}</a>')
 
 
 def _v_head(line, y):
     x = V_LABEL_X
     return (f'<a class="line-link" href="#{line["anchor"]}" data-line="{line["id"]}">'
-            f'<title>Line {line["id"]}: {html.escape(line["name"])}</title>'
+            f'{_v_hit(y)}<title>Line {line["id"]}: {html.escape(line["name"])}</title>'
             f'{_bullet(line["id"], x + 11, y, size=22)}'
-            f'<text class="lbl line-head" x="{x + 30}" y="{y + 5}">{html.escape(line["name"])}</text></a>')
+            f'{_v_text("line-head", x + 29, y, line["name"], limit=30)}</a>')
 
 
 def map_vertical(config, by_id):
-    """The narrow map, drawn top to bottom."""
+    """The vertical map, drawn top to bottom."""
     lines = {line['id']: line for line in config['lines']}
     paths, groups = [], []
-    y = 26
+    y = V_ROW / 2 + 2
     # Foundations: a short trunk into the interchange
     f = lines['F']
     items = [_v_head(f, y)]
-    y += V_HEAD - 10
-    f_top = y - 14
+    y += V_ROW
+    f_top = y - 16
     for station in _stations(f, by_id):
-        items.append(f'<a class="st" href="#p-{html.escape(station["key"])}" data-line="F">'
-                     f'<title>{html.escape(station["title"])} ({station["year"]})</title>'
-                     f'{_marker(station["kind"], V_X["F"], y)}{_v_label(station, V_LABEL_X, y)}</a>')
+        items.append(_v_station(station, 'F', y))
         y += V_ROW
     hub_y = y + 4
-    paths.append(f'<path class="ln" data-line="F" pathLength="1" d="M{V_X["F"]} {f_top} V{hub_y}"/>')
+    paths.append(f'<path class="ln" data-line="F" pathLength="1" d="M{V_X["F"]} {f_top:g} V{hub_y:g}"/>')
     groups.append(f'<g class="line-group" data-line="F">{"".join(items)}</g>')
     hub_lines = config['hub'].replace('|', ' ')
-    hub = (f'<a class="hub" href="#about-text"><title>The central hypothesis, explained below</title>'
-           f'<circle cx="{V_X["F"]}" cy="{hub_y}" r="12"/>'
-           f'<text class="lbl hub-lbl" x="{V_LABEL_X}" y="{hub_y + 5}"><tspan>{html.escape(hub_lines)}</tspan></text></a>')
-    y = hub_y + 40
+    hub = (f'<a class="hub" href="#about-text">{_v_hit(hub_y)}<title>The central hypothesis, explained below</title>'
+           f'<circle cx="{V_X["F"]}" cy="{hub_y:g}" r="12"/>'
+           f'<text class="lbl hub-lbl" x="{V_LABEL_X}" y="{hub_y + 5:g}"><tspan>{html.escape(hub_lines)}</tspan></text></a>')
+    y = hub_y + V_ROW + 2
     branch_y = hub_y + 26
     # each direction: its own stretch, ending in a terminus
     for line_id in ('1', '2', '3'):
         line = lines[line_id]
         x = V_X[line_id]
         items = [_v_head(line, y)]
-        y += V_HEAD - 8
+        y += V_ROW
         for station in _stations(line, by_id):
-            star = _star(x + 13, y - 11) if station.get('award') else ''
-            items.append(f'<a class="st" href="#p-{html.escape(station["key"])}" data-line="{line_id}">'
-                         f'<title>{html.escape(station["title"])} ({station["year"]})</title>'
-                         f'{_marker(station["kind"], x, y)}{star}{_v_label(station, V_LABEL_X, y)}</a>')
+            items.append(_v_station(station, line_id, y))
             y += V_ROW
         end = y - V_ROW + 14
-        bend = f'M{V_X["F"]} {hub_y} L{x} {branch_y}' if x != V_X['F'] else f'M{x} {hub_y}'
-        paths.append(f'<path class="ln" data-line="{line_id}" pathLength="1" d="{bend} V{end}"/>')
+        bend = f'M{V_X["F"]} {hub_y:g} L{x} {branch_y:g}' if x != V_X['F'] else f'M{x} {hub_y:g}'
+        paths.append(f'<path class="ln" data-line="{line_id}" pathLength="1" d="{bend} V{end:g}"/>')
         groups.append(f'<g class="line-group" data-line="{line_id}">{"".join(items)}</g>')
         y += V_GAP
-    height = y + 6
-    return (f'<svg class="netmap netmap-v" viewBox="0 0 {V_WIDTH} {height}" role="group" '
+    height = y - V_ROW / 2 - V_GAP + 4
+    # the foundations come before the interchange, in reading and in focus order
+    return (f'<svg class="netmap netmap-v" viewBox="0 0 {V_WIDTH} {height:g}" role="group" '
             f'aria-labelledby="netmap-v-title"><title id="netmap-v-title">Research map: foundations lead to one interchange, '
             f'from which three research directions run. Each station is a paper, demonstrator, or patent.</title>'
-            f'<g class="lines">{"".join(paths)}</g>{hub}{"".join(groups)}</svg>')
-
-
-def map_key(config, by_id):
-    """The compact key for narrow screens: one row per line with its stations as dots."""
-    rows = []
-    for line in config['lines']:
-        stations = _stations(line, by_id)
-        dots = ''.join(
-            f'<i class="k-{s["kind"]}" title="{html.escape(s["label"].replace("|", " "))}, {s["year"]}"></i>' for s in stations)
-        counts = {}
-        for s in stations:
-            counts[s['kind']] = counts.get(s['kind'], 0) + 1
-        words = {'paper': ('paper', 'papers'), 'demo': ('demonstrator', 'demonstrators'), 'patent': ('patent', 'patents')}
-        summary = ', '.join(f'{n} {words[k][n != 1]}' for k, n in counts.items())
-        rows.append(f'<li><a href="#{line["anchor"]}" data-line="{line["id"]}">'
-                    f'<span class="lb" aria-hidden="true">{line["id"]}</span>'
-                    f'<span class="kn"><strong>{html.escape(line["name"])}</strong><span>{summary}</span></span>'
-                    f'<span class="strip" aria-hidden="true">{dots}</span></a></li>')
-    return '<ol class="netmap-key" aria-label="Research lines">' + ''.join(rows) + '</ol>'
+            f'<g class="lines">{"".join(paths)}</g>{groups[0]}{hub}{"".join(groups[1:])}</svg>')
 
 
 def line_names(config):

@@ -36,8 +36,9 @@ nav: home
 <a class="nav-link" href="#contact">Contact</a>
 <!-- @section main -->
 <section class="hero" id="about" aria-labelledby="name">
+  <div class="hero-lead">
   <div class="hero-id">
-    <img class="portrait" src="@@ROOT@@assets/img/portrait.webp" width="480" height="480" alt="Portrait of Juan A. Cabrera">
+    <img class="portrait" src="@@ROOT@@assets/img/portrait.webp" width="480" height="480" fetchpriority="high" decoding="async" alt="Portrait of Juan A. Cabrera">
     <p class="hero-where"><a href="https://ceti.one/">CeTI</a>, <a href="https://cn.ifn.et.tu-dresden.de/">TU Dresden</a></p>
     <h1 id="name">Juan A. Cabrera</h1>
     <p class="hero-role"><strong>Junior Research Group Leader</strong> in the Cluster of Excellence Centre for Tactile Internet with Human-in-the-Loop (CeTI), Technische Universität Dresden</p>
@@ -50,13 +51,17 @@ nav: home
       <a class="button" href="#contact">Contact</a>
     </div>
   </div>
+  </div>
   <figure class="hero-map">
+    <a class="skip-link" href="#about-text">Skip the map</a>
     @@NETMAP@@
     <figcaption class="map-legend">
       <span class="lg"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="5" class="lg-paper"/></svg>Paper</span>
       <span class="lg"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x="3" y="3" width="10" height="10" class="lg-demo"/></svg>Demonstrator</span>
       <span class="lg"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 1.5 14.5 8 8 14.5 1.5 8Z" class="lg-patent"/></svg>Patent</span>
-      <span class="lg-note">Along each line, stations run by year. Select one to read about it.</span>
+      <span class="lg"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.4 3.8 13.8l1-4.6L1.3 6l4.7-.5z" class="lg-award"/></svg>Best Demo Award</span>
+      <span class="lg-note lg-note-touch">Tap a station to read about it.</span>
+      <span class="lg-note lg-note-full">Along each line, stations run by year. Select one to read about it.</span>
     </figcaption>
   </figure>
 </section>
@@ -186,7 +191,7 @@ nav: home
   <div class="demo-row">
     <article class="demo" id="p-nazari2026muse" data-line="3">
       <div class="tag-row"><span class="line-bullet" data-line="3" aria-hidden="true">3</span><span class="tag">Direction 3</span></div>
-      <h3>@@PUBTITLE:nazari2026muse@@</h3>
+      <h3><a href="@@PUBLINK:nazari2026muse@@">@@PUBTITLE:nazari2026muse@@</a></h3>
       <div class="venue">IEEE CSCN 2026, London, demonstration</div>
       <p>Drones on a simulated factory floor offload four types of tasks to two edge servers and a cloud. A slow loop, in which a world model and a language model interpret events such as a person approaching the entrance, raises the urgency of the affected task. A fast reinforcement-learning scheduler then decides where each task runs. The language model never allocates resources itself, and deterministic checks validate its output. Visitors trigger events on a tablet and watch the urgent task move to a faster edge server.</p>
       <p>With four open language models, the slow loop took between 0.3 s and 3.8 s per update, which is why it stays out of the time-critical loop.</p>
@@ -194,7 +199,7 @@ nav: home
     </article>
     <article class="demo" id="p-nazari2026semantic" data-line="2">
       <div class="tag-row"><span class="line-bullet" data-line="2" aria-hidden="true">2</span><span class="tag">Direction 2</span></div>
-      <h3>@@PUBTITLE:nazari2026semantic@@</h3>
+      <h3><a href="@@PUBLINK:nazari2026semantic@@">@@PUBTITLE:nazari2026semantic@@</a></h3>
       <div class="venue">IEEE CSCN 2026, London, demonstration</div>
       <p>State updates of drones, automated guided vehicles, robotic arms, and human operators on a simulated factory floor travel over real time-sensitive networking hardware. The priority and the update interval of each flow adapt at run time to the age of its information and to its safety relevance. When a drone approaches a person, its updates become more frequent and more urgent, while the transmission schedule of the network stays fixed. Visitors steer one entity with a joystick and compare the monitored view with the ground truth.</p>
       <p>The policy is a configurable set of thresholds for now; learning it is future work.</p>
