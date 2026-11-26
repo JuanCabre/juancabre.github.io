@@ -72,6 +72,8 @@
   --type-preprint: #7d8799;
   --type-other: #9aa3b1;
   --track: #edf1f4;
+  /* demonstrator diagrams */
+  --fig-zone: #e6ebf0;
   --tooltip-bg: #13233a;
   --tooltip-ink: #ffffff;
   --shadow: 0 6px 18px -6px rgba(19, 35, 58, .18);
@@ -120,6 +122,7 @@
   --type-preprint: #7a859a;
   --type-other: #566174;
   --track: #1d2d43;
+  --fig-zone: #1c2e47;
   --tooltip-bg: #eef3f8;
   --tooltip-ink: #13233a;
   --shadow: 0 6px 18px -6px rgba(0, 0, 0, .55);
@@ -398,10 +401,29 @@ a.cite-title:hover { color: var(--accent-strong); text-decoration-color: current
 /* Three equal columns. Each card borrows the rows of the grid, so titles, texts,
    and the rule above the authors sit at the same height in every card. */
 .demo-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 56px; }
-.demo { position: relative; display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: 12px; align-content: start; padding-top: 4px; scroll-margin-top: 140px; }
+.demo { position: relative; display: grid; grid-row: span 7; grid-template-rows: subgrid; row-gap: 12px; align-content: start; padding-top: 4px; scroll-margin-top: 140px; }
 .demo + .demo::before { content: ''; position: absolute; left: -28px; top: 0; bottom: 0; border-left: 1px solid var(--rule); }
 .demo > p:first-of-type:last-of-type { grid-row: span 2; }
-.demo > .people { grid-row: 6; }
+.demo > .people { grid-row: 7; }
+/* schematic of each demonstrator: tiles with pictograms, colors only through these classes */
+.demo-fig { display: block; width: 100%; height: auto; margin: 4px 0; font-family: var(--font-body); }
+.demo-fig .f-tile { fill: var(--fig-zone); }
+.demo-fig .f-icon { stroke: var(--ink); stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.demo-fig .f-icon-fill { fill: var(--ink); }
+.demo-fig .f-accent { stroke: var(--lc); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.demo-fig .f-accent-fill { fill: var(--lc); }
+.demo-fig .f-wire { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+.demo-fig .f-head { fill: var(--muted); }
+.demo-fig .f-flow { stroke: var(--lc); stroke-width: 2; fill: none; }
+.demo-fig .f-flow-head { fill: var(--lc); }
+.demo-fig .f-name { fill: var(--ink); font-size: 14px; font-weight: 650; }
+@media (forced-colors: active) {
+  .demo-fig .f-tile { fill: Canvas; stroke: CanvasText; stroke-width: 1; }
+  .demo-fig .f-icon, .demo-fig .f-wire { stroke: CanvasText; }
+  .demo-fig .f-icon-fill, .demo-fig .f-head, .demo-fig .f-name { fill: CanvasText; }
+  .demo-fig .f-accent, .demo-fig .f-flow { stroke: Highlight; }
+  .demo-fig .f-accent-fill, .demo-fig .f-flow-head { fill: Highlight; }
+}
 .demo:target h3 { text-decoration: underline; text-decoration-color: var(--lc); text-decoration-thickness: 3px; }
 .tag-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
 .tag { font-weight: 700; color: var(--lc); }
@@ -645,15 +667,20 @@ input[type=checkbox] { width: 20px; height: 20px; margin: 0; flex: none; }
   .record-list > div:nth-child(n+4) { border-top: 1px solid var(--rule-soft); }
   .overview-grid, .collab-grid { grid-template-columns: minmax(0, 1fr); }
 }
+/* The demonstrators stack once a column would be narrower than the 300-unit diagrams,
+   so their 14px labels never render below 14px. */
+@media (max-width: 1099px) {
+  .demo-row { grid-template-columns: minmax(0, 1fr); }
+  .demo-fig { max-width: 380px; }
+  .demo { display: flex; flex-direction: column; gap: 12px; padding: 24px 0 0; border-top: 1px solid var(--rule); margin-top: 24px; }
+  .demo + .demo::before { content: none; }
+  .demo:first-child { margin-top: 0; border-top: 0; padding-top: 0; }
+}
 @media (max-width: 860px) {
   html { scroll-padding-top: 116px; }
   .intro, .about-grid, .two-col, .contact-grid, .award-grid { grid-template-columns: minmax(0, 1fr); }
   .theme, .subtheme { grid-template-columns: minmax(0, 1fr); }
   .theme > .cite-list, .subtheme > .cite-list { grid-column: 1; grid-row: auto; margin-top: 18px; }
-  .demo-row { grid-template-columns: minmax(0, 1fr); }
-  .demo { display: flex; flex-direction: column; gap: 12px; padding: 24px 0 0; border-top: 1px solid var(--rule); margin-top: 24px; }
-  .demo + .demo::before { content: none; }
-  .demo:first-child { margin-top: 0; border-top: 0; padding-top: 0; }
   .section-title { margin-top: 64px; }
   .band { margin-top: 64px; padding-bottom: 48px; }
   .band .section-title { padding-top: 48px; }
@@ -706,7 +733,7 @@ input[type=checkbox] { width: 20px; height: 20px; margin: 0; flex: none; }
   :root:root:root {
     --paper: #fff; --platform: #f2f5f7; --ink: #13233a; --text: #24364c; --muted: #4a5868; --rule: #d5dbe1; --rule-soft: #e7ebef;
     --line-F: #1e3a5f; --line-1: #13795b; --line-2: #1f64c8; --line-3: #b45309;
-    --accent: #1f64c8; --primary: #1e3a5f; --track: #edf1f4;
+    --accent: #1f64c8; --primary: #1e3a5f; --track: #edf1f4; --fig-zone: #e6ebf0;
     color-scheme: light;
   }
   .masthead, .page-nav, .hash, .actions, .filter-bar, .pager, #tooltip, .theme-toggle { display: none !important; }
