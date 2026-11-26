@@ -21,6 +21,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from pipeline.prepare_data import build_data
+from pipeline.careermap import careermap_html
 from pipeline.netmap import netmap_html
 from pipeline.venues import new_names_notice, show
 
@@ -246,6 +247,7 @@ def build(output, site_url=None, pdf='auto'):
     }
 
     netmap = netmap_html(source / 'network-map.json', by_id)
+    careermap = careermap_html(source / 'career-map.json', source / 'career-land.json')
     base = (ROOT / 'templates' / 'base.html').read_text(encoding='utf-8')
     for name, target in PAGES.items():
         settings, sections = read_page(ROOT / 'pages' / name)
@@ -258,6 +260,7 @@ def build(output, site_url=None, pdf='auto'):
             'DESCRIPTION': html.escape(settings.get('description', config['description'])),
             'NAV': settings.get('nav', ''),
             'NETMAP': netmap,
+            'CAREERMAP': careermap,
             **{key.upper(): value for key, value in sections.items()},
         }
 
