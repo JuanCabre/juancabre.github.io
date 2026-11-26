@@ -21,11 +21,11 @@ ROOT = Path(__file__).resolve().parents[1]
 LAND_FILE = ROOT / 'data' / 'career-land.json'
 
 # The world view: longitudes and latitudes it shows, and its width in SVG units.
-WORLD = {'lon': (-95.0, 45.0), 'lat': (5.0, 61.0)}
-WIDTH = 1000
+WORLD = {'lon': (-80.0, 30.0), 'lat': (5.0, 60.0)}
+WIDTH = 520
 # The enlarged view of Central Europe and the box of the world view that it fills.
 DETAIL = {'lon': (7.5, 17.5), 'lat': (49.4, 57.9)}
-DETAIL_BOX = (322, 34, 270)  # x, y and width; the height follows from the projection
+DETAIL_BOX = (136, 22, 186)  # x, y and width; the height follows from the projection
 
 
 def _merc(lat):
@@ -142,16 +142,18 @@ def _path(rings, view, tolerance):
 
 def _label(station, x, y):
     anchor = {'left': 'end', 'right': 'start'}.get(station['label'], 'start')
-    dx = {'left': -18, 'right': 18}.get(station['label'], 18)
+    dx = {'left': -10, 'right': 10}.get(station['label'], 10)
     name = html.escape(station['city'])
+    year = html.escape(station['years'])
     note = html.escape(station['short'])
     return (f'<text class="cm-lbl" text-anchor="{anchor}">'
-            f'<tspan class="nm" x="{x + dx:.1f}" y="{y - 2:.1f}">{name}</tspan>'
-            f'<tspan class="yr" x="{x + dx:.1f}" y="{y + 16:.1f}">{note}</tspan></text>')
+            f'<tspan class="nm" x="{x + dx:.1f}" y="{y - 1:.1f}">{name}</tspan>'
+            f'<tspan class="yr"> {year}</tspan>'
+            f'<tspan class="in" x="{x + dx:.1f}" y="{y + 13:.1f}">{note}</tspan></text>')
 
 
 def _station(number, x, y):
-    return (f'<g class="cm-st"><circle cx="{x:.1f}" cy="{y:.1f}" r="11"/>'
+    return (f'<g class="cm-st"><circle cx="{x:.1f}" cy="{y:.1f}" r="5"/>'
             f'<text x="{x:.1f}" y="{y + 1:.1f}" text-anchor="middle" dominant-baseline="central">{number}</text></g>')
 
 
@@ -184,7 +186,7 @@ def careermap_html(stations_path, land_path=LAND_FILE):
             else:
                 d += f' L{x1:.1f} {y1:.1f}'
         else:
-            d += f' C{x0 + 60:.1f} {y0 - 170:.1f} {x1 - 210:.1f} {y1 + 30:.1f} {x1:.1f} {y1:.1f}'
+            d += f' C{x0 + 30:.1f} {y0 - 90:.1f} {x1 - 100:.1f} {y1 + 20:.1f} {x1:.1f} {y1:.1f}'
 
     # The region the detail view enlarges, marked on the world view and joined to it.
     (ex0, ey0), (ex1, ey1) = world(DETAIL['lon'][0], DETAIL['lat'][1]), world(DETAIL['lon'][1], DETAIL['lat'][0])
@@ -196,11 +198,11 @@ def careermap_html(stations_path, land_path=LAND_FILE):
         f'<title id="cm-title">{html.escape(title)}</title>',
         '<defs><clipPath id="cm-clip">'
         f'<rect x="{bx}" y="{by}" width="{bw}" height="{bh}" rx="6"/></clipPath></defs>',
-        f'<path class="cm-land" d="{_path(land["world"], world, 1.2)}"/>',
+        f'<path class="cm-land" d="{_path(land["world"], world, 0.7)}"/>',
         f'<rect class="cm-zoom" x="{ex0:.1f}" y="{ey0:.1f}" width="{ex1 - ex0:.1f}" height="{ey1 - ey0:.1f}"/>',
         f'<path class="cm-guide" d="M{bx + bw} {by} L{ex0:.1f} {ey0:.1f} M{bx + bw} {by + bh} L{ex0:.1f} {ey1:.1f}"/>',
         f'<rect class="cm-detail" x="{bx}" y="{by}" width="{bw}" height="{bh}" rx="6"/>',
-        f'<path class="cm-land" clip-path="url(#cm-clip)" d="{_path(land["detail"], detail, 0.8)}"/>',
+        f'<path class="cm-land" clip-path="url(#cm-clip)" d="{_path(land["detail"], detail, 0.5)}"/>',
         f'<rect class="cm-frame" x="{bx}" y="{by}" width="{bw}" height="{bh}" rx="6"/>',
         f'<path class="cm-ln" pathLength="1" d="{d}"/>',
     ]
