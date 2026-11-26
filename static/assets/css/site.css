@@ -72,6 +72,9 @@
   --type-preprint: #7d8799;
   --type-other: #9aa3b1;
   --track: #edf1f4;
+  /* demonstrator diagrams */
+  --fig-line: #8a97a6;
+  --fig-zone: #e6ebf0;
   --tooltip-bg: #13233a;
   --tooltip-ink: #ffffff;
   --shadow: 0 6px 18px -6px rgba(19, 35, 58, .18);
@@ -120,6 +123,8 @@
   --type-preprint: #7a859a;
   --type-other: #566174;
   --track: #1d2d43;
+  --fig-line: #5d7089;
+  --fig-zone: #1c2e47;
   --tooltip-bg: #eef3f8;
   --tooltip-ink: #13233a;
   --shadow: 0 6px 18px -6px rgba(0, 0, 0, .55);
@@ -398,10 +403,23 @@ a.cite-title:hover { color: var(--accent-strong); text-decoration-color: current
 /* Three equal columns. Each card borrows the rows of the grid, so titles, texts,
    and the rule above the authors sit at the same height in every card. */
 .demo-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 56px; }
-.demo { position: relative; display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: 12px; align-content: start; padding-top: 4px; scroll-margin-top: 140px; }
+.demo { position: relative; display: grid; grid-row: span 7; grid-template-rows: subgrid; row-gap: 12px; align-content: start; padding-top: 4px; scroll-margin-top: 140px; }
 .demo + .demo::before { content: ''; position: absolute; left: -28px; top: 0; bottom: 0; border-left: 1px solid var(--rule); }
 .demo > p:first-of-type:last-of-type { grid-row: span 2; }
-.demo > .people { grid-row: 6; }
+.demo > .people { grid-row: 7; }
+/* schematic of each demonstrator: colors only through these classes, so both themes work */
+.demo-fig { display: block; width: 100%; height: auto; margin: 4px 0; font-family: var(--font-body); }
+.demo-fig .f-node { fill: var(--paper); stroke: var(--fig-line); stroke-width: 1.25; }
+.demo-fig .f-key { fill: var(--paper); stroke: var(--lc); stroke-width: 2; }
+.demo-fig .f-zone { fill: var(--fig-zone); }
+.demo-fig .f-flow { stroke: var(--lc); stroke-width: 2; fill: none; }
+.demo-fig .f-flow-head { fill: var(--lc); }
+.demo-fig .f-wire { stroke: var(--muted); stroke-width: 1.25; fill: none; }
+.demo-fig .f-name { fill: var(--ink); font-size: 12px; font-weight: 650; }
+.demo-fig .f-sub { fill: var(--muted); font-size: 10.5px; }
+.demo-fig .f-note { fill: var(--lc); font-size: 10.5px; font-weight: 600; }
+.demo-fig .f-icon { stroke: var(--ink); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.demo-fig .f-icon-fill { fill: var(--ink); }
 .demo:target h3 { text-decoration: underline; text-decoration-color: var(--lc); text-decoration-thickness: 3px; }
 .tag-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
 .tag { font-weight: 700; color: var(--lc); }
@@ -651,6 +669,7 @@ input[type=checkbox] { width: 20px; height: 20px; margin: 0; flex: none; }
   .theme, .subtheme { grid-template-columns: minmax(0, 1fr); }
   .theme > .cite-list, .subtheme > .cite-list { grid-column: 1; grid-row: auto; margin-top: 18px; }
   .demo-row { grid-template-columns: minmax(0, 1fr); }
+  .demo-fig { max-width: 520px; }
   .demo { display: flex; flex-direction: column; gap: 12px; padding: 24px 0 0; border-top: 1px solid var(--rule); margin-top: 24px; }
   .demo + .demo::before { content: none; }
   .demo:first-child { margin-top: 0; border-top: 0; padding-top: 0; }
