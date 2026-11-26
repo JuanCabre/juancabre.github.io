@@ -193,248 +193,248 @@ nav: home
       <div class="tag-row"><span class="line-bullet" data-line="3" aria-hidden="true">3</span><span class="tag">Direction 3</span></div>
       <h3><a href="@@PUBLINK:nazari2026muse@@">@@PUBTITLE:nazari2026muse@@</a></h3>
       <div class="venue">IEEE CSCN 2026, London, demonstration</div>
-      <svg class="demo-fig" viewBox="0 0 360 240" role="img" aria-labelledby="muse-t muse-d">
-  <title id="muse-t">MUSE demonstrator: an LLM updates task urgency, a fast scheduler sends the urgent task to the nearest edge server</title>
-  <desc id="muse-d">Slow loop, drawn with dashed arrows, 0.3 to 3.8 seconds per update depending on the language model: a visitor triggers a human entry or tanker risk event on a tablet; a world model forecasts it from visual survey logs and the LLM-based Semantic Supervisor updates the urgency of information (UoI) of the affected task; deterministic sanity checks, shown as a check mark, validate the updated UoI vector. The LLM never allocates resources. Fast loop, drawn with solid arrows, about 0.2 microseconds per decision: drones offload four task types (tanker monitoring, human positioning, telemetry, visual survey) and a reinforcement-learning scheduler places each task on edge server E1, which has the lowest latency but limited compute, edge server E2, or the cloud, which has more compute but a larger delay. The urgent task, shown as a dot, travels to E1.</desc>
+      <svg class="demo-fig" viewBox="0 0 300 200" width="300" height="200" role="img" aria-labelledby="muse-t" aria-describedby="muse-d">
+  <title id="muse-t">MUSE: urgent task goes to edge server E1</title>
+  <desc id="muse-d">Fast loop, top row with solid arrows, about 0.2 microseconds per decision: drones offload four task types (tanker monitoring, human positioning, telemetry, visual survey) and a reinforcement-learning scheduler places each task on the low-latency edge server E1, which has limited compute, on edge server E2, or on the cloud, which has more compute but a larger delay. Slow loop, bottom row with dashed arrows, 0.3 to 3.8 seconds per update depending on the language model: a visitor triggers a human entry or tanker risk event on a tablet; a world model forecasts it from visual survey logs and the LLM-based Semantic Supervisor updates the urgency of information (UoI) of the affected task; deterministic sanity checks, shown as a check mark, validate the updated UoI vector before it reaches the scheduler. The LLM never allocates resources. The highlighted arrow shows the urgent task going to the low-latency edge server E1.</desc>
   <defs>
-    <marker id="muse-arrow" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-      <path class="f-head" d="M0 0.5 L8 4 L0 7.5 Z"/>
-    </marker>
-    <marker id="muse-arrow-accent" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-      <path class="f-flow-head" d="M0 0.5 L8 4 L0 7.5 Z"/>
-    </marker>
+    <marker id="muse-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="f-head" d="M0 0 L8 4 L0 8 z"/></marker>
+    <marker id="muse-arrow-accent" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="f-flow-head" d="M0 0 L8 4 L0 8 z"/></marker>
   </defs>
 
-  <rect class="f-tile" x="8" y="8" width="100" height="76" rx="10"/>
-  <rect class="f-tile" x="130" y="8" width="100" height="76" rx="10"/>
-  <rect class="f-tile" x="8" y="130" width="100" height="76" rx="10"/>
-  <rect class="f-tile" x="130" y="130" width="100" height="76" rx="10"/>
-  <rect class="f-tile" x="258" y="8" width="94" height="198" rx="10"/>
+  <rect class="f-tile" x="0" y="0" width="84" height="64" rx="10"/>
+  <rect class="f-tile" x="108" y="0" width="84" height="64" rx="10"/>
+  <rect class="f-tile" x="0" y="106" width="84" height="64" rx="10"/>
+  <rect class="f-tile" x="108" y="106" width="84" height="64" rx="10"/>
+  <rect class="f-tile" x="216" y="0" width="84" height="170" rx="10"/>
 
-  <!-- Event: tablet with warning mark -->
-  <rect class="f-icon" x="31" y="25" width="54" height="42" rx="5"/>
-  <path class="f-accent" d="M58 34 L69 55 H47 Z"/>
-  <path class="f-accent" d="M58 42 V48"/>
-  <circle class="f-accent-fill" cx="58" cy="51.5" r="1.2"/>
-  <text class="f-name" x="58" y="101" text-anchor="middle">Event</text>
-
-  <!-- LLM: speech bubble, check badge = sanity checks -->
-  <path class="f-icon" d="M162 24 H194 a8 8 0 0 1 8 8 V50 a8 8 0 0 1 -8 8 H176 L165 67 V58 H162 a8 8 0 0 1 -8 -8 V32 a8 8 0 0 1 8 -8 Z"/>
-  <path class="f-icon" d="M164 35 H192 M164 42 H186 M164 49 H177"/>
-  <circle class="f-tile" cx="203" cy="59" r="11"/>
-  <circle class="f-accent" cx="203" cy="59" r="9"/>
-  <path class="f-accent" d="M198.5 59 L201.5 62.5 L207.5 55.5"/>
-  <text class="f-name" x="180" y="101" text-anchor="middle">LLM</text>
-
-  <!-- Drones: quadcopter, top view -->
-  <rect class="f-icon" x="51" y="162" width="14" height="12" rx="3"/>
-  <circle class="f-icon" cx="38" cy="152" r="8"/>
-  <circle class="f-icon" cx="78" cy="152" r="8"/>
-  <circle class="f-icon" cx="38" cy="184" r="8"/>
-  <circle class="f-icon" cx="78" cy="184" r="8"/>
-  <path class="f-icon" d="M51.5 162.5 L44.3 156.9 M64.5 162.5 L71.7 156.9 M51.5 173.5 L44.3 179.1 M64.5 173.5 L71.7 179.1"/>
-  <circle class="f-icon-fill" cx="58" cy="168" r="2"/>
-  <text class="f-name" x="58" y="223" text-anchor="middle">Drones</text>
+  <!-- fast loop, row 1: drones (quadcopter, top view) -->
+  <rect class="f-icon" x="36" y="27" width="12" height="10" rx="3"/>
+  <circle class="f-icon" cx="26" cy="19" r="6.5"/>
+  <circle class="f-icon" cx="58" cy="19" r="6.5"/>
+  <circle class="f-icon" cx="26" cy="45" r="6.5"/>
+  <circle class="f-icon" cx="58" cy="45" r="6.5"/>
+  <path class="f-icon" d="M36.5 27.5 L31.1 23.1 M47.5 27.5 L52.9 23.1 M36.5 36.5 L31.1 40.9 M47.5 36.5 L52.9 40.9"/>
+  <circle class="f-icon-fill" cx="42" cy="32" r="1.8"/>
+  <text class="f-name" x="42" y="84" text-anchor="middle">Drones</text>
 
   <!-- RL scheduler: one input, three choices, top one taken -->
-  <circle class="f-icon" cx="156" cy="168" r="5"/>
-  <path class="f-icon" d="M161 168 H202 M160.4 170.4 L199 186"/>
-  <circle class="f-icon" cx="206" cy="168" r="4"/>
-  <circle class="f-icon" cx="202.5" cy="187.5" r="4"/>
-  <path class="f-accent" d="M160.4 165.6 L199 150"/>
-  <circle class="f-accent-fill" cx="202.5" cy="148.5" r="4.5"/>
-  <text class="f-name" x="180" y="223" text-anchor="middle">RL scheduler</text>
+  <circle class="f-icon" cx="131" cy="32" r="4.5"/>
+  <path class="f-icon" d="M135 30 L164.5 18.5 M135.5 32 H167.5 M135 34 L164.8 45.6"/>
+  <circle class="f-icon-fill" cx="168" cy="17" r="4.5"/>
+  <circle class="f-icon" cx="171" cy="32" r="3.5"/>
+  <circle class="f-icon" cx="168" cy="47" r="3.5"/>
+  <text class="f-name" x="150" y="84" text-anchor="middle">RL scheduler</text>
 
-  <!-- Resources: E1 (accent), E2, Cloud -->
-  <rect class="f-accent" x="268" y="24" width="30" height="11" rx="3"/>
-  <rect class="f-accent" x="268" y="38" width="30" height="11" rx="3"/>
-  <circle class="f-accent-fill" cx="274" cy="29.5" r="1.5"/>
-  <circle class="f-accent-fill" cx="274" cy="43.5" r="1.5"/>
-  <path class="f-accent" d="M281 29.5 H292 M281 43.5 H292"/>
-  <text class="f-name" x="310" y="41">E1</text>
+  <!-- slow loop, row 2: event on a tablet -->
+  <rect class="f-icon" x="20" y="121" width="44" height="34" rx="4"/>
+  <path class="f-icon" d="M42 128 L51 146 H33 Z M42 135 V140"/>
+  <circle class="f-icon-fill" cx="42" cy="143" r="1.1"/>
+  <text class="f-name" x="42" y="190" text-anchor="middle">Event</text>
 
-  <rect class="f-icon" x="268" y="90" width="30" height="11" rx="3"/>
-  <rect class="f-icon" x="268" y="104" width="30" height="11" rx="3"/>
-  <circle class="f-icon-fill" cx="274" cy="95.5" r="1.5"/>
-  <circle class="f-icon-fill" cx="274" cy="109.5" r="1.5"/>
-  <path class="f-icon" d="M281 95.5 H292 M281 109.5 H292"/>
-  <text class="f-name" x="310" y="107">E2</text>
+  <!-- LLM: speech bubble, check badge = sanity checks -->
+  <path class="f-icon" d="M137 120 H163 a7 7 0 0 1 7 7 V141 a7 7 0 0 1 -7 7 H147 L138 156 V148 H137 a7 7 0 0 1 -7 -7 V127 a7 7 0 0 1 7 -7 Z"/>
+  <path class="f-icon" d="M138 129 H162 M138 135 H157 M138 141 H149"/>
+  <circle class="f-tile" cx="170" cy="148" r="10"/>
+  <circle class="f-icon" cx="170" cy="148" r="8"/>
+  <path class="f-icon" d="M166.2 148 L168.8 151 L174 145"/>
+  <text class="f-name" x="150" y="190" text-anchor="middle">LLM</text>
 
-  <path class="f-icon" d="M274 179 H294 a7 7 0 0 0 0.5 -14 a10.5 10.5 0 0 0 -20 -2.5 a8.3 8.3 0 0 0 -0.5 16.5 Z"/>
-  <text class="f-name" x="310" y="173">Cloud</text>
+  <!-- resources: E1 (accent), E2, Cloud -->
+  <rect class="f-accent" x="243" y="8" width="30" height="10" rx="3"/>
+  <rect class="f-accent" x="243" y="21" width="30" height="10" rx="3"/>
+  <circle class="f-accent-fill" cx="249" cy="13" r="1.5"/>
+  <circle class="f-accent-fill" cx="249" cy="26" r="1.5"/>
+  <path class="f-accent" d="M256 13 H267 M256 26 H267"/>
+  <text class="f-name" x="258" y="47" text-anchor="middle">E1</text>
 
-  <!-- slow loop: dashed -->
-  <path class="f-wire" stroke-dasharray="4 3" d="M110 46 H128" marker-end="url(#muse-arrow)"/>
-  <path class="f-wire" stroke-dasharray="4 3" d="M180 108 V128" marker-end="url(#muse-arrow)"/>
+  <rect class="f-icon" x="243" y="64" width="30" height="10" rx="3"/>
+  <rect class="f-icon" x="243" y="77" width="30" height="10" rx="3"/>
+  <circle class="f-icon-fill" cx="249" cy="69" r="1.5"/>
+  <circle class="f-icon-fill" cx="249" cy="82" r="1.5"/>
+  <path class="f-icon" d="M256 69 H267 M256 82 H267"/>
+  <text class="f-name" x="258" y="103" text-anchor="middle">E2</text>
+
+  <path class="f-icon" d="M248 140 H268 a7 7 0 0 0 0.5 -14 a10.5 10.5 0 0 0 -20 -2.5 a8.3 8.3 0 0 0 -0.5 16.5 Z"/>
+  <text class="f-name" x="258" y="159" text-anchor="middle">Cloud</text>
+
   <!-- fast loop: solid -->
-  <path class="f-wire" d="M110 168 H128" marker-end="url(#muse-arrow)"/>
-  <path class="f-wire" d="M232 168 H256" marker-end="url(#muse-arrow)"/>
-  <path class="f-wire" d="M243 168 V102 H256" marker-end="url(#muse-arrow)"/>
-  <path class="f-flow" d="M232 168 H243 V36 H256" marker-end="url(#muse-arrow-accent)"/>
-  <circle class="f-accent-fill" cx="243" cy="68" r="4.5"/>
+  <path class="f-wire" d="M86 32 H106" marker-end="url(#muse-arrow)"/>
+  <path class="f-wire" d="M194 45 H204 V131 H214" marker-end="url(#muse-arrow)"/>
+  <path class="f-wire" d="M204 75 H214" marker-end="url(#muse-arrow)"/>
+  <!-- urgent task: scheduler to E1 -->
+  <path class="f-flow" d="M194 19 H214" marker-end="url(#muse-arrow-accent)"/>
+  <!-- slow loop: dashed -->
+  <path class="f-wire" stroke-dasharray="3 2" d="M86 138 H106" marker-end="url(#muse-arrow)"/>
+  <path class="f-wire" stroke-dasharray="3 2" d="M150 104 V91" marker-end="url(#muse-arrow)"/>
 </svg>
-      <p>Drones on a simulated factory floor offload tasks to two edge servers and a cloud. When a visitor triggers an event on a tablet, such as a person approaching the entrance, a slow loop with a world model and a language model raises the urgency of the affected task. A fast reinforcement-learning scheduler then decides where each task runs.</p>
-      <p>The language model never allocates resources, and at 0.3 s to 3.8 s per update it stays outside the time-critical loop.</p>
+      <p>Drones on a simulated factory floor offload tasks to two edge servers and a cloud. When a visitor triggers an event on a tablet, a slow loop with a language model (LLM) raises the urgency of the affected task, and deterministic checks validate its output. A fast reinforcement-learning (RL) scheduler then decides where each task runs.</p>
+      <p>The language model never allocates resources, and at 0.3&nbsp;s to 3.8&nbsp;s per update it stays outside the time-critical loop.</p>
       <div class="people">@@PUBAUTHORS:nazari2026muse@@</div>
     </article>
     <article class="demo" id="p-nazari2026semantic" data-line="2">
       <div class="tag-row"><span class="line-bullet" data-line="2" aria-hidden="true">2</span><span class="tag">Direction 2</span></div>
       <h3><a href="@@PUBLINK:nazari2026semantic@@">@@PUBTITLE:nazari2026semantic@@</a></h3>
       <div class="venue">IEEE CSCN 2026, London, demonstration</div>
-      <svg class="demo-fig" viewBox="0 0 360 240" role="img" aria-labelledby="tsn-t tsn-d">
-  <title id="tsn-t">Semantic and freshness-aware prioritization over TSN: demonstrator schematic</title>
-  <desc id="tsn-d">A joystick controls one entity on a 3D simulated factory floor with drones, automated guided vehicles, robotic arms and human operators. A drone has an Estimated Location of Presence whose radius grows with the age of its last update, drawn as a growing ring that reaches toward a human operator. The sender, a Linux end station with an Intel i226 network card, samples the ground-truth state and assigns each flow one of four priority levels, from safe to large overlap, which set the update interval and the Ethernet priority (PCP); a drone approaching an operator gets the highest level. Updates cross a Kontron KSwitch D10 MMT TSN switch, the PTP grandmaster, whose Time-Aware Shaper schedule stays fixed. The receiver drives a monitoring dashboard that shows age of information, uncertainty region, priority level and update interval, next to a second screen with the ground truth.</desc>
+      <svg class="demo-fig" viewBox="0 0 300 200" width="300" height="200" role="img" aria-labelledby="tsn-t" aria-describedby="tsn-d">
+  <title id="tsn-t">TSN demonstrator: priorities follow safety and freshness</title>
+  <desc id="tsn-d">A joystick controls one entity on a 3D simulated factory floor with drones, automated guided vehicles, robotic arms and human operators. A drone has an Estimated Location of Presence whose radius grows with the age of its last update, drawn as two rings growing toward a human operator. The sender, a Linux end station with an Intel i226 network card, samples the ground-truth state and assigns each flow one of four priority levels, from safe to large overlap, which set the update interval and the Ethernet priority (PCP); a drone approaching an operator gets the highest level. Updates cross a Kontron KSwitch D10 MMT TSN switch, the PTP grandmaster, whose Time-Aware Shaper schedule stays fixed. The receiver drives a monitoring dashboard that shows age of information, uncertainty region, priority level and update interval. It is compared with the ground-truth view, which comes directly from the simulation at the sender side and not through the network.</desc>
   <defs>
-    <marker id="tsn-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="f-head" d="M0 0 L8 4 L0 8 Z"/></marker>
+    <marker id="tsn-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="f-head" d="M0 0 L8 4 L0 8 z"/></marker>
   </defs>
 
-  <!-- 1 joystick -->
-  <rect class="f-tile" x="10" y="10" width="96" height="74" rx="10"/>
-  <rect class="f-icon" x="36" y="56" width="44" height="13" rx="4"/>
-  <path class="f-icon" d="M57 56 L63 35"/>
-  <circle class="f-icon-fill" cx="64.5" cy="29" r="7"/>
-  <text class="f-name" x="58" y="102" text-anchor="middle">Joystick</text>
+  <rect class="f-tile" x="0" y="0" width="84" height="64" rx="10"/>
+  <rect class="f-tile" x="108" y="0" width="84" height="64" rx="10"/>
+  <rect class="f-tile" x="216" y="0" width="84" height="64" rx="10"/>
+  <rect class="f-tile" x="0" y="106" width="84" height="64" rx="10"/>
+  <rect class="f-tile" x="108" y="106" width="84" height="64" rx="10"/>
+  <rect class="f-tile" x="216" y="106" width="84" height="64" rx="10"/>
 
-  <!-- 2 factory floor: drone, growing uncertainty ring, operator -->
-  <rect class="f-tile" x="132" y="10" width="96" height="74" rx="10"/>
-  <circle class="f-accent" cx="164" cy="47" r="19"/>
-  <circle class="f-accent" cx="164" cy="47" r="28" stroke-dasharray="3 4"/>
-  <path class="f-icon" d="M152 44 H176 M147 40 H157 M171 40 H181 M152 40 V44 M176 40 V44"/>
-  <rect class="f-icon" x="158" y="44" width="12" height="8" rx="2"/>
-  <circle class="f-icon" cx="211" cy="35" r="4.5"/>
-  <path class="f-icon" d="M211 40 V56 M204 46 H218 M211 56 L206 68 M211 56 L216 68"/>
-  <text class="f-name" x="180" y="102" text-anchor="middle">Factory floor</text>
+  <!-- Joystick -->
+  <rect class="f-icon" x="21" y="41" width="42" height="12" rx="4"/>
+  <path class="f-icon" d="M41 41 L46 23"/>
+  <circle class="f-icon-fill" cx="47.5" cy="17.5" r="6.5"/>
+  <text class="f-name" x="42" y="84" text-anchor="middle">Joystick</text>
 
-  <!-- 3 sender: four priority levels -->
-  <rect class="f-tile" x="254" y="10" width="96" height="74" rx="10"/>
-  <rect class="f-accent-fill" x="277" y="22" width="50" height="9" rx="3"/>
-  <rect class="f-icon" x="277" y="36" width="50" height="9" rx="3"/>
-  <rect class="f-icon" x="277" y="50" width="50" height="9" rx="3"/>
-  <rect class="f-icon" x="277" y="64" width="50" height="9" rx="3"/>
-  <text class="f-name" x="302" y="102" text-anchor="middle">Sender</text>
+  <!-- Factory floor: quadcopter (top view), growing uncertainty rings, operator -->
+  <circle class="f-accent" cx="136" cy="32" r="18"/>
+  <circle class="f-accent" cx="136" cy="32" r="26"/>
+  <path class="f-icon" d="M129 25 L143 39 M143 25 L129 39"/>
+  <circle class="f-icon" cx="129" cy="25" r="4.5"/>
+  <circle class="f-icon" cx="143" cy="25" r="4.5"/>
+  <circle class="f-icon" cx="129" cy="39" r="4.5"/>
+  <circle class="f-icon" cx="143" cy="39" r="4.5"/>
+  <circle class="f-icon-fill" cx="136" cy="32" r="2.5"/>
+  <circle class="f-icon" cx="177" cy="19" r="4"/>
+  <path class="f-icon" d="M177 23.5 V37 M171 29 H183 M177 37 L173 48 M177 37 L181 48"/>
+  <text class="f-name" x="150" y="84" text-anchor="middle">Factory floor</text>
 
-  <!-- 4 TSN switch: fixed slot bar above the switch -->
-  <rect class="f-tile" x="254" y="128" width="96" height="74" rx="10"/>
-  <rect class="f-accent-fill" x="272" y="140" width="15" height="10"/>
-  <path class="f-icon" d="M272 140 H332 V150 H272 Z M287 140 V150 M302 140 V150 M317 140 V150"/>
-  <rect class="f-icon" x="272" y="162" width="60" height="26" rx="5"/>
-  <path class="f-icon" d="M280 171 h7 v8 h-7 Z M293 171 h7 v8 h-7 Z M306 171 h7 v8 h-7 Z M319 171 h7 v8 h-7 Z"/>
-  <text class="f-name" x="302" y="220" text-anchor="middle">TSN switch</text>
+  <!-- Sender: four priority levels, highest in accent -->
+  <rect class="f-icon-fill" x="236" y="40" width="8" height="10" rx="2"/>
+  <rect class="f-icon-fill" x="248" y="32" width="8" height="18" rx="2"/>
+  <rect class="f-icon-fill" x="260" y="24" width="8" height="26" rx="2"/>
+  <rect class="f-accent-fill" x="272" y="14" width="8" height="36" rx="2"/>
+  <text class="f-name" x="258" y="84" text-anchor="middle">Sender</text>
 
-  <!-- 5 monitor: drone with its uncertainty ring -->
-  <rect class="f-tile" x="132" y="128" width="96" height="74" rx="10"/>
-  <rect class="f-icon" x="151" y="140" width="58" height="40" rx="4"/>
-  <path class="f-icon" d="M180 180 V189 M167 189 H193"/>
-  <circle class="f-accent" cx="180" cy="160" r="14"/>
-  <path class="f-icon" d="M172 158 H188"/>
-  <rect class="f-icon-fill" x="176" y="158" width="8" height="6" rx="1.5"/>
-  <text class="f-name" x="180" y="220" text-anchor="middle">Monitor</text>
+  <!-- Ground truth: the drone alone -->
+  <rect class="f-icon" x="16" y="116" width="52" height="34" rx="4"/>
+  <path class="f-icon" d="M42 150 V158 M32 158 H52"/>
+  <path class="f-icon" d="M37.5 128.5 L46.5 137.5 M46.5 128.5 L37.5 137.5"/>
+  <circle class="f-icon" cx="37.5" cy="128.5" r="3"/>
+  <circle class="f-icon" cx="46.5" cy="128.5" r="3"/>
+  <circle class="f-icon" cx="37.5" cy="137.5" r="3"/>
+  <circle class="f-icon" cx="46.5" cy="137.5" r="3"/>
+  <text class="f-name" x="42" y="190" text-anchor="middle">Ground truth</text>
 
-  <!-- 6 ground truth: the drone alone -->
-  <rect class="f-tile" x="10" y="128" width="96" height="74" rx="10"/>
-  <rect class="f-icon" x="29" y="140" width="58" height="40" rx="4"/>
-  <path class="f-icon" d="M58 180 V189 M45 189 H71"/>
-  <path class="f-icon" d="M50 158 H66"/>
-  <rect class="f-icon-fill" x="54" y="158" width="8" height="6" rx="1.5"/>
-  <text class="f-name" x="58" y="220" text-anchor="middle">Ground truth</text>
+  <!-- Monitor: the drone inside its uncertainty ring -->
+  <rect class="f-icon" x="124" y="116" width="52" height="34" rx="4"/>
+  <path class="f-icon" d="M150 150 V158 M140 158 H160"/>
+  <circle class="f-accent" cx="150" cy="133" r="13"/>
+  <path class="f-icon" d="M145.5 128.5 L154.5 137.5 M154.5 128.5 L145.5 137.5"/>
+  <circle class="f-icon" cx="145.5" cy="128.5" r="3"/>
+  <circle class="f-icon" cx="154.5" cy="128.5" r="3"/>
+  <circle class="f-icon" cx="145.5" cy="137.5" r="3"/>
+  <circle class="f-icon" cx="154.5" cy="137.5" r="3"/>
+  <text class="f-name" x="150" y="190" text-anchor="middle">Monitor</text>
 
-  <!-- chain -->
-  <path class="f-wire" d="M111 47 H127" marker-end="url(#tsn-arrow)"/>
-  <path class="f-wire" d="M233 47 H249" marker-end="url(#tsn-arrow)"/>
-  <path class="f-wire" d="M302 109 V123" marker-end="url(#tsn-arrow)"/>
-  <path class="f-wire" d="M249 165 H233" marker-end="url(#tsn-arrow)"/>
-  <path class="f-wire" d="M127 165 H111" stroke-dasharray="3 3"/>
+  <!-- TSN switch: fixed slot bar above the switch -->
+  <rect class="f-icon-fill" x="232" y="119" width="13" height="9"/>
+  <path class="f-icon" d="M232 119 H284 V128 H232 Z M245 119 V128 M258 119 V128 M271 119 V128"/>
+  <rect class="f-icon" x="232" y="137" width="52" height="21" rx="4"/>
+  <path class="f-icon" d="M239 144.5 h6 v6 h-6 Z M250 144.5 h6 v6 h-6 Z M261 144.5 h6 v6 h-6 Z M272 144.5 h6 v6 h-6 Z"/>
+  <text class="f-name" x="258" y="190" text-anchor="middle">TSN switch</text>
+
+  <!-- compare mark between the two screens -->
+  <text class="f-name" x="96" y="142" text-anchor="middle">vs</text>
+
+  <!-- arrows -->
+  <path class="f-wire" d="M87 32 H105" marker-end="url(#tsn-arrow)"/>
+  <path class="f-wire" d="M195 32 H213" marker-end="url(#tsn-arrow)"/>
+  <path class="f-wire" d="M258 91 V104" marker-end="url(#tsn-arrow)"/>
+  <path class="f-wire" d="M213 138 H195" marker-end="url(#tsn-arrow)"/>
+  <path class="f-wire" d="M104 68 L81 103" marker-end="url(#tsn-arrow)"/>
 </svg>
-      <p>On a simulated factory floor, drones, automated guided vehicles, robotic arms, and human operators send state updates over real time-sensitive networking hardware. Each flow's priority and update interval adapt at run time to the age of its information and its safety relevance. When a drone approaches a person, its updates become more frequent and more urgent, while the transmission schedule stays fixed.</p>
-      <p>For now the policy is a set of thresholds; learning it is future work.</p>
+      <p>On a simulated factory floor, drones, vehicles, robotic arms, and human operators send state updates over real TSN hardware. Visitors steer an entity with a joystick and compare the ground truth with the monitored view. When a drone approaches a person, its updates get more frequent and urgent, while the transmission schedule stays fixed.</p>
+      <p>For now, thresholds on freshness and safety relevance set each flow's priority; learning this policy is future work.</p>
       <div class="people">@@PUBAUTHORS:nazari2026semantic@@</div>
     </article>
     <article class="demo" id="p-rezwan2024balancing" data-line="2">
       <div class="tag-row"><span class="line-bullet" data-line="2" aria-hidden="true">2</span><span class="tag">Direction 2</span><span class="badge award-badge"><svg class="star-icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.4 3.8 13.8l1-4.6L1.3 6l4.7-.5z"/></svg> Best Demo Award</span></div>
       <h3><a href="@@PUBLINK:rezwan2024balancing@@">@@PUBTITLE:rezwan2024balancing@@</a></h3>
       <div class="venue">IEEE CCNC 2024, Las Vegas, demonstration</div>
-      <svg class="demo-fig" viewBox="0 0 360 240" role="img" aria-labelledby="ball-t ball-d">
-  <title id="ball-t">Ball-balancing robot controlled through functional compression on a migrating edge server</title>
-  <desc id="ball-d">A camera on the ball-balancing robot sends its live video feed to an edge cloud server. The server tracks the ball and applies functional compression, returning only a compact color code instead of the full result; the code is decoded into the voltages of the two motors that tilt the plate, which reduces the transmitted data by 70 to 90 percent. Edge servers run at six Amazon Web Services locations (local, UAE, Melbourne, Stockholm, Seoul and Ohio), and the computation migrates between them while the robot keeps balancing the ball.</desc>
+      <svg class="demo-fig" viewBox="0 0 300 200" width="300" height="200" role="img" aria-labelledby="ball-t" aria-describedby="ball-d">
+  <title id="ball-t">Ball balancer controlled by a compact color code</title>
+  <desc id="ball-d">A camera watches the ball and sends its live video feed, a heavy stream, to an edge cloud server. The server tracks the ball and applies functional compression, sending back only a compact color code instead of the full result. The color code directly sets the voltages of the two motors that tilt the plate, which moves the ball the camera sees. Functional compression reduces the transmitted data by 70 to 90 percent. The computation migrates between edge servers at six locations while the robot keeps balancing the ball.</desc>
   <defs>
-    <marker id="ball-arrow" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-      <path class="f-head" d="M0 0.5 L8 4 L0 7.5 Z"/>
-    </marker>
-    <marker id="ball-arrow-accent" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto">
-      <path class="f-flow-head" d="M0 0.5 L8 4 L0 7.5 Z"/>
-    </marker>
+    <marker id="ball-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="f-head" d="M0 0 L8 4 L0 8 z"/></marker>
+    <marker id="ball-arrow-accent" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="f-flow-head" d="M0 0 L8 4 L0 8 z"/></marker>
   </defs>
 
   <!-- tiles -->
-  <rect class="f-tile" x="12" y="10" width="156" height="68" rx="10"/>
-  <rect class="f-tile" x="192" y="10" width="156" height="68" rx="10"/>
-  <rect class="f-tile" x="192" y="130" width="156" height="68" rx="10"/>
-  <rect class="f-tile" x="12" y="130" width="156" height="68" rx="10"/>
+  <rect class="f-tile" x="0" y="0" width="128" height="64" rx="10"/>
+  <rect class="f-tile" x="172" y="0" width="128" height="64" rx="10"/>
+  <rect class="f-tile" x="172" y="106" width="128" height="64" rx="10"/>
+  <rect class="f-tile" x="0" y="106" width="128" height="64" rx="10"/>
 
-  <!-- chain arrows -->
-  <path class="f-wire" d="M171 44 L189 44" marker-end="url(#ball-arrow)"/>
-  <path class="f-wire" d="M270 102 L270 127" marker-end="url(#ball-arrow)"/>
-  <path class="f-wire" d="M189 164 L171 164" marker-end="url(#ball-arrow)"/>
-  <path class="f-wire" d="M90 127 L90 102" marker-end="url(#ball-arrow)"/>
+  <!-- heavy live video up: three parallel lines -->
+  <path class="f-wire" d="M132 21 L168 21" marker-end="url(#ball-arrow)"/>
+  <path class="f-wire" d="M132 32 L168 32" marker-end="url(#ball-arrow)"/>
+  <path class="f-wire" d="M132 43 L168 43" marker-end="url(#ball-arrow)"/>
+  <!-- tiny color code back: one thin accent path -->
+  <path class="f-flow" d="M290 68 L290 102" marker-end="url(#ball-arrow-accent)"/>
+  <path class="f-flow" d="M168 138 L132 138" marker-end="url(#ball-arrow-accent)"/>
+  <!-- plate moves the ball the camera sees -->
+  <path class="f-wire" d="M10 102 L10 68" marker-end="url(#ball-arrow)"/>
 
-  <!-- 1 robot: camera looking down on ball and tilting plate -->
-  <path class="f-accent" d="M84 28 L64 53 M96 28 L112 49"/>
+  <!-- 1 camera looking at the ball (no plate) -->
   <g class="f-icon">
-    <rect x="80" y="17" width="20" height="10" rx="2.5"/>
-    <path d="M100 22 L128 22 L128 68"/>
-    <path d="M56 57 L120 49"/>
-    <path d="M88 53 L82 68 L94 68 Z"/>
-    <path d="M50 68 L134 68"/>
+    <rect x="18" y="20" width="34" height="24" rx="4"/>
+    <path d="M52 27 L62 22 L62 42 L52 37"/>
+    <path d="M68 26 L108 14 M68 38 L108 50"/>
   </g>
-  <circle class="f-icon-fill" cx="78" cy="48" r="5.5"/>
-  <text class="f-name" x="90" y="94" text-anchor="middle">Robot</text>
+  <circle class="f-icon-fill" cx="27" cy="27" r="2"/>
+  <circle class="f-icon-fill" cx="96" cy="32" r="7"/>
+  <text class="f-name" x="64" y="84" text-anchor="middle">Camera</text>
 
-  <!-- 2 edge server: tracks the ball; six locations, migration hop -->
+  <!-- 2 edge server: tracks the ball; six locations with one hop -->
   <g class="f-icon">
-    <rect x="206" y="22" width="40" height="19" rx="3"/>
-    <rect x="206" y="45" width="40" height="19" rx="3"/>
-    <path d="M213 54.5 L219 54.5"/>
+    <rect x="182" y="13" width="36" height="17" rx="3"/>
+    <rect x="182" y="34" width="36" height="17" rx="3"/>
+    <path d="M189 42.5 L197 42.5"/>
+    <path d="M189 21.5 L197 21.5"/>
+    <circle cx="235" cy="42" r="3"/>
+    <circle cx="246" cy="42" r="3"/>
+    <circle cx="257" cy="42" r="3"/>
+    <circle cx="268" cy="42" r="3"/>
+    <circle cx="290" cy="42" r="3"/>
   </g>
-  <circle class="f-icon-fill" cx="238" cy="54.5" r="1.8"/>
-  <circle class="f-accent-fill" cx="226" cy="31.5" r="3.5"/>
-  <path class="f-accent" d="M216 31.5 L220 31.5 M232 31.5 L236 31.5 M226 25 L226 26 M226 37 L226 38"/>
-  <g class="f-icon">
-    <circle cx="266" cy="42" r="3.5"/>
-    <circle cx="294" cy="42" r="3.5"/>
-    <circle cx="308" cy="42" r="3.5"/>
-    <circle cx="322" cy="42" r="3.5"/>
-    <circle cx="336" cy="42" r="3.5"/>
-  </g>
-  <circle class="f-accent-fill" cx="280" cy="42" r="4.5"/>
-  <path class="f-flow" d="M281 35 Q301 14 320 34" marker-end="url(#ball-arrow-accent)"/>
-  <text class="f-sub" x="301" y="64" text-anchor="middle">migration</text>
-  <text class="f-name" x="270" y="94" text-anchor="middle">Edge server</text>
+  <circle class="f-icon-fill" cx="210" cy="21.5" r="2"/>
+  <circle class="f-icon-fill" cx="210" cy="42.5" r="2"/>
+  <circle class="f-icon-fill" cx="279" cy="42" r="4"/>
+  <path class="f-wire" d="M236 35 Q257 11 277 33" marker-end="url(#ball-arrow)"/>
+  <text class="f-name" x="236" y="84" text-anchor="middle">Edge server</text>
 
-  <!-- 3 color code: a few colored squares instead of images -->
-  <g class="f-icon">
-    <path d="M232 148 L226 148 L226 180 L232 180"/>
-    <path d="M308 148 L314 148 L314 180 L308 180"/>
-  </g>
-  <rect class="f-accent-fill" x="238" y="156" width="16" height="16" rx="3"/>
-  <rect class="f-accent" x="263" y="157" width="14" height="14" rx="2.5"/>
-  <rect class="f-accent-fill" x="286" y="156" width="16" height="16" rx="3"/>
-  <text class="f-name" x="270" y="214" text-anchor="middle">Color code</text>
+  <!-- 3 color code: three squares, varied fill and outline -->
+  <rect class="f-accent-fill" x="201" y="128" width="20" height="20" rx="3"/>
+  <rect class="f-accent" x="227" y="129" width="18" height="18" rx="2.5"/>
+  <rect class="f-accent-fill" x="251" y="128" width="20" height="20" rx="3"/>
+  <text class="f-name" x="236" y="190" text-anchor="middle">Color code</text>
 
-  <!-- 4 motors: two motor blocks push the plate ends via rods, plate on a center pivot -->
+  <!-- 4 motors: two motors tilt the plate that carries the ball -->
   <g class="f-icon">
-    <path d="M48 153 L132 143"/>
-    <path d="M90 149 L84 189 L96 189 Z"/>
-    <rect x="42" y="169" width="28" height="20" rx="3"/>
-    <rect x="110" y="169" width="28" height="20" rx="3"/>
-    <path d="M56 169 L56 152 M124 169 L124 144"/>
-    <path d="M36 189 L144 189"/>
+    <path d="M22 130 L106 120"/>
+    <path d="M64 125 L58 162 L70 162 Z"/>
+    <rect x="18" y="144" width="26" height="18" rx="3"/>
+    <rect x="84" y="144" width="26" height="18" rx="3"/>
+    <circle cx="31" cy="153" r="4"/>
+    <circle cx="97" cy="153" r="4"/>
+    <path d="M31 144 L31 129 M97 144 L97 121"/>
+    <path d="M12 162 L116 162"/>
   </g>
-  <circle class="f-icon-fill" cx="104" cy="140.5" r="5"/>
-  <path class="f-accent" d="M51 181 A5.5 5.5 0 1 1 61 181 M119 181 A5.5 5.5 0 1 1 129 181"/>
-  <text class="f-name" x="90" y="214" text-anchor="middle">Motors</text>
+  <circle class="f-icon-fill" cx="78" cy="117.5" r="5"/>
+  <text class="f-name" x="64" y="190" text-anchor="middle">Motors</text>
 </svg>
-      <p>A real robot balances a ball on a plate with a camera and two motors, while an edge cloud server runs the vision computation. With functional compression, the server returns only a compact code for the ball position or for the motor voltages. Visitors throw the ball and move the computation between servers at six locations while the robot keeps balancing.</p>
-      <p>Depending on the scheme, functional compression cuts the transmitted data by 70% to 90%.</p>
+      <p>A robot uses a camera and two motors to balance a ball on a plate, while an edge server runs the vision computation. With functional compression, the server returns only a compact color code. Visitors throw the ball and move the computation between servers at six locations, from Stockholm to Melbourne, while the robot keeps balancing.</p>
+      <p>Depending on the scheme, the code stands for ball position or motor voltages, cutting transmitted data by 70% to 90%.</p>
       <div class="people">@@PUBAUTHORS:rezwan2024balancing@@</div>
     </article>
   </div>
