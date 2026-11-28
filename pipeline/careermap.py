@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LAND_FILE = ROOT / 'data' / 'career-land.json'
 
 # The world view: longitudes and latitudes it shows, and its width in SVG units.
-WORLD = {'lon': (-80.0, 30.0), 'lat': (5.0, 60.0)}
+WORLD = {'lon': (-80.0, 30.0), 'lat': (0.0, 60.0)}
 WIDTH = 520
 # The enlarged view of Central Europe and the box of the world view that it fills.
 DETAIL = {'lon': (7.5, 17.5), 'lat': (49.4, 57.9)}
@@ -142,19 +142,22 @@ def _path(rings, view, tolerance):
 
 def _label(station, x, y):
     anchor = {'left': 'end', 'right': 'start'}.get(station['label'], 'start')
-    dx = {'left': -10, 'right': 10}.get(station['label'], 10)
+    dx = {'left': -11, 'right': 11}.get(station['label'], 11)
+    dy = station.get('label_dy', 0)
     name = html.escape(station['city'])
     year = html.escape(station['years'])
     note = html.escape(station['short'])
+    # The text sits in the SVG for wide figures; narrow ones show only the number (see map.css).
     return (f'<text class="cm-lbl" text-anchor="{anchor}">'
-            f'<tspan class="nm" x="{x + dx:.1f}" y="{y - 1:.1f}">{name}</tspan>'
+            f'<tspan class="nm" x="{x + dx:.1f}" y="{y + dy - 1:.1f}">{name}</tspan>'
             f'<tspan class="yr"> {year}</tspan>'
-            f'<tspan class="in" x="{x + dx:.1f}" y="{y + 13:.1f}">{note}</tspan></text>')
+            f'<tspan class="in" x="{x + dx:.1f}" y="{y + dy + 16:.1f}">{note}</tspan></text>'
+            f'<text class="cm-num" text-anchor="{anchor}" x="{x + dx:.1f}" y="{y:.1f}"'
+            f' dominant-baseline="central">{station["number"]}</text>')
 
 
-def _station(number, x, y):
-    return (f'<g class="cm-st"><circle cx="{x:.1f}" cy="{y:.1f}" r="5"/>'
-            f'<text x="{x:.1f}" y="{y + 1:.1f}" text-anchor="middle" dominant-baseline="central">{number}</text></g>')
+def _station(x, y):
+    return f'<circle class="cm-st" cx="{x:.1f}" cy="{y:.1f}" r="5.5"/>'
 
 
 def careermap_html(stations_path, land_path=LAND_FILE):
@@ -191,11 +194,10 @@ def careermap_html(stations_path, land_path=LAND_FILE):
     # The region the detail view enlarges, marked on the world view and joined to it.
     (ex0, ey0), (ex1, ey1) = world(DETAIL['lon'][0], DETAIL['lat'][1]), world(DETAIL['lon'][1], DETAIL['lat'][0])
 
-    title = 'Map of career stations: ' + '; '.join(
-        f'{i}. {s["city"]}, {s["country"]}: {s["role"]}, {s["years"]}' for i, s in enumerate(stations, 1))
+    # The list after the map names every station, so the map itself carries only a short name.
+    label = f'Map of the {len(stations)} career stations, from {stations[0]["city"]} to {stations[-1]["city"]}'
     svg = [
-        f'<svg class="careermap" viewBox="0 0 {WIDTH} {height}" role="img" aria-labelledby="cm-title">',
-        f'<title id="cm-title">{html.escape(title)}</title>',
+        f'<svg class="careermap" viewBox="0 0 {WIDTH} {height}" role="img" aria-label="{html.escape(label)}">',
         '<defs><clipPath id="cm-clip">'
         f'<rect x="{bx}" y="{by}" width="{bw}" height="{bh}" rx="6"/></clipPath></defs>',
         f'<path class="cm-land" d="{_path(land["world"], world, 0.7)}"/>',
@@ -207,15 +209,15 @@ def careermap_html(stations_path, land_path=LAND_FILE):
         f'<path class="cm-ln" pathLength="1" d="{d}"/>',
     ]
     for number, (station, (x, y)) in enumerate(zip(stations, points), 1):
-        svg.append(_station(number, x, y))
-        svg.append(_label(station, x, y))
+        svg.append(_station(x, y))
+        svg.append(_label({**station, 'number': number}, x, y))
     svg.append('</svg>')
 
-    key = ['<ol class="careermap-key">']
+    key = ['<ol class="careermap-key" role="list">']
     for number, station in enumerate(stations, 1):
         key.append(f'<li><span class="cm-n" aria-hidden="true">{number}</span><span><strong>'
-                   f'{html.escape(station["city"])}, {html.escape(station["country"])}</strong>'
-                   f'<span>{html.escape(station["role"])}, {html.escape(station["years"])}</span></span></li>')
+                   f'{html.escape(station["city"])}, {html.escape(station["years"])}</strong>'
+                   f'<span>{html.escape(station["role"])}</span></span></li>')
     key.append('</ol>')
     return '\n'.join(svg) + '\n' + ''.join(key)
 
