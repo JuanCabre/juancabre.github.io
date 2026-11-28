@@ -1,0 +1,8 @@
+{
+  "stations": [
+    {"city": "Caracas", "country": "Venezuela", "lon": -66.88, "lat": 10.41, "label": "right", "role": "Electrical Engineer, Universidad Simón Bolívar", "years": "2013", "short": "Universidad Simón Bolívar"},
+    {"city": "Prague", "country": "Czechia", "lon": 14.42, "lat": 50.09, "label": "right", "role": "Erasmus exchange, ČVUT", "years": "2012", "short": "ČVUT, Erasmus"},
+    {"city": "Aalborg", "country": "Denmark", "lon": 9.92, "lat": 57.05, "label": "right", "role": "M.Sc., Aalborg University", "years": "2015", "short": "Aalborg University, M.Sc.", "bend": -58, "label_dy": -8},
+    {"city": "Dresden", "country": "Germany", "lon": 13.74, "lat": 51.05, "label": "left", "role": "Dr.-Ing., TU Dresden", "years": "2022", "short": "TU Dresden, Dr.-Ing."}
+  ]
+}

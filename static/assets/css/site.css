@@ -739,7 +739,7 @@ input[type=checkbox] { width: 20px; height: 20px; margin: 0; flex: none; }
   .masthead, .page-nav, .hash, .actions, .filter-bar, .pager, #tooltip, .theme-toggle { display: none !important; }
   .line-bullet, .line-names .lb, .netmap .bullet rect, .badge i { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .band { background: none; }
-  .theme, .demo, .panel, .stat { break-inside: avoid; }
+  .theme, .demo, .panel, .stat, .career-map { break-inside: avoid; }
 }
 
 /* Smallest phones (320px): keep the masthead inside the viewport. */
